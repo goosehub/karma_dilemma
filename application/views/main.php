@@ -73,7 +73,7 @@
     <?php } ?>
 
     <?php if ($log_check) { ?>
-    <a href="<?=base_url()?>user/logout">Logout</a>
+    <a href="<?=base_url()?>user/logout" class="btn btn-danger">Logout</a>
     <?php } ?>
 
 </div>

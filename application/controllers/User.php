@@ -29,8 +29,8 @@ class User extends CI_Controller {
         // Check if this is ip has logged in too many times
         $ip = $_SERVER['REMOTE_ADDR'];
         $timestamp = date('Y-m-d H:i:s', time() - $this->login_limit_window * 60);
-        $request_route = 'check_request_route';
-        $ip_fails = $this->main_model->check_request_route($ip, $request_route, $timestamp);
+        $route_url = 'check_request_route';
+        $ip_fails = $this->main_model->check_request_route($ip, $route_url, $timestamp);
         if (count($ip_fails) > $this->login_limit && !is_dev()) {
             echo 'Too many login attempts from this IP. Please wait ' . $this->login_limit_window . ' minutes.';
             die();

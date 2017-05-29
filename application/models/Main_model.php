@@ -20,12 +20,12 @@ Class main_model extends CI_Model
         $this->db->insert('request', $data);
         return $this->db->insert_id();
     }
-    function check_request_route($ip, $request, $timestamp)
+    function check_request_route($ip, $route_url, $timestamp)
     {
         $this->db->select('*');
         $this->db->from('request');
         $this->db->where('ip', $ip);
-        $this->db->where('route_url', $request);
+        $this->db->where('route_url', $route_url);
         $this->db->where('created >', $timestamp);
         $query = $this->db->get();
         return $query->result_array();
