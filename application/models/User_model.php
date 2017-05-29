@@ -6,7 +6,7 @@ Class user_model extends CI_Model
  // Get all users
  function get_all_users()
  {
-    $this->db->select('id, username, created');
+    $this->db->select('id, username, avatar, created, auth_token, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
     $this->db->from('user');
     $query = $this->db->get();
     return $query->result_array();
@@ -28,7 +28,7 @@ Class user_model extends CI_Model
  }
  function get_user_by_id($user_id)
  {
-    $this->db->select('id, username, created, auth_token, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
+    $this->db->select('id, username, avatar, created, auth_token, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
     $this->db->from('user');
     $this->db->where('id', $user_id);
     $this->db->limit(1);
@@ -50,7 +50,7 @@ Class user_model extends CI_Model
         return false;
     }
  }
- function register($username, $password, $auth_token, $email, $ip, $ip_frequency_register, $ab_test)
+ function register($username, $password, $auth_token, $email, $ip, $ip_frequency_register, $ab_test, $avatar)
  {
     // Check for excessive IPs registers
     $this->db->select('username');
@@ -83,6 +83,7 @@ Class user_model extends CI_Model
         'email' => $email,
         'ip' => $ip,
         'ab_test' => $ab_test,
+        'avatar' => $avatar,
         );
         $this->db->insert('user', $data);
 

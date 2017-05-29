@@ -33,7 +33,7 @@ class User extends CI_Controller {
             redirect(base_url(), 'refresh');
             return false;
         }
-        
+
         // Check if this is ip has logged in too many times
         $ip = $_SERVER['REMOTE_ADDR'];
         $timestamp = date('Y-m-d H:i:s', time() - $this->login_limit_window * 60);
@@ -133,7 +133,8 @@ class User extends CI_Controller {
         $ab_test = $this->input->post('ab_test');
         $ip = $_SERVER['REMOTE_ADDR'];
         $auth_token = $token = bin2hex(openssl_random_pseudo_bytes(16));
-        $user_id = $this->user_model->register($username, $password, $auth_token, $email, $ip, $this->ip_frequency_register, $ab_test);
+        $avatar = 'default.png';
+        $user_id = $this->user_model->register($username, $password, $auth_token, $email, $ip, $this->ip_frequency_register, $ab_test, $avatar);
 
         // Registered too recently
         if ($user_id === 'ip_fail') {

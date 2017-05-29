@@ -19,9 +19,11 @@
             <div class="login_register_parent">
                 <?php if ($user) { ?>
                 <h2>Welcome back <?php echo $user['username']; ?></h2>
-                <p>Avatar Coming Soon</p>
                 <div class="row">
-	                <div class="col-xs-8">
+	                <div class="col-md-4">
+		                <img src="<?=base_url()?>uploads/<?php echo $user['avatar']; ?>" alt="avatar" class="img-responsive"/>
+	                </div>
+	                <div class="col-md-8">
 		                <p class="text-primary">Score: <strong class="pull-right"><?php echo $user['score']; ?></strong></p>
 		                <p class="text-success">Positive Karma Owned:<strong class="pull-right"> <?php echo $user['owned_positive_karma']; ?></strong></p>
 		                <p class="text-danger">Negative Karma Owned:<strong class="pull-right"> <?php echo $user['owned_negative_karma']; ?></strong></p>
