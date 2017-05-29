@@ -1,0 +1,134 @@
+game theory
+
+	figure out / ideas
+rate of karma auctions started
+
+	users
+start with score of 0
+can do x bids a day
+score can go negative
+when score is negative, player must wait that many seconds between bids
+auth post params as alternative to session
+on json get param dump data
+
+	game auction
+for every x bids in x minutes, create a game
+x minute from start to finish
+sealed bids
+start at +100 go to -100
+2x2 matrix game with random values from -100 to +100
+highest bid wins a
+2/3rds average bid wins b
+
+	karma auctions
+for every x games created, create a karma
+until x seconds without bid
+open auction
+positive and negative karma
+karma can be placed on other players
+karma can be reauctioned
+
+	views
+homepage
+unstarted games list
+started games list
+finished games list
+unstarted game view
+started game view
+finished game view
+karma auction list
+leaderboard view
+account view
+
+	other actions
+avatar
+regen auth token
+
+	leaderboard
+timeframe
+high or low
+username
+id
+created
+last seen
+score
+games total
+bids total
+karma total
+karma positive
+karma negative
+karma ratio
+karma total owned
+karma positive owned
+karma negative owned
+
+	database
+game bid
+	game_key
+	user_key
+	amount
+game
+	started_flag
+	finished_flag
+	a_user_key
+	b_user_key
+	a_action
+	b_action
+payoff
+	game_key
+	a_payoff
+	b_payoff
+	a_action
+	b_action
+karma bid
+	karma_key
+	user_key
+	amount
+karma
+	type (positive / negative)
+	resale flag
+	sold_flag
+	buyer_user_key
+	seller_user_key
+user
+	auth stuff
+	username
+	score
+	owned_positive_karma
+	owned_negative_karma
+	positive_karma
+	negative_karma
+request
+
+================================================================
+
+	2x2 decision games
+prisoners dilemma
+battle of the sexes558546!
+stag hunt
+matching pennies
+
+	group games
+raffle
+el farol bar problem
+volunteer's dilemma
+public goods
+tragedty of the commons
+
+	back and forth games
+chicken
+centipede game
+kuhn poker
+ultimatum game
+investment game
+
+	declined
+3x3 games
+pirate
+dictator
+blotto/battlefield game
+
+	other
+taxes
+election
+bounty
