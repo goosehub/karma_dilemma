@@ -9,10 +9,7 @@ class Main extends CI_Controller {
         $this->load->model('main_model', '', TRUE);
         $this->load->model('user_model', '', TRUE);
 
-        $user_flag = 0;
-        $user_key = 0;
-        $api_flag = 0;
-        $this->main_model->insert_request($user_flag, $user_key, $api_flag);
+        $this->main_model->record_result();
     }
 
 	public function index()
@@ -24,7 +21,7 @@ class Main extends CI_Controller {
             $session_data = $this->session->userdata('logged_in');
             $user_id = $data['user_id'] = $session_data['id'];
             $data['user'] = $this->user_model->get_user($user_id);
-            if (! isset($data['user']['username']) ) {
+            if (!isset($data['user']['username'])) {
                 redirect('user/logout', 'refresh');
                 return false;
             }
