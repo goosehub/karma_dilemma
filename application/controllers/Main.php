@@ -15,17 +15,11 @@ class Main extends CI_Controller {
 	public function index()
 	{
         // Authentication
-        $log_check = $data['log_check'] = $data['user_id'] = false;
-        if ($this->session->userdata('logged_in')) {
-            $log_check = $data['log_check'] = true;
-            $session_data = $this->session->userdata('logged_in');
-            $user_id = $data['user_id'] = $session_data['id'];
-            $data['user'] = $this->user_model->get_user($user_id);
-            if (!isset($data['user']['username'])) {
-                redirect('user/logout', 'refresh');
-                return false;
-            }
-        }
+        $data['user'] = $this->user_model->get_this_user();
+
+        // A/B testing
+        $ab_array = array('', '');
+        $data['ab_test'] = $ab_array[array_rand($ab_array)];
 
         // Validation errors
         $data['validation_errors'] = $this->session->flashdata('validation_errors');
@@ -38,4 +32,16 @@ class Main extends CI_Controller {
 		$this->load->view('main', $data);
 		$this->load->view('templates/footer', $data);
 	}
+
+    public function api_docs()
+    {
+        // Authentication
+        $data['user'] = $this->user_model->get_this_user();
+
+        // Load view
+        $data['page_title'] = site_name();
+        $this->load->view('templates/header', $data);
+        $this->load->view('page/api_docs', $data);
+        $this->load->view('templates/footer', $data);
+    }
 }

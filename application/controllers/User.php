@@ -28,6 +28,12 @@ class User extends CI_Controller {
 	// Login
 	public function login()
 	{
+        // Honey post
+        if ($this->input->post('bee_movie')) {
+            redirect(base_url(), 'refresh');
+            return false;
+        }
+        
         // Check if this is ip has logged in too many times
         $ip = $_SERVER['REMOTE_ADDR'];
         $timestamp = date('Y-m-d H:i:s', time() - $this->login_limit_window * 60);
@@ -42,6 +48,7 @@ class User extends CI_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('username', 'Username', 'trim|required|max_length[32]');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|max_length[64]|callback_login_validation');
+        $this->form_validation->set_rules('ab_test', 'ab_test', 'trim|max_length[32]');
         
 		// On fail set fail message and redirect to map
         if ($this->form_validation->run() == FALSE) {

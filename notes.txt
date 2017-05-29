@@ -26,8 +26,6 @@ karma can be placed on other players
 karma can be reauctioned
 
 	views
-homepage
-api docs page
 unstarted games list
 started games list
 finished games list
