@@ -1,8 +1,5 @@
 game theory
 
-	figure out / ideas
-rate of karma auctions started
-
 	users
 start with score of 0
 can do x bids a day
@@ -30,6 +27,7 @@ karma can be reauctioned
 
 	views
 homepage
+api docs page
 unstarted games list
 started games list
 finished games list
@@ -62,6 +60,8 @@ karma total owned
 karma positive owned
 karma negative owned
 
+================================================================
+
 	database
 game bid
 	game_key
@@ -93,14 +93,13 @@ karma
 user
 	auth stuff
 	username
+	avatar
 	score
 	owned_positive_karma
 	owned_negative_karma
 	positive_karma
 	negative_karma
 request
-
-================================================================
 
 	2x2 decision games
 prisoners dilemma
