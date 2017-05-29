@@ -13,6 +13,14 @@ $(document).ready(function(){
 		$('#show_login').click();
 	}
 
+	$('#change_avatar').click(function(){
+		$('#avatar_form_parent').show();
+	});
+
+	$('#avatar_input').change(function(){
+		$('#avatar_form').submit();
+	});
+
 	// https://stackoverflow.com/a/901144/3774582
 	function getParameterByName(name, url) {
 	    if (!url) url = window.location.href;

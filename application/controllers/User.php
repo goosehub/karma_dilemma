@@ -158,6 +158,42 @@ class User extends CI_Controller {
         return true;
     }
 
+    // Change avatar
+    public function avatar()
+    {
+        // Authentication
+        $user = $this->user_model->get_this_user();
+        if (!$user) {
+            echo 'You must be logged in to update your avatar';
+            return false;
+        }
+
+        // Image upload Config
+        $config['upload_path']   = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|jpeg|png';
+        $config['max_size']      = '1000000';
+        $config['max_width']     = '5000';
+        $config['max_height']    = '5000';
+        $config['encrypt_name']  = TRUE;
+        $this->load->library('upload', $config);
+
+        // Validation
+        if (!isset($_FILES['avatar']['name']) || !$_FILES['avatar']['name']) {
+            echo 'No file found.';
+            return false;
+        }
+        if (!$this->upload->do_upload('avatar') ) {
+            echo $this->upload->display_errors();
+            return false;
+        }
+
+        // Update avatar
+        $file = $this->upload->data();
+        $avatar = $file['file_name'];
+        $this->user_model->update_avatar($user['id'], $avatar);
+        redirect(base_url(), 'refresh');
+    }
+
 	// Logout
     public function logout()
     {

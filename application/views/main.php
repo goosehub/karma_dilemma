@@ -20,10 +20,16 @@
                 <?php if ($user) { ?>
                 <h2>Welcome back <?php echo $user['username']; ?></h2>
                 <div class="row">
-	                <div class="col-md-4">
+	                <div class="col-sm-4">
 		                <img src="<?=base_url()?>uploads/<?php echo $user['avatar']; ?>" alt="avatar" class="img-responsive"/>
+		                <div id="change_avatar" class="btn btn-default btn-sm form-control">Change</div>
+		                <div id="avatar_form_parent" style="display: none;">
+		                    <form id="avatar_form" action="<?=base_url()?>user/avatar" method="post" enctype="multipart/form-data">
+			                    <input id="avatar_input" class="form-control" type="file" name="avatar"/>
+		                    </form>
+		                </div>
 	                </div>
-	                <div class="col-md-8">
+	                <div class="col-sm-8">
 		                <p class="text-primary">Score: <strong class="pull-right"><?php echo $user['score']; ?></strong></p>
 		                <p class="text-success">Positive Karma Owned:<strong class="pull-right"> <?php echo $user['owned_positive_karma']; ?></strong></p>
 		                <p class="text-danger">Negative Karma Owned:<strong class="pull-right"> <?php echo $user['owned_negative_karma']; ?></strong></p>

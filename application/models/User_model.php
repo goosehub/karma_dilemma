@@ -105,6 +105,15 @@ Class user_model extends CI_Model
     $this->db->update('user', $data);
     return true;
  }
+ function update_avatar($user_id, $avatar)
+ {
+    $data = array(
+        'avatar' => $avatar
+    );
+    $this->db->where('id', $user_id);
+    $this->db->update('user', $data);
+    return true;
+}
 
 }
 ?>

@@ -37,7 +37,6 @@ leaderboard view
 account view
 
 	other actions
-avatar
 regen auth token
 
 	leaderboard
