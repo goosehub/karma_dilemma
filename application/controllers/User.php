@@ -76,6 +76,12 @@ class User extends CI_Controller {
     // Register
     public function register()
     {
+        // Honey pot
+        if ($this->input->post('bee_movie')) {
+            redirect(base_url(), 'refresh');
+            return false;
+        }
+        
         // Optional password (For /r/WebGames)
         $matches = 'matches[confirm]|';
         if (PASSWORD_OPTIONAL) {
