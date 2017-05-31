@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'main';
 
 // Views
+$route['games_on_auction'] = 'main/games_on_auction';
 $route['api_docs'] = 'main/api_docs';
 
 // Cron

@@ -30,5 +30,21 @@ Class game_model extends CI_Model
         $this->db->insert('payoff', $data);
         return $this->db->insert_id();
     }
+    function get_games_on_auction()
+    {
+        $this->db->select('*');
+        $this->db->from('game');
+        $this->db->where('started_flag', false);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    function get_payoff_by_game_key($game_key)
+    {
+        $this->db->select('*');
+        $this->db->from('payoff');
+        $this->db->where('game_key', $game_key);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }
 ?>

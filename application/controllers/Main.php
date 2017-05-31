@@ -8,6 +8,7 @@ class Main extends CI_Controller {
         parent::__construct();
         $this->load->model('main_model', '', TRUE);
         $this->load->model('user_model', '', TRUE);
+        $this->load->model('game_model', '', TRUE);
 
         $this->main_model->record_request();
     }
@@ -30,6 +31,22 @@ class Main extends CI_Controller {
         $data['page_title'] = site_name();
         $this->load->view('templates/header', $data);
         $this->load->view('main', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function games_on_auction()
+    {
+        $data['games_on_auction'] = $this->game_model->get_games_on_auction();
+        foreach ($data['games_on_auction'] as &$game)
+        {
+            $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
+        }
+        // var_dump($data); die();
+
+        // Load view
+        $data['page_title'] = 'Games on Auction';
+        $this->load->view('templates/header', $data);
+        $this->load->view('games_on_auction', $data);
         $this->load->view('templates/footer', $data);
     }
 

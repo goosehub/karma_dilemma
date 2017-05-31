@@ -41,11 +41,11 @@ class Cron extends CI_Controller {
             $a_action = 0;
             $b_action = 0;
             $this->create_payoff($game_key, $a_action, $b_action);
-            $a_action = 0;
-            $b_action = 1;
-            $this->create_payoff($game_key, $a_action, $b_action);
             $a_action = 1;
             $b_action = 0;
+            $this->create_payoff($game_key, $a_action, $b_action);
+            $a_action = 0;
+            $b_action = 1;
             $this->create_payoff($game_key, $a_action, $b_action);
             $a_action = 1;
             $b_action = 1;
