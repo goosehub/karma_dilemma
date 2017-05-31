@@ -18,11 +18,17 @@ class Main extends CI_Controller {
         // Authentication
         $data['user'] = $this->user_model->get_this_user();
 
+        // Return here for API
+        if ($this->input->get('api')) {
+            echo json_encode($data);
+            return false;
+        }
+
         // A/B testing
         $ab_array = array('', '');
         $data['ab_test'] = $ab_array[array_rand($ab_array)];
 
-        // Validation errors
+        // Flashdata
         $data['validation_errors'] = $this->session->flashdata('validation_errors');
         $data['failed_form'] = $this->session->flashdata('failed_form');
         $data['just_registered'] = $this->session->flashdata('just_registered');
@@ -41,7 +47,14 @@ class Main extends CI_Controller {
         {
             $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
         }
-        // var_dump($data); die();
+
+        // Return here for API
+        if ($this->input->get('api')) {
+            echo json_encode($data);
+            return false;
+        }
+
+        $data['user'] = $this->user_model->get_this_user();
 
         // Load view
         $data['page_title'] = 'Games on Auction';
@@ -54,6 +67,12 @@ class Main extends CI_Controller {
     {
         // Authentication
         $data['user'] = $this->user_model->get_this_user();
+
+        // Return here for API
+        if ($this->input->get('api')) {
+            echo json_encode($data);
+            return false;
+        }
 
         // Load view
         $data['page_title'] = site_name();

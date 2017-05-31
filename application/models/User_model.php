@@ -12,6 +12,9 @@ Class user_model extends CI_Model
     }
     function get_this_user()
     {
+        // Default to user as false
+        $user = false;
+        // Get user by session
         if ($this->session->userdata('logged_in')) {
             $session_data = $this->session->userdata('logged_in');
             $user = $this->user_model->get_user_by_id($session_data['id']);
@@ -21,15 +24,29 @@ Class user_model extends CI_Model
                 return false;
             }
             $this->user_loaded($user['id']);
-            return $user;
         }
-        return false;
+        // Get user by auth token
+        else if ($this->input->get('auth_token')) {
+            $user = $this->user_model->get_user_by_auth_token($this->input->get('auth_token'));
+            $this->user_loaded($user['id']);
+        }
+        return $user;
     }
     function get_user_by_id($user_id)
     {
         $this->db->select('id, username, avatar, created, auth_token, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
         $this->db->from('user');
         $this->db->where('id', $user_id);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return isset($result[0]) ? $result[0] : false;
+    }
+    function get_user_by_auth_token($auth_token)
+    {
+        $this->db->select('id, username, avatar, created, auth_token, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
+        $this->db->from('user');
+        $this->db->where('auth_token', $auth_token);
         $this->db->limit(1);
         $query = $this->db->get();
         $result = $query->result_array();
@@ -87,6 +104,12 @@ Class user_model extends CI_Model
             'ip' => $ip,
             'ab_test' => $ab_test,
             'avatar' => $avatar,
+            'last_load' => date('Y-m-d H:i:s'),
+            'score' => 0,
+            'owned_positive_karma' => 0,
+            'owned_negative_karma' => 0,
+            'positive_karma' => 0,
+            'negative_karma' => 0,
             );
             $this->db->insert('user', $data);
 
