@@ -5,7 +5,7 @@ Class user_model extends CI_Model
 {
     function get_all_users()
     {
-        $this->db->select('id, username, avatar, created, auth_token, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
+        $this->db->select('id, username, avatar, created, api_key, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
         $this->db->from('user');
         $query = $this->db->get();
         return $query->result_array();
@@ -26,15 +26,15 @@ Class user_model extends CI_Model
             $this->user_loaded($user['id']);
         }
         // Get user by auth token
-        else if ($this->input->get('auth_token')) {
-            $user = $this->user_model->get_user_by_auth_token($this->input->get('auth_token'));
+        else if ($this->input->get('api_key')) {
+            $user = $this->user_model->get_user_by_api_key($this->input->get('api_key'));
             $this->user_loaded($user['id']);
         }
         return $user;
     }
     function get_user_by_id($user_id)
     {
-        $this->db->select('id, username, avatar, created, auth_token, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
+        $this->db->select('id, username, avatar, created, api_key, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
         $this->db->from('user');
         $this->db->where('id', $user_id);
         $this->db->limit(1);
@@ -42,11 +42,11 @@ Class user_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
-    function get_user_by_auth_token($auth_token)
+    function get_user_by_api_key($api_key)
     {
-        $this->db->select('id, username, avatar, created, auth_token, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
+        $this->db->select('id, username, avatar, created, api_key, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
         $this->db->from('user');
-        $this->db->where('auth_token', $auth_token);
+        $this->db->where('api_key', $api_key);
         $this->db->limit(1);
         $query = $this->db->get();
         $result = $query->result_array();
@@ -67,7 +67,7 @@ Class user_model extends CI_Model
         return false;
         }
     }
-    function register($username, $password, $auth_token, $email, $ip, $register_ip_frequency_limit_minutes, $ab_test, $avatar)
+    function register($username, $password, $api_key, $email, $ip, $register_ip_frequency_limit_minutes, $ab_test, $avatar)
     {
         // Check for excessive IPs registers
         $this->db->select('id');
@@ -99,7 +99,7 @@ Class user_model extends CI_Model
             $data = array(
             'username' => $username,
             'password' => password_hash($password, PASSWORD_BCRYPT),
-            'auth_token' => $auth_token,
+            'api_key' => $api_key,
             'email' => $email,
             'ip' => $ip,
             'ab_test' => $ab_test,

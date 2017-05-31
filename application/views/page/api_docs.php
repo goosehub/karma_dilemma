@@ -5,7 +5,7 @@
 
 			<p>If you are logged in, your API Auth Token will appear below</p>
 			<?php if ($user) { ?>
-			<p>API Auth Token: <code><?php echo $user['auth_token']; ?></code></p>
+			<p>API Auth Token: <code><?php echo $user['api_key']; ?></code></p>
 			<?php } ?>
 
 			<br>
