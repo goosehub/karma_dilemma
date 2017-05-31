@@ -1,6 +1,5 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
-date_default_timezone_set('America/New_York');
 
 class User extends CI_Controller {
 
@@ -9,7 +8,7 @@ class User extends CI_Controller {
         $this->load->model('main_model', '', TRUE);
         $this->load->model('user_model', '', TRUE);
         
-        $this->main_model->record_result();
+        $this->main_model->record_request();
     }
 
     // Login

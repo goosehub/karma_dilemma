@@ -14,8 +14,9 @@ x minute from start to finish
 sealed bids
 start at +100 go to -100
 2x2 matrix game with random values from -100 to +100
-highest bid wins a
-2/3rds average bid wins b
+highest bid wins primary position
+2/3rds average bid wins secondary position
+players can take action or do nothing
 
 	karma auctions
 for every x games created, create a karma
