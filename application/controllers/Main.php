@@ -12,8 +12,8 @@ class Main extends CI_Controller {
         $this->main_model->record_result();
     }
 
-	public function index()
-	{
+    public function index()
+    {
         // Authentication
         $data['user'] = $this->user_model->get_this_user();
 
@@ -29,9 +29,9 @@ class Main extends CI_Controller {
         // Load view
         $data['page_title'] = site_name();
         $this->load->view('templates/header', $data);
-		$this->load->view('main', $data);
-		$this->load->view('templates/footer', $data);
-	}
+        $this->load->view('main', $data);
+        $this->load->view('templates/footer', $data);
+    }
 
     public function api_docs()
     {
