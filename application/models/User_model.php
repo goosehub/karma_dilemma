@@ -15,8 +15,8 @@ Class user_model extends CI_Model
         // Default to user as false
         $user = false;
         // Get user by session
-        if ($this->session->userdata('logged_in')) {
-            $session_data = $this->session->userdata('logged_in');
+        if ($this->session->userdata('user_session')) {
+            $session_data = $this->session->userdata('user_session');
             $user = $this->user_model->get_user_by_id($session_data['id']);
             if (!isset($user['username'])) {
                 redirect('user/logout', 'refresh');
