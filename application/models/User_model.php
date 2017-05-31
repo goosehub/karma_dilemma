@@ -5,7 +5,7 @@ Class user_model extends CI_Model
 {
     function get_all_users()
     {
-        $this->db->select('id, username, avatar, created, api_key, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
+        $this->db->select('id, username, avatar, created, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
         $this->db->from('user');
         $query = $this->db->get();
         return $query->result_array();
@@ -14,6 +14,7 @@ Class user_model extends CI_Model
     {
         // Default to user as false
         $user = false;
+
         // Get user by session
         if ($this->session->userdata('user_session')) {
             $session_data = $this->session->userdata('user_session');
@@ -25,16 +26,25 @@ Class user_model extends CI_Model
             }
             $this->user_loaded($user['id']);
         }
+
         // Get user by auth token
-        else if ($this->input->get('api_key')) {
-            $user = $this->user_model->get_user_by_api_key($this->input->get('api_key'));
+        else if ($this->input->get('api') && $this->input->get('user_id') && $this->input->get('api_key')) {
+            $user_auth = $this->user_model->get_user_auth_by_id($this->input->get('user_id'));
+            if (!isset($user_auth['api_key']) || !hash_equals($user_auth['api_key'], $this->input->get('api_key'))) {
+                $this->output->set_status_header(401);
+                echo json_error_response('bad_auth', 'Your user_id, api_key combination was incorrect');
+                die();
+            }
+            $user = $this->get_user_by_id($user_auth['id']);
             $this->user_loaded($user['id']);
         }
+
+        // Return user
         return $user;
     }
     function get_user_by_id($user_id)
     {
-        $this->db->select('id, username, avatar, created, api_key, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
+        $this->db->select('id, username, avatar, created, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
         $this->db->from('user');
         $this->db->where('id', $user_id);
         $this->db->limit(1);
@@ -42,19 +52,24 @@ Class user_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
-    function get_user_by_api_key($api_key)
+    function get_user_auth_by_id($user_id)
     {
-        $this->db->select('id, username, avatar, created, api_key, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
+        $this->db->select('id, username, password, api_key');
         $this->db->from('user');
-        $this->db->where('api_key', $api_key);
+        $this->db->where('id', $user_id);
         $this->db->limit(1);
         $query = $this->db->get();
-        $result = $query->result_array();
-        return isset($result[0]) ? $result[0] : false;
+        if ($query->num_rows() == 1) {
+            $result = $query->result_array();
+            return isset($result[0]) ? $result[0] : false;
+        }
+        else {
+            return false;
+        }
     }
-    function get_user_and_password($username)
+    function get_user_auth_by_username($username)
     {
-        $this->db->select('id, username, password');
+        $this->db->select('id, username, password, api_key');
         $this->db->from('user');
         $this->db->where('username', $username);
         $this->db->limit(1);
@@ -64,7 +79,7 @@ Class user_model extends CI_Model
             return isset($result[0]) ? $result[0] : false;
         }
         else {
-        return false;
+            return false;
         }
     }
     function register($username, $password, $api_key, $email, $ip, $register_ip_frequency_limit_minutes, $ab_test, $avatar)

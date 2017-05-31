@@ -18,6 +18,12 @@ class Main extends CI_Controller {
         // Authentication
         $data['user'] = $this->user_model->get_this_user();
 
+        // Include api key
+        if ($data['user']) {
+            $user_auth = $this->user_model->get_user_auth_by_id($data['user']['id']);
+            $data['user']['api_key'] = $user_auth['api_key'];
+        }
+
         // Return here for API
         if ($this->input->get('api')) {
             echo json_encode($data);
@@ -67,6 +73,12 @@ class Main extends CI_Controller {
     {
         // Authentication
         $data['user'] = $this->user_model->get_this_user();
+
+        // Include api key
+        if ($data['user']) {
+            $user_auth = $this->user_model->get_user_auth_by_id($data['user']['id']);
+            $data['user']['api_key'] = $user_auth['api_key'];
+        }
 
         // Return here for API
         if ($this->input->get('api')) {
