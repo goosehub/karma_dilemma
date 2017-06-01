@@ -2,11 +2,10 @@ game theory
 
 	users
 start with score of 0
-can do x bids a day
 score can go negative
-when score is negative, player must wait that many seconds between bids
 auth post params as alternative to session
 on json get param dump data
+can do x bids a day (1440, once per minute)
 
 	game auction
 for every x bids in x minutes, create a game
@@ -15,7 +14,8 @@ sealed bids
 start at +100 go to -100
 2x2 matrix game with random values from -100 to +100
 highest bid wins primary position
-2/3rds average bid wins secondary position
+2/3rds average/median bid wins secondary position
+players can view info about other player
 players can take action or do nothing
 
 	karma auctions
@@ -39,6 +39,8 @@ account view
 
 	other actions
 regen auth token
+show api on user ui?
+
 
 	leaderboard
 timeframe
@@ -57,6 +59,12 @@ karma ratio
 karma total owned
 karma positive owned
 karma negative owned
+
+	api documentation
+how to authenticate
+handling errors
+get routes and what they return
+post routes, what they need, and what they return
 
 ================================================================
 

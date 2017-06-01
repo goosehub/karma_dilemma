@@ -26,7 +26,7 @@ class Main extends CI_Controller {
 
         // Return here for API
         if ($this->input->get('api')) {
-            echo json_encode($data);
+            echo api_response($data);
             return false;
         }
 
@@ -56,7 +56,7 @@ class Main extends CI_Controller {
 
         // Return here for API
         if ($this->input->get('api')) {
-            echo json_encode($data);
+            echo api_response($data);
             return false;
         }
 
@@ -82,7 +82,7 @@ class Main extends CI_Controller {
 
         // Return here for API
         if ($this->input->get('api')) {
-            echo json_encode($data);
+            echo api_response($data);
             return false;
         }
 

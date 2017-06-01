@@ -36,15 +36,27 @@ function auth() {
     return $auth;
 }
 
-// Json Structured Error
-function json_error_response($error_code, $error_message) {
-    $json = '
-    {
-        "error": true,
-        "error_code": "' . $error_code . '",
-        "error_message": "' . $error_message . '"
-    }';
-    return $json;
+// API Error JSON Response
+function api_error_response($error_code, $error_message) {
+    log_message('error', $error_code . ' - ' . $error_message);
+    $data['error'] = true;
+    $data['error_code'] = $error_code;
+    $data['error_message'] = $error_message;
+    return json_encode($data);
+}
+
+// API Data JSON Response
+function api_response($data) {
+    $data['error'] = false;
+    // Encode and send data
+    function filter(&$value) {
+        if (is_string($value)) {
+            $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+            $value = nl2br($value);
+        }
+    }
+    array_walk_recursive($data, "filter");
+    return json_encode($data);
 }
 
 // For turning slugs back into human friendly format
