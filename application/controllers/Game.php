@@ -13,7 +13,7 @@ class Game extends CI_Controller {
         $this->main_model->record_request();
     }
 
-    public function bid($game_key, $amount)
+    public function bid($game_key)
     {
         $user = $this->user_model->get_this_user();
 
@@ -22,17 +22,19 @@ class Game extends CI_Controller {
             return false;
         }
 
+        $post = get_json_post();
+
         if (!ctype_digit($game_key) || $game_key < 0) {
             echo api_error_response('game_id_not_positive_int', 'Your game id was not a positive int.');
             return false;
         }
 
-        if (!ctype_digit($amount)) {
+        if (!ctype_digit($post->amount)) {
             echo api_error_response('game_bid_amount_not_int', 'Your bid amount was not an int.');
             return false;
         }
 
-        if ($amount > 100 || $amount < -100) {
+        if ($post->amount > 100 || $post->amount < -100) {
             echo api_error_response('game_bid_amount_out_of_range', 'Your bid amount was not between -100 and 100.');
             return false;
         }
@@ -71,7 +73,7 @@ class Game extends CI_Controller {
             return false;
         }
 
-        $this->game_model->insert_bid($game_key, $user['id'], $amount);
+        $this->game_model->insert_bid($game_key, $user['id'], $post->amount);
 
         echo api_response();
     }

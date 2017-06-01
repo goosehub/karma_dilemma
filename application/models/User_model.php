@@ -22,7 +22,7 @@ Class user_model extends CI_Model
             $user = $this->user_model->get_user_by_id($session_data['id']);
             if (!isset($user['username'])) {
                 redirect('user/logout', 'refresh');
-                die();
+                exit();
                 return false;
             }
             $this->user_loaded($user['id']);
@@ -34,7 +34,7 @@ Class user_model extends CI_Model
             if (!isset($user_auth['api_key']) || !hash_equals($user_auth['api_key'], $this->input->get('api_key'))) {
                 $this->output->set_status_header(401);
                 echo api_error_response('bad_auth', 'Your user_id, api_key combination was incorrect');
-                die();
+                exit();
             }
             $user = $this->get_user_by_id($user_auth['id']);
             $this->user_loaded($user['id']);
