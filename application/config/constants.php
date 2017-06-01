@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// Game
+define('MAX_GAME_BIDS', 1500); // Maximum number of bids in a day
+define('MIN_GAME_BIDS', 15); // Minimum number of bids in a day
+
 // User Auth
 define('PASSWORD_OVERRIDE', false); // Dev and emergency use only
 define('PASSWORD_OPTIONAL', false); // Useful for /r/webgames which requires no required password logins

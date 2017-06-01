@@ -1,8 +1,12 @@
 game theory
 
+	names
+dilemma
+
 	users
 start with score of 0
 score can go negative
+each negative score removes a bid that can be made in a day
 auth post params as alternative to session
 on json get param dump data
 can do x bids a day (1440, once per minute)
@@ -63,8 +67,8 @@ karma negative owned
 	api documentation
 how to authenticate
 handling errors
-get routes and what they return
-post routes, what they need, and what they return
+data routes and what they return
+action routes and what they expect
 
 ================================================================
 

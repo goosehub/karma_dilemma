@@ -8,7 +8,8 @@ Class user_model extends CI_Model
         $this->db->select('id, username, avatar, created, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
         $this->db->from('user');
         $query = $this->db->get();
-        return $query->result_array();
+        $result = $query->result_array();
+        return $result;
     }
     function get_this_user()
     {

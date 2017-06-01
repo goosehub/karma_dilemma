@@ -16,7 +16,7 @@ class Game extends CI_Controller {
     public function bid($game_key, $amount)
     {
         $user = $this->user_model->get_this_user();
-        
+
         if (!$user) {
             echo api_error_response('user_auth', 'You must be logged in or authenticated with the API to take this action.');
             return false;
@@ -48,6 +48,26 @@ class Game extends CI_Controller {
 
         if (!empty($game_bid)) {
             echo api_error_response('game_bid_already_exists', 'You already have a bid for this game.');
+            return false;
+        }
+
+        $bids_in_last_day = $this->game_model->get_bids_by_user_in_last_day($user['id']);
+
+        if (count($bids_in_last_day) >= MAX_GAME_BIDS) {
+            echo api_error_response('global_maximum_game_bids', 'You have reached the global limit of ' . MAX_GAME_BIDS . ' bids in a day.');
+            return false;
+        }
+
+        $user_bid_limit = MAX_GAME_BIDS;
+        if ($user['score'] < 0) {
+            $user_bid_limit = MAX_GAME_BIDS - $user['score'];
+        }
+        if ($user_bid_limit < MIN_GAME_BIDS) {
+            $user_bid_limit = MIN_GAME_BIDS;
+        }
+        
+        if (count($bids_in_last_day) >= $user_bid_limit) {
+            echo api_error_response('user_maximum_game_bids', 'Your score is negative and you\'ve reached your limit of ' . $user_bid_limit . ' bids in a day. As your score rises, you\'ll be able to make more bids.');
             return false;
         }
 

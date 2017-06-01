@@ -23,17 +23,25 @@ class Cron extends CI_Controller {
             return false;
         }
 
+        echo 'Start of Cron - ' . time() . '<br>';
+        $this->create_games();
+        $this->start_games()
+        $this->finish_games()
+        echo 'End of Cron - ' . time() . '<br>';
+    }
+
+    public function create_games()
+    {
         // Check if it's time to run
         $crontab = '* * * * *'; // Every minute
         $now = date('Y-m-d H:i:s');
         $run_crontab = parse_crontab($now, $crontab);
         if (!$run_crontab) {
-            echo 'Start of Cron - ' . time() . '<br>';
             return false;
         }
 
-        // Run cron
-        echo 'Start of Cron - ' . time() . '<br>';
+        // Create games
+        echo 'Create Games - ' . time() . '<br>';
         $games_to_create = 1;
         for ($i = 0; $i < $games_to_create; $i++) {
             echo '<hr> Creating game and payoffs - ' . time() . '<br>';
@@ -51,7 +59,28 @@ class Cron extends CI_Controller {
             $b_action = 1;
             $this->create_payoff($game_key, $a_action, $b_action);
         }
-        echo 'End of Cron - ' . time() . '<br>';
+    }
+
+    public function start_games()
+    {
+        // Check if it's time to run
+        $crontab = '* * * * *'; // Every minute
+        $now = date('Y-m-d H:i:s');
+        $run_crontab = parse_crontab($now, $crontab);
+        if (!$run_crontab) {
+            return false;
+        }
+    }
+
+    public function finish_games()
+    {
+        // Check if it's time to run
+        $crontab = '* * * * *'; // Every minute
+        $now = date('Y-m-d H:i:s');
+        $run_crontab = parse_crontab($now, $crontab);
+        if (!$run_crontab) {
+            return false;
+        }
     }
 
     public function create_payoff($game_key, $a_action, $b_action)

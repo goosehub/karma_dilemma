@@ -36,7 +36,8 @@ Class game_model extends CI_Model
         $this->db->from('game');
         $this->db->where('started_flag', false);
         $query = $this->db->get();
-        return $query->result_array();
+        $result = $query->result_array();
+        return $result;
     }
     function get_game_by_id($game_key)
     {
@@ -53,7 +54,8 @@ Class game_model extends CI_Model
         $this->db->from('payoff');
         $this->db->where('game_key', $game_key);
         $query = $this->db->get();
-        return $query->result_array();
+        $result = $query->result_array();
+        return $result;
     }
     function insert_bid($game_key, $user_key, $amount)
     {
@@ -74,6 +76,16 @@ Class game_model extends CI_Model
         $query = $this->db->get();
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
+    }
+    function get_bids_by_user_in_last_day($user_key)
+    {
+        $this->db->select('*');
+        $this->db->from('game_bid');
+        $this->db->where('user_key', $user_key);
+        $this->db->where('created >= DATE_SUB( NOW(), INTERVAL 24 HOUR )');
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
     }
 }
 ?>
