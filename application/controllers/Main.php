@@ -48,19 +48,24 @@ class Main extends CI_Controller {
 
     public function games_on_auction()
     {
+        $data['user'] = $this->user_model->get_this_user();
+
         $data['games_on_auction'] = $this->game_model->get_games_on_auction();
         foreach ($data['games_on_auction'] as &$game)
         {
             $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
+            $game['has_bid'] = false;
+            if ($data['user']) {
+                $game['has_bid'] = $this->game_model->get_bid_by_game_and_user_key($game['id'], $data['user']['id']) ? true : false;
+            }
         }
 
         // Return here for API
         if ($this->input->get('api')) {
+            unset($data['user']);
             echo api_response($data);
             return false;
         }
-
-        $data['user'] = $this->user_model->get_this_user();
 
         // Load view
         $data['page_title'] = 'Games on Auction';

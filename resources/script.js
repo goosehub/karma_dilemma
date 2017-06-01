@@ -21,6 +21,47 @@ $(document).ready(function(){
 		$('#avatar_form').submit();
 	});
 
+	$('.game_bid_input').change(function(){
+		var true_value = $(this).val() * -1;
+		$(this).parent('.game_bid_parent').find('.game_bid_value_label').html(true_value);
+	});
+
+	$('.game_bid_submit').click(function(e){
+		var bid_value = $(this).parent('.game_bid_parent').find('.game_bid_value_label').html();
+		var game_id = $(this).parent('.game_bid_parent').find('.game_bid_game_id').val();
+		game_bid_url = base_url + 'game/bid/' + game_id + '/' + bid_value;
+		ajax_get(game_bid_url, false);
+		$(this).parent('.game_bid_parent').hide();
+	});
+
+	// Abstract simple ajax calls
+	function ajax_get(url, callback) {
+		$.ajax({
+			url: url,
+			type: 'GET',
+			success: function(response) {
+				// Parse
+				console.log(response);
+				data = JSON.parse(response);
+
+				// Handle errors
+				if (data['error']) {
+					alert(data['error_message']);
+					return false;
+				}
+
+				// Do callback if provided
+				if (callback && typeof(callback) === 'function') {
+					callback();
+				}
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				console.log(xhr.status);
+				console.log(thrownError);
+			}
+		});
+	}
+
 	// https://stackoverflow.com/a/901144/3774582
 	function getParameterByName(name, url) {
 	    if (!url) url = window.location.href;

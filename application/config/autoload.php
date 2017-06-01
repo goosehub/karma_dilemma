@@ -39,6 +39,7 @@ function auth() {
 // API Error JSON Response
 function api_error_response($error_code, $error_message) {
     log_message('error', $error_code . ' - ' . $error_message);
+    $data['success'] = false;
     $data['error'] = true;
     $data['error_code'] = $error_code;
     $data['error_message'] = $error_message;
@@ -46,7 +47,8 @@ function api_error_response($error_code, $error_message) {
 }
 
 // API Data JSON Response
-function api_response($data) {
+function api_response($data = array()) {
+    $data['success'] = true;
     $data['error'] = false;
     // Encode and send data
     function filter(&$value) {
