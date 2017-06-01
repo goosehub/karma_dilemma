@@ -22,7 +22,7 @@ class Game extends CI_Controller {
             return false;
         }
 
-        $post = get_json_post();
+        $post = get_json_post(true);
 
         if (!ctype_digit($game_key) || $game_key < 0) {
             echo api_error_response('game_id_not_positive_int', 'Your game id was not a positive int.');
