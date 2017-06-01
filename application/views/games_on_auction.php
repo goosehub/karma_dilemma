@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <a href="<?=base_url()?>"><h1 class="text-center"><?php echo site_name(); ?></h1></a>
-            <h2 class="text-center"><?php echo $page_title; ?></h2>
+            <a href="<?=base_url()?>"><p class="lead text-center"><?php echo site_name(); ?></p></a>
+            <h1 class="text-center"><?php echo $page_title; ?></h1>
             <hr>
             <?php foreach ($games_on_auction as $game) { ?>
 

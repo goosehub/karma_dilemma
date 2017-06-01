@@ -29,7 +29,7 @@ $(document).ready(function(){
 	$('.game_bid_submit').click(function(e){
 		var bid_value = $(this).parent('.game_bid_parent').find('.game_bid_value_label').html();
 		var game_id = $(this).parent('.game_bid_parent').find('.game_bid_game_id').val();
-		var game_bid_url = base_url + 'game/bid/' + game_id
+		var game_bid_url = base_url + 'game/bid/' + game_id;
 		var data = {};
 		data.amount = bid_value;
 		ajax_post(game_bid_url, data, false);
