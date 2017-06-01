@@ -46,6 +46,11 @@ class Game extends CI_Controller {
             return false;
         }
 
+        if ($game['started']) {
+            echo api_error_response('game_auction_has_ended', 'Game auction has ended.');
+            return false;
+        }
+
         $game_bid = $this->game_model->get_bid_by_game_and_user_key($game['id'], $user['id']);
 
         if (!empty($game_bid)) {

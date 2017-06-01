@@ -1,11 +1,15 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-offset-3 col-md-6">
+		<div class="col-md-offset-2 col-md-8">
             <a href="<?=base_url()?>"><p class="lead text-center"><?php echo site_name(); ?></p></a>
 
-<h1>API Documentation</h1>
+<h1 class="text-center">API Documentation</h1>
 
 <h2>Authenticating</h2>
+
+<p>Always have a GET param with key of api and value of true.</p>
+
+<pre><code>http://dev.foobar.com/personal/theory/?api=true</code></pre>
 
 <p>If you are logged in, your User ID and API Key will appear below.</p>
 
@@ -14,7 +18,7 @@
 <p><strong>api_key:</strong> <code><?php echo $user['api_key']; ?></code></p>
 <?php } ?>
 
-<p>Include these in your POST JSON. It is optional on public pages (/games_on_auction) and required on private pages and game actions (/game/bid).</p>
+<p>Include these in your POST JSON. It is optional on public pages (<code>/games_on_auction</code>) and required on private pages and game actions (<code>/game/bid</code>).</p>
 
 <h2>Examples</h2>
 <h3>Example of getting list of games on auction</h3>
@@ -72,6 +76,24 @@ $response = json_decode($raw_response);
 if ($response->error) {
     echo $response->error_code . ' - ' . $response->error_message;
 } </code></pre>
+
+<h2>Calls</h2>
+
+<h3>Get your own user information</h3>
+<pre><code>/?api=true</code></pre>
+<p>Requires authentication.</p>
+<p>Requires no post parameters.</p>
+
+<h3>Get games on auction</h3>
+<pre><code>/games_on_auction?api=true</code></pre>
+<p>Does not require authentication.</p>
+<p>Requires no post parameters.</p>
+
+<h3>Make bid on game</h3>
+<pre><code>/game/bid/game_id?api=true</code></pre>
+<p>Replace <code>game_id</code> with id of game to bid on.</p>
+<p>Requires authentication.</p>
+<p>Requires post parameter <code>amount</code>. Must be between an integer -100 and 100.</p>
 
 		</div>
 	</div>
