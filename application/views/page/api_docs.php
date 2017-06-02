@@ -47,20 +47,20 @@ if ($response->error) {
 <h3>Example of making a bid of 50 on game with id of 3</h3>
 
 <strong>Terminal</strong>
-<pre><code> curl -H "Content-Type: application/json" -X POST -d '{"user_id":"1","api_key":"e78987628aee0bcbd522f5db42bd7d10","amount":"50"}' http://dev.foobar.com/personal/theory/game/bid/3?api=true </code></pre>
+<pre><code> curl -H "Content-Type: application/json" -X POST -d '{"user_id":"1","api_key":"e78987628aee0bcbd522f5db42bd7d10","game_id":3,"amount":50}' http://dev.foobar.com/personal/theory/game/bid/3?api=true </code></pre>
 
 <strong>PHP with CURL</strong>
 <pre><code> // Create URL
 $base_url = 'http://dev.foobar.com/personal/theory/';
-$game_id = 3;
-$action = 'game/bid/' . $game_id;
+$action = 'game/bid/';
 $url = $base_url . $action . '?api=true';
 
 // Create JSON POST
 $data = array();
-$data['user_id'] = '1';
+$data['user_id'] = 1;
 $data['api_key'] = 'e78987628aee0bcbd522f5db42bd7d10';
-$data['amount'] = '50';
+$data['game_id'] = 3;
+$data['amount'] = 50;
 $post = json_encode($data);
 
 // Make API Call

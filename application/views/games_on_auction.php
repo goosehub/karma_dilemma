@@ -18,21 +18,21 @@
                     </tr>
                     <tr>
                     <td><strong class="text-danger">Do Nothing</strong></td>
-                    <td><?php echo '<span class="text-primary">' . $game['payoffs'][0]['a_payoff'] . '</span> 
+                    <td><?php echo '<span class="text-primary">' . $game['payoffs'][0]['primary_payoff'] . '</span> 
                     / 
-                    <span class="text-danger">' . $game['payoffs'][0]['b_payoff'] . '</span>'; ?></td>
-                    <td><?php echo '<span class="text-primary">' . $game['payoffs'][1]['a_payoff'] . '</span> 
+                    <span class="text-danger">' . $game['payoffs'][0]['secondary_payoff'] . '</span>'; ?></td>
+                    <td><?php echo '<span class="text-primary">' . $game['payoffs'][1]['primary_payoff'] . '</span> 
                     / 
-                    <span class="text-danger">' . $game['payoffs'][1]['b_payoff'] . '</span>'; ?></td>
+                    <span class="text-danger">' . $game['payoffs'][1]['secondary_payoff'] . '</span>'; ?></td>
                     </tr>
                     <tr>
                     <td><strong class="text-danger">Take Action</strong></td>
-                    <td><?php echo '<span class="text-primary">' . $game['payoffs'][2]['a_payoff'] . '</span> 
+                    <td><?php echo '<span class="text-primary">' . $game['payoffs'][2]['primary_payoff'] . '</span> 
                     / 
-                    <span class="text-danger">' . $game['payoffs'][2]['b_payoff'] . '</span>'; ?></td>
-                    <td><?php echo '<span class="text-primary">' . $game['payoffs'][3]['a_payoff'] . '</span> 
+                    <span class="text-danger">' . $game['payoffs'][2]['secondary_payoff'] . '</span>'; ?></td>
+                    <td><?php echo '<span class="text-primary">' . $game['payoffs'][3]['primary_payoff'] . '</span> 
                     / 
-                    <span class="text-danger">' . $game['payoffs'][3]['b_payoff'] . '</span>'; ?></td>
+                    <span class="text-danger">' . $game['payoffs'][3]['secondary_payoff'] . '</span>'; ?></td>
                     </tr>
                 </tbody>
             </table>

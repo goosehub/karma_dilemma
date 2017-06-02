@@ -10,22 +10,22 @@ Class game_model extends CI_Model
         $data = array(
             'started_flag' => 0,
             'finished_flag' => 0,
-            'a_user_key' => 0,
-            'b_user_key' => 0,
-            'a_action' => 0,
-            'b_action' => 0,
+            'primary_user_key' => 0,
+            'secondary_user_key' => 0,
+            'primary_action' => 0,
+            'secondary_action' => 0,
         );
         $this->db->insert('game', $data);
         return $this->db->insert_id();
     }
-    function insert_payoff($game_key, $a_payoff, $b_payoff, $a_action, $b_action)
+    function insert_payoff($game_key, $primary_payoff, $secondary_payoff, $primary_action, $secondary_action)
     {
         $data = array(
             'game_key' => $game_key,
-            'a_payoff' => $a_payoff,
-            'b_payoff' => $b_payoff,
-            'a_action' => $a_action,
-            'b_action' => $b_action,
+            'primary_payoff' => $primary_payoff,
+            'secondary_payoff' => $secondary_payoff,
+            'primary_action' => $primary_action,
+            'secondary_action' => $secondary_action,
         );
         $this->db->insert('payoff', $data);
         return $this->db->insert_id();
@@ -67,6 +67,15 @@ Class game_model extends CI_Model
         $this->db->insert('game_bid', $data);
         return $this->db->insert_id();
     }
+    function get_bid_by_game_key($game_key)
+    {
+        $this->db->select('*');
+        $this->db->from('game_bid');
+        $this->db->where('game_key', $game_key);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
+    }
     function get_bid_by_game_and_user_key($game_key, $user_key)
     {
         $this->db->select('*');
@@ -83,6 +92,18 @@ Class game_model extends CI_Model
         $this->db->from('game_bid');
         $this->db->where('user_key', $user_key);
         $this->db->where('created >= DATE_SUB( NOW(), INTERVAL 24 HOUR )');
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
+    }
+    function get_games_by_status_and_age($started_flag, $finished_flag, $minutes_ago)
+    {
+        $minutes_ago = (int) $minutes_ago;
+        $this->db->select('*');
+        $this->db->from('game');
+        $this->db->where('started_flag', $started_flag);
+        $this->db->where('finished_flag', $finished_flag);
+        $this->db->where('created <= DATE_SUB( NOW(), INTERVAL ' . $minutes_ago . ' MINUTE )');
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;

@@ -29,10 +29,13 @@ $(document).ready(function(){
 	$('.game_bid_submit').click(function(e){
 		var bid_value = $(this).parent('.game_bid_parent').find('.game_bid_value_label').html();
 		var game_id = $(this).parent('.game_bid_parent').find('.game_bid_game_id').val();
-		var game_bid_url = base_url + 'game/bid/' + game_id;
+
 		var data = {};
-		data.amount = bid_value;
+		data.game_id = parseInt(game_id);
+		data.amount = parseInt(bid_value);
+		var game_bid_url = base_url + 'game/bid/';
 		ajax_post(game_bid_url, data, false);
+		
 		$(this).parent('.game_bid_parent').hide();
 	});
 
@@ -41,15 +44,11 @@ $(document).ready(function(){
 		$.ajax({
 			url: url,
 			type: 'POST',
-			dataType: 'json',
-			// data: data,
 			data: JSON.stringify(data),
-			success: function(response) {
-				// Parse
-				console.log(response);
-				data = JSON.parse(response);
-
+			dataType: 'json',
+			success: function(data) {
 				// Handle errors
+				console.log(data);
 				if (data['error']) {
 					alert(data['error_message']);
 					return false;
@@ -72,12 +71,10 @@ $(document).ready(function(){
 		$.ajax({
 			url: url,
 			type: 'GET',
-			success: function(response) {
-				// Parse
-				console.log(response);
-				data = JSON.parse(response);
-
+			dataType: 'json',
+			success: function(data) {
 				// Handle errors
+				console.log(data);
 				if (data['error']) {
 					alert(data['error_message']);
 					return false;

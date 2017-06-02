@@ -80,16 +80,16 @@ game bid
 game
 	started_flag
 	finished_flag
-	a_user_key
-	b_user_key
-	a_action
-	b_action
+	primary_user_key
+	secondary_user_key
+	primary_action
+	secondary_action
 payoff
 	game_key
-	a_payoff
-	b_payoff
-	a_action
-	b_action
+	primary_payoff
+	secondary_payoff
+	primary_action
+	secondary_action
 karma bid
 	karma_key
 	user_key

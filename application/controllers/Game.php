@@ -13,7 +13,7 @@ class Game extends CI_Controller {
         $this->main_model->record_request();
     }
 
-    public function bid($game_key)
+    public function bid()
     {
         $user = $this->user_model->get_this_user();
 
@@ -22,31 +22,31 @@ class Game extends CI_Controller {
             return false;
         }
 
-        $post = get_json_post(true);
+        $input = get_json_post(true);
 
-        if (!ctype_digit($game_key) || $game_key < 0) {
+        if (!is_int($input->game_id) || $input->game_id < 0) {
             echo api_error_response('game_id_not_positive_int', 'Your game id was not a positive int.');
             return false;
         }
 
-        if (!ctype_digit($post->amount)) {
+        if (!is_int($input->amount)) {
             echo api_error_response('game_bid_amount_not_int', 'Your bid amount was not an int.');
             return false;
         }
 
-        if ($post->amount > 100 || $post->amount < -100) {
+        if ($input->amount > 100 || $input->amount < -100) {
             echo api_error_response('game_bid_amount_out_of_range', 'Your bid amount was not between -100 and 100.');
             return false;
         }
 
-        $game = $this->game_model->get_game_by_id($game_key);
+        $game = $this->game_model->get_game_by_id($input->game_id);
 
         if (empty($game)) {
             echo api_error_response('game_bid_amount_out_of_range', 'Game with that id was not found.');
             return false;
         }
 
-        if ($game['started']) {
+        if ($game['started_flag']) {
             echo api_error_response('game_auction_has_ended', 'Game auction has ended.');
             return false;
         }
@@ -78,7 +78,7 @@ class Game extends CI_Controller {
             return false;
         }
 
-        $this->game_model->insert_bid($game_key, $user['id'], $post->amount);
+        $this->game_model->insert_bid($input->game_id, $user['id'], $input->amount);
 
         echo api_response();
     }

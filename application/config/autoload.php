@@ -81,6 +81,16 @@ function deslug($string) {
     return ucwords(str_replace('_', ' ', $string));
 }
 
+function sort_array($array, $subfield)
+{
+    $sorted_array = array();
+    foreach ($array as $key => $row) {
+        $sorted_array[$key] = $row[$subfield];
+    }
+    array_multisort($sorted_array, SORT_DESC, $array);
+    return $array;
+}
+
 // http://stackoverflow.com/a/5727346/3774582
 // Parse CRON frequency
 // Break it down like James Brown
