@@ -11,7 +11,6 @@ class Cron extends CI_Controller {
         $this->main_model->record_request();
     }
 
-    // Map view
     public function index($token = false)
     {
         // Use hash equals function to prevent timing attack
@@ -24,9 +23,9 @@ class Cron extends CI_Controller {
         }
 
         echo 'Start of Cron - ' . time() . '<br>';
-        // $this->finish_games();
+        $this->finish_games();
         $this->start_games();
-        // $this->create_games();
+        $this->create_games();
         echo 'End of Cron - ' . time() . '<br>';
     }
 
@@ -41,13 +40,17 @@ class Cron extends CI_Controller {
         }
         echo 'Create Games - ' . time() . '<br>';
 
-        $games_on_auction = $this->game_model->get_games_on_auction();
+        $games_on_auction = $this->game_model->get_games_by_status($started_flag = false, $finished_flag = false);
 
         // Create games
         $games_to_create = GAME_AUCTIONS_TO_HAVE_ACTIVE - count($games_on_auction);
         for ($i = 0; $i < $games_to_create; $i++) {
             echo '<hr> Creating game and payoffs - ' . time() . '<br>';
+
+            // Create game
             $game_key = $this->game_model->insert_game();
+
+            // Create payoffs
             $primary_choice = 0;
             $secondary_choice = 0;
             $this->create_payoff($game_key, $primary_choice, $secondary_choice);
@@ -86,12 +89,20 @@ class Cron extends CI_Controller {
             }
             echo 'Starting Game - ' . time() . '<br>';
 
+            // Sort and set data
             $sorted_bids = sort_array($bids, 'amount', SORT_ASC);
             $bid_count = count($bids);
             $two_thirds_median_bid_index = ceil($bid_count * 0.33);
             $primary_user_key = $sorted_bids[0]['user_key'];
+            $primary_user_bid = $sorted_bids[0]['amount'];
             $secondary_user_key = $sorted_bids[$two_thirds_median_bid_index]['user_key'];
+            $secondary_user_bid = $sorted_bids[$two_thirds_median_bid_index]['amount'];
 
+            // Update user scores
+            $this->game_model->update_user_score($primary_user_key, $primary_user_bid);
+            $this->game_model->update_user_score($secondary_user_key, $secondary_user_bid);
+
+            // Start game
             $this->game_model->start_game($game['id'], $primary_user_key, $secondary_user_key);
         }
     }

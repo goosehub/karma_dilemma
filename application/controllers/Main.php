@@ -90,10 +90,20 @@ class Main extends CI_Controller {
             $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
 
             if ($game['primary_user_key'] === $data['user']['id']) {
+                // Skip game if user already made a choice
+                if ($game['started_timestamp'] != $game['primary_choice_timestamp']) {
+                    continue;
+                }
+
                 $game['primary_player'] = $data['user'];
                 $game['secondary_player'] = $this->user_model->get_user_by_id($game['secondary_user_key']);
             }
             else {
+                // Skip game if user already made a choice
+                if ($game['started_timestamp'] != $game['secondary_choice_timestamp']) {
+                    continue;
+                }
+
                 $game['primary_player'] = $this->user_model->get_user_by_id($game['primary_user_key']);
                 $game['secondary_player'] = $data['user'];
             }

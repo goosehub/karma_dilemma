@@ -49,7 +49,7 @@ $(document).ready(function(){
 		var game_bid_url = base_url + 'game/play/';
 		ajax_post(game_bid_url, data, false);
 
-		// $(this).parent('.game_choice_parent').hide();
+		$(this).parent('.game_choice_parent').hide();
 	});
 
 	// Abstract simple ajax calls

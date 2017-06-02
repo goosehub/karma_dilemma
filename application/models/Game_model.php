@@ -127,6 +127,7 @@ Class game_model extends CI_Model
             'started_flag' => true,
             'primary_user_key' => $primary_user_key,
             'secondary_user_key' => $secondary_user_key,
+            'start_timestamp' => date('Y-m-d H:i:s'),
         );
         $this->db->where('id', $game_key);
         $this->db->update('game', $data);
@@ -135,6 +136,7 @@ Class game_model extends CI_Model
     {
         $data = array(
             'primary_choice' => $choice,
+            'primary_choice_timestamp' => date('Y-m-d H:i:s'),
         );
         $this->db->where('id', $game_key);
         $this->db->update('game', $data);
@@ -143,9 +145,16 @@ Class game_model extends CI_Model
     {
         $data = array(
             'secondary_choice' => $choice,
+            'secondary_choice_timestamp' => date('Y-m-d H:i:s'),
         );
         $this->db->where('id', $game_key);
         $this->db->update('game', $data);
+    }
+    function update_user_score($user_key, $score_change)
+    {
+        $this->db->set('score', 'score+' . $score_change, FALSE);
+        $this->db->where('id', $user_key);
+        $this->db->update('user');
     }
 }
 ?>

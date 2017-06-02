@@ -4,6 +4,7 @@ game theory
 regen auth token
 show api on user ui?
 game has already started while scrolling
+finish game on both players explicit choice
 
 	names
 dilemma
