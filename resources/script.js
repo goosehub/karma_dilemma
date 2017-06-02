@@ -35,8 +35,21 @@ $(document).ready(function(){
 		data.amount = parseInt(bid_value);
 		var game_bid_url = base_url + 'game/bid/';
 		ajax_post(game_bid_url, data, false);
-		
+
 		$(this).parent('.game_bid_parent').hide();
+	});
+
+	$('.game_choice_button').click(function(e){
+		var choice = $(this).val();
+		var game_id = $(this).parent('.game_choice_parent').find('.game_id').val();
+
+		var data = {};
+		data.game_id = parseInt(game_id);
+		data.choice = parseInt(choice);
+		var game_bid_url = base_url + 'game/play/';
+		ajax_post(game_bid_url, data, false);
+
+		// $(this).parent('.game_choice_parent').hide();
 	});
 
 	// Abstract simple ajax calls

@@ -32,8 +32,8 @@ CREATE TABLE `game` (
   `finished_flag` bit(1) NOT NULL,
   `primary_user_key` int(10) UNSIGNED NOT NULL,
   `secondary_user_key` int(10) UNSIGNED NOT NULL,
-  `primary_action` bit(1) NOT NULL,
-  `secondary_action` bit(1) NOT NULL,
+  `primary_choice` bit(1) NOT NULL,
+  `secondary_choice` bit(1) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -94,8 +94,8 @@ CREATE TABLE `payoff` (
   `game_key` int(10) UNSIGNED NOT NULL,
   `primary_payoff` int(11) NOT NULL,
   `secondary_payoff` int(11) NOT NULL,
-  `primary_action` bit(1) NOT NULL,
-  `secondary_action` bit(1) NOT NULL,
+  `primary_choice` bit(1) NOT NULL,
+  `secondary_choice` bit(1) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

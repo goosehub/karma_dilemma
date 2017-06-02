@@ -12,32 +12,23 @@ Class game_model extends CI_Model
             'finished_flag' => 0,
             'primary_user_key' => 0,
             'secondary_user_key' => 0,
-            'primary_action' => 0,
-            'secondary_action' => 0,
+            'primary_choice' => 0,
+            'secondary_choice' => 0,
         );
         $this->db->insert('game', $data);
         return $this->db->insert_id();
     }
-    function insert_payoff($game_key, $primary_payoff, $secondary_payoff, $primary_action, $secondary_action)
+    function insert_payoff($game_key, $primary_payoff, $secondary_payoff, $primary_choice, $secondary_choice)
     {
         $data = array(
             'game_key' => $game_key,
             'primary_payoff' => $primary_payoff,
             'secondary_payoff' => $secondary_payoff,
-            'primary_action' => $primary_action,
-            'secondary_action' => $secondary_action,
+            'primary_choice' => $primary_choice,
+            'secondary_choice' => $secondary_choice,
         );
         $this->db->insert('payoff', $data);
         return $this->db->insert_id();
-    }
-    function get_games_on_auction()
-    {
-        $this->db->select('*');
-        $this->db->from('game');
-        $this->db->where('started_flag', false);
-        $query = $this->db->get();
-        $result = $query->result_array();
-        return $result;
     }
     function get_game_by_id($game_key)
     {
@@ -96,6 +87,28 @@ Class game_model extends CI_Model
         $result = $query->result_array();
         return $result;
     }
+    function get_games_by_status($started_flag, $finished_flag)
+    {
+        $this->db->select('*');
+        $this->db->from('game');
+        $this->db->where('started_flag', $started_flag);
+        $this->db->where('finished_flag', $finished_flag);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
+    }
+    function get_games_by_status_and_user_key($started_flag, $finished_flag, $user_key)
+    {
+        $this->db->select('*');
+        $this->db->from('game');
+        $this->db->where('started_flag', $started_flag);
+        $this->db->where('finished_flag', $finished_flag);
+        $this->db->where('primary_user_key', $user_key);
+        $this->db->or_where('secondary_user_key', $user_key);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
+    }
     function get_games_by_status_and_age($started_flag, $finished_flag, $minutes_ago)
     {
         $minutes_ago = (int) $minutes_ago;
@@ -107,6 +120,32 @@ Class game_model extends CI_Model
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
+    }
+    function start_game($game_key, $primary_user_key, $secondary_user_key)
+    {
+        $data = array(
+            'started_flag' => true,
+            'primary_user_key' => $primary_user_key,
+            'secondary_user_key' => $secondary_user_key,
+        );
+        $this->db->where('id', $game_key);
+        $this->db->update('game', $data);
+    }
+    function update_game_primary_choice($game_key, $choice)
+    {
+        $data = array(
+            'primary_choice' => $choice,
+        );
+        $this->db->where('id', $game_key);
+        $this->db->update('game', $data);
+    }
+    function update_game_secondary_choice($game_key, $choice)
+    {
+        $data = array(
+            'secondary_choice' => $choice,
+        );
+        $this->db->where('id', $game_key);
+        $this->db->update('game', $data);
     }
 }
 ?>

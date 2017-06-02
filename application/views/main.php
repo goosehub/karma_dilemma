@@ -13,6 +13,7 @@
             <h2>How it works</h2>
             <p>Coming Soon</p>
             <a href="<?=base_url()?>games_on_auction" class="btn btn-action">Games on Auction</a>
+            <a href="<?=base_url()?>started_games" class="btn btn-action">Started Games</a>
             <a href="<?=base_url()?>api_docs" class="btn btn-action">API Documentation</a>
         </div>
 

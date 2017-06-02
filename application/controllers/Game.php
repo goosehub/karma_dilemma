@@ -83,4 +83,62 @@ class Game extends CI_Controller {
         echo api_response();
     }
 
+    public function play()
+    {
+        $user = $this->user_model->get_this_user();
+
+        if (!$user) {
+            echo api_error_response('user_auth', 'You must be logged in or authenticated with the API to take this action.');
+            return false;
+        }
+
+        $input = get_json_post(true);
+
+        if (!is_int($input->game_id) || $input->game_id < 0) {
+            echo api_error_response('game_id_not_positive_int', 'Your game id was not a positive int.');
+            return false;
+        }
+
+        if (!is_int($input->choice)) {
+            echo api_error_response('game_choice_not_int', 'Your bid choice was not an int.');
+            return false;
+        }
+
+        if ($input->choice != 0 && $input->choice != 1) {
+            echo api_error_response('game_choice_out_of_range', 'Your choice must be 0 or 1.');
+            return false;
+        }
+
+        $game = $this->game_model->get_game_by_id($input->game_id);
+
+        if (empty($game)) {
+            echo api_error_response('game_choice_out_of_range', 'Game with that id was not found.');
+            return false;
+        }
+
+        if ($game['primary_user_key'] != $user['id'] && $game['secondary_user_key'] != $user['id']) {
+            echo api_error_response('not_your_game', 'You are not playing in this game.');
+            return false;
+        }
+
+        if (!$game['started_flag']) {
+            echo api_error_response('game_has_not_started', 'Game has not started.');
+            return false;
+        }
+
+        if ($game['finished_flag']) {
+            echo api_error_response('game_has_ended', 'Game has ended.');
+            return false;
+        }
+
+        if ($game['primary_user_key'] === $user['id']) {
+            $this->game_model->update_game_primary_choice($input->game_id, $input->choice);
+        }
+        else {
+            $this->game_model->update_game_secondary_choice($input->game_id, $input->choice);
+        }
+
+        echo api_response();
+    }
+
 }

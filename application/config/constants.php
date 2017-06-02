@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // Game
 define('GAME_AUCTIONS_TO_HAVE_ACTIVE', 100); // How many games to have on auction at all times
 define('GAME_AUCTION_TIME_MINUTES', 5); // How long a game should be on auction 
+define('GAME_TIME_MINUTES', 10); // How long a game should last 
 define('MAX_GAME_BIDS', 1500); // Maximum number of bids in a day
 define('MIN_GAME_BIDS', 15); // Minimum number of bids in a day
 

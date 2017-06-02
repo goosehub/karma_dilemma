@@ -25,8 +25,8 @@ class Cron extends CI_Controller {
 
         echo 'Start of Cron - ' . time() . '<br>';
         // $this->finish_games();
-        // $this->start_games();
-        $this->create_games();
+        $this->start_games();
+        // $this->create_games();
         echo 'End of Cron - ' . time() . '<br>';
     }
 
@@ -48,18 +48,18 @@ class Cron extends CI_Controller {
         for ($i = 0; $i < $games_to_create; $i++) {
             echo '<hr> Creating game and payoffs - ' . time() . '<br>';
             $game_key = $this->game_model->insert_game();
-            $primary_action = 0;
-            $secondary_action = 0;
-            $this->create_payoff($game_key, $primary_action, $secondary_action);
-            $primary_action = 1;
-            $secondary_action = 0;
-            $this->create_payoff($game_key, $primary_action, $secondary_action);
-            $primary_action = 0;
-            $secondary_action = 1;
-            $this->create_payoff($game_key, $primary_action, $secondary_action);
-            $primary_action = 1;
-            $secondary_action = 1;
-            $this->create_payoff($game_key, $primary_action, $secondary_action);
+            $primary_choice = 0;
+            $secondary_choice = 0;
+            $this->create_payoff($game_key, $primary_choice, $secondary_choice);
+            $primary_choice = 1;
+            $secondary_choice = 0;
+            $this->create_payoff($game_key, $primary_choice, $secondary_choice);
+            $primary_choice = 0;
+            $secondary_choice = 1;
+            $this->create_payoff($game_key, $primary_choice, $secondary_choice);
+            $primary_choice = 1;
+            $secondary_choice = 1;
+            $this->create_payoff($game_key, $primary_choice, $secondary_choice);
         }
     }
 
@@ -86,25 +86,13 @@ class Cron extends CI_Controller {
             }
             echo 'Starting Game - ' . time() . '<br>';
 
-            $sorted_bids = sort_array($bids, 'amount');
-
+            $sorted_bids = sort_array($bids, 'amount', SORT_ASC);
             $bid_count = count($bids);
             $two_thirds_median_bid_index = ceil($bid_count * 0.33);
-            $primary_player = $sorted_bids[0]['user_key'];
-            $secondary_player = $sorted_bids[$two_thirds_median_bid_index]['user_key'];
-/*            $highest_bid = array();
-            $highest_bid['user_key'] = 0;
-            $highest_bid['amount'] = 0;
-            $bid_sum = 0;
-            foreach ($bids as $bid) {
-                $bid_sum += $bid['amount'];
-                if ($bid['amount'] > $highest_bid['amount']) {
-                    $highest_bid['user_key'] = $bid['user_key'];
-                    $highest_bid['amount'] = $bid['amount'];
-                }
-            }
-            $average_bid = $bid_sum / $
-            $secondary_player = 0; // ?*/
+            $primary_user_key = $sorted_bids[0]['user_key'];
+            $secondary_user_key = $sorted_bids[$two_thirds_median_bid_index]['user_key'];
+
+            $this->game_model->start_game($game['id'], $primary_user_key, $secondary_user_key);
         }
     }
 
@@ -119,16 +107,16 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function create_payoff($game_key, $primary_action, $secondary_action)
+    public function create_payoff($game_key, $primary_choice, $secondary_choice)
     {
         $payoff_min_base = -10;
         $payoff_max_base = 10;
         $payoff_multiplier = 10;
         $primary_payoff = rand($payoff_min_base, $payoff_max_base) * $payoff_multiplier;
         $secondary_payoff = rand($payoff_min_base, $payoff_max_base) * $payoff_multiplier;
-        $this->game_model->insert_payoff($game_key, $primary_payoff, $secondary_payoff, $primary_action, $secondary_action);
-        echo $primary_action . ' ' . $primary_payoff . '<br>';
-        echo $secondary_action . ' ' . $secondary_payoff . '<br>';
+        $this->game_model->insert_payoff($game_key, $primary_payoff, $secondary_payoff, $primary_choice, $secondary_choice);
+        echo $primary_choice . ' ' . $primary_payoff . '<br>';
+        echo $secondary_choice . ' ' . $secondary_payoff . '<br>';
         echo '<hr>';
     }
 

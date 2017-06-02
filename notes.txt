@@ -1,5 +1,10 @@
 game theory
 
+	misc todo
+regen auth token
+show api on user ui?
+game has already started while scrolling
+
 	names
 dilemma
 
@@ -41,11 +46,6 @@ karma auction list
 leaderboard view
 account view
 
-	other actions
-regen auth token
-show api on user ui?
-
-
 	leaderboard
 timeframe
 high or low
@@ -82,14 +82,14 @@ game
 	finished_flag
 	primary_user_key
 	secondary_user_key
-	primary_action
-	secondary_action
+	primary_choice
+	secondary_choice
 payoff
 	game_key
 	primary_payoff
 	secondary_payoff
-	primary_action
-	secondary_action
+	primary_choice
+	secondary_choice
 karma bid
 	karma_key
 	user_key

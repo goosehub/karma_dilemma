@@ -81,13 +81,13 @@ function deslug($string) {
     return ucwords(str_replace('_', ' ', $string));
 }
 
-function sort_array($array, $subfield)
+function sort_array($array, $subfield, $direction)
 {
     $sorted_array = array();
     foreach ($array as $key => $row) {
         $sorted_array[$key] = $row[$subfield];
     }
-    array_multisort($sorted_array, SORT_DESC, $array);
+    array_multisort($sorted_array, $direction, $array);
     return $array;
 }
 

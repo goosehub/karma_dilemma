@@ -50,10 +50,11 @@ class Main extends CI_Controller {
     {
         $data['user'] = $this->user_model->get_this_user();
 
-        $data['games_on_auction'] = $this->game_model->get_games_on_auction();
+        $data['games_on_auction'] = $this->game_model->get_games_by_status($started_flag = false, $finished_flag = false);
         foreach ($data['games_on_auction'] as &$game)
         {
             $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
+
             $game['has_bid'] = false;
             if ($data['user']) {
                 $game['has_bid'] = $this->game_model->get_bid_by_game_and_user_key($game['id'], $data['user']['id']) ? true : false;
@@ -71,6 +72,45 @@ class Main extends CI_Controller {
         $data['page_title'] = 'Games on Auction';
         $this->load->view('templates/header', $data);
         $this->load->view('games_on_auction', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function started_games()
+    {
+        $data['user'] = $this->user_model->get_this_user();
+        if (!$data['user']) {
+            $this->output->set_status_header(401);
+            echo 'Must be logged in';
+            return false;
+        }
+
+        $data['started_games'] = $this->game_model->get_games_by_status_and_user_key($started_flag = true, $finished_flag = false, $data['user']['id']);
+        foreach ($data['started_games'] as &$game)
+        {
+            $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
+
+            if ($game['primary_user_key'] === $data['user']['id']) {
+                $game['primary_player'] = $data['user'];
+                $game['secondary_player'] = $this->user_model->get_user_by_id($game['secondary_user_key']);
+            }
+            else {
+                $game['primary_player'] = $this->user_model->get_user_by_id($game['primary_user_key']);
+                $game['secondary_player'] = $data['user'];
+            }
+        }
+
+
+        // Return here for API
+        if ($this->input->get('api')) {
+            unset($data['user']);
+            echo api_response($data);
+            return false;
+        }
+
+        // Load view
+        $data['page_title'] = 'Started Games';
+        $this->load->view('templates/header', $data);
+        $this->load->view('started_games', $data);
         $this->load->view('templates/footer', $data);
     }
 
