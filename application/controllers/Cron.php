@@ -116,6 +116,23 @@ class Cron extends CI_Controller {
         if (!$run_crontab) {
             return false;
         }
+        echo 'Finish Game - ' . time() . '<br>';
+
+        // Get games to finish
+        $games = $this->game_model->get_games_by_status_and_age($started = true, $finished = false, GAME_TIME_MINUTES);
+
+        foreach ($games as $game) {
+            echo 'Finishing Game - ' . time() . '<br>';
+            // Get payoff
+            $payoff = $this->game_model->get_game_payoff_by_choices_and_game_key($game['primary_choice'], $game['secondary_choice'], $game['id']);
+
+            // Update user scores
+            $this->game_model->update_user_score($game['primary_user_key'], $payoff['primary_payoff']);
+            $this->game_model->update_user_score($game['secondary_user_key'], $payoff['secondary_payoff']);
+
+            // Finish game
+            $this->game_model->finish_game($game['id']);
+        }
     }
 
     public function create_payoff($game_key, $primary_choice, $secondary_choice)

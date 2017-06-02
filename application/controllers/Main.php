@@ -85,13 +85,14 @@ class Main extends CI_Controller {
         }
 
         $data['started_games'] = $this->game_model->get_games_by_status_and_user_key($started_flag = true, $finished_flag = false, $data['user']['id']);
-        foreach ($data['started_games'] as &$game)
+        foreach ($data['started_games'] as $key => &$game)
         {
             $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
 
             if ($game['primary_user_key'] === $data['user']['id']) {
                 // Skip game if user already made a choice
-                if ($game['started_timestamp'] != $game['primary_choice_timestamp']) {
+                if ($game['start_timestamp'] < $game['primary_choice_timestamp']) {
+                    unset($data['started_games'][$key]);
                     continue;
                 }
 
@@ -100,7 +101,8 @@ class Main extends CI_Controller {
             }
             else {
                 // Skip game if user already made a choice
-                if ($game['started_timestamp'] != $game['secondary_choice_timestamp']) {
+                if ($game['start_timestamp'] < $game['secondary_choice_timestamp']) {
+                    unset($data['started_games'][$key]);
                     continue;
                 }
 

@@ -132,6 +132,14 @@ Class game_model extends CI_Model
         $this->db->where('id', $game_key);
         $this->db->update('game', $data);
     }
+    function finish_game($game_key)
+    {
+        $data = array(
+            'finished_flag' => true,
+        );
+        $this->db->where('id', $game_key);
+        $this->db->update('game', $data);
+    }
     function update_game_primary_choice($game_key, $choice)
     {
         $data = array(
@@ -155,6 +163,17 @@ Class game_model extends CI_Model
         $this->db->set('score', 'score+' . $score_change, FALSE);
         $this->db->where('id', $user_key);
         $this->db->update('user');
+    }
+    function get_game_payoff_by_choices_and_game_key($primary_choice, $secondary_choice, $game_key)
+    {
+        $this->db->select('*');
+        $this->db->from('payoff');
+        $this->db->where('primary_choice', $primary_choice);
+        $this->db->where('secondary_choice', $secondary_choice);
+        $this->db->where('game_key', $game_key);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return isset($result[0]) ? $result[0] : false;
     }
 }
 ?>

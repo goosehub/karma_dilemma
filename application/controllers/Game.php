@@ -131,10 +131,23 @@ class Game extends CI_Controller {
             return false;
         }
 
+
         if ($game['primary_user_key'] === $user['id']) {
+            if ($game['start_timestamp'] < $game['primary_choice_timestamp']) {
+                echo api_error_response('choice_already_made', 'You have already made your choice for this game.');
+                return false;
+            }
+
+            // Update choice for this player
             $this->game_model->update_game_primary_choice($input->game_id, $input->choice);
         }
         else {
+            if ($game['start_timestamp'] < $game['secondary_choice_timestamp']) {
+                echo api_error_response('choice_already_made', 'You have already made your choice for this game.');
+                return false;
+            }
+
+            // Update choice for this player
             $this->game_model->update_game_secondary_choice($input->game_id, $input->choice);
         }
 
