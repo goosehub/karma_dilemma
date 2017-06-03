@@ -12,9 +12,15 @@
         <div class="col-md-8">
             <h2>How it works</h2>
             <p>Coming Soon</p>
-            <a href="<?=base_url()?>games_on_auction" class="btn btn-action">Games on Auction</a>
-            <a href="<?=base_url()?>started_games" class="btn btn-action">Started Games</a>
-            <a href="<?=base_url()?>api_docs" class="btn btn-action">API Documentation</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="<?=base_url()?>games_on_auction" class="btn btn-action form-control">Games on Auction</a> <br>
+                    <?php if ($user) { ?>
+                    <a href="<?=base_url()?>started_games" class="btn btn-action form-control">Started Games</a> <br>
+                    <?php } ?>
+                    <a href="<?=base_url()?>api_docs" class="btn btn-action form-control">API Documentation</a> <br>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-4">

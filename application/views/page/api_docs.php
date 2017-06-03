@@ -12,14 +12,17 @@
 <pre><code>?api=true</code></pre>
 
 <?php if ($user) { ?>
-<p>This is your User ID and API Key.</p>
+<p>This is your User ID and API Key. All examples on this page use this information.</p>
 <p><strong>user_id:</strong> <code><?php echo $user['id']; ?></code></p>
 <p><strong>api_key:</strong> <code><?php echo $user['api_key']; ?></code></p>
 <?php } else { ?>
+<!-- Set these for documentation population -->
+<?php $user['id'] = 1; ?>
+<?php $user['api_key'] = '3c2b3fec3de9939d6c111b5782a67992'; ?>
 <p>Login or Register to see your User ID and API Key.</p>
 <p>
-	<a class="btn btn-primary" href="http://localhost/theory/?logged_out=true">Login</a>
-	<a class="btn btn-action" href="http://localhost/theory/">Register</a>
+	<a class="btn btn-primary" href="<?=base_url()?>?logged_out=true">Login</a>
+	<a class="btn btn-action" href="<?=base_url()?>">Register</a>
 </p>
 <?php } ?>
 
@@ -29,20 +32,35 @@
 
 <h3>Getting list of games on auction</h3>
 
+<strong>Path</strong>
+<pre><code><?=base_url()?>games_on_auction/?api=true</code></pre>
+
 <strong>JSON to POST</strong>
 <pre><code>{
-  "user_key": 1,
-  "3c2b3fec3de9939d6c111b5782a67992": "Hello World"
+  "user_id": <?php echo $user['id']; ?>,
+  "api_key": "<?php echo $user['api_key']; ?>"
 } </code></pre>
 
 <strong>Terminal</strong>
-<pre><code>curl -H "Content-Type: application/json" -X GET http://localhost/theory/games_on_auction?api=true </code></pre>
+<pre><code>curl -H "Content-Type: application/json" -X GET <?=base_url()?>games_on_auction?api=true </code></pre>
 
 <strong>Javascript</strong>
-<pre><code>var url = 'http://localhost/theory/games_on_auction?api=true';
+<pre><code>// Action
+var path = 'games_on_auction';
+var url = '<?=base_url()?>' + path + '/?api=true';
+
+// Create JSON POST
+var data = {};
+data.user_id = <?php echo $user['id']; ?>;
+data.api_key = '<?php echo $user['api_key']; ?>';
+
+// Make API Call
 var xhr = new XMLHttpRequest();
-xhr.open('GET', url, false);
-xhr.send(null);
+xhr.open('POST', url, false);
+xhr.setRequestHeader('Content-Type', 'application/javascript; charset=UTF-8');
+xhr.send(JSON.stringify(data));
+
+// Get response
 var response = JSON.parse(xhr.responseText);
 if (response.error) {
 	console.log(response.error_code + ' - ' + response.error_message);
@@ -50,10 +68,9 @@ if (response.error) {
 console.log(response); </code></pre>
 
 <strong>PHP with CURL</strong>
-<pre><code>// Create URL
-$base_url = 'http://localhost/theory/';
-$action = 'games_on_auction';
-$url = $base_url . $action . '?api=true';
+<pre><code>// Action
+$path = 'games_on_auction';
+$url = '<?=base_url()?>' . $path . '/?api=true';
 
 // Make API Call
 $ch = curl_init();
@@ -70,28 +87,39 @@ var_dump($response); </code></pre>
 
 <h3>Bidding 50 on game with id of 3</h3>
 
+<strong>Path</strong>
+<pre><code><?=base_url()?>game/bid/?api=true</code></pre>
+
 <strong>JSON to POST</strong>
 <pre><code>{
-  "user_key": 1,
-  "3c2b3fec3de9939d6c111b5782a67992": "Hello World",
+  "user_id": <?php echo $user['id']; ?>,
+  "api_key": "<?php echo $user['api_key']; ?>",
   "game_id": 3,
   "amount": 50
 } </code></pre>
 
 <strong>Terminal</strong>
-<pre><code>curl -H "Content-Type: application/json" -X POST -d '{"user_id":"1","api_key":"3c2b3fec3de9939d6c111b5782a67992","game_id":3,"amount":50}' http://localhost/theory/game/bid/?api=true </code></pre>
+<pre><code>curl -H "Content-Type: application/json" -X POST -d '{"user_id":"<?php echo $user['id']; ?>","api_key":"<?php echo $user['api_key']; ?>","game_id":3,"amount":50}' <?=base_url()?>game/bid/?api=true </code></pre>
 
 <strong>Javascript</strong>
-<pre><code>var url = 'http://localhost/theory/game/bid/?api=true';
+<pre><code>// Action
+$path = 'game/bid';
+var url = '<?=base_url()?>' + $path + '/?api=true';
+
+// Create JSON POST
 var data = {};
-data.user_id = 1;
-data.api_key = '3c2b3fec3de9939d6c111b5782a67992';
+data.user_id = <?php echo $user['id']; ?>;
+data.api_key = '<?php echo $user['api_key']; ?>';
 data.game_id = 3;
 data.amount = 50;
+
+// Make API Call
 var xhr = new XMLHttpRequest();
 xhr.open('POST', url, false);
 xhr.setRequestHeader('Content-Type', 'application/javascript; charset=UTF-8');
 xhr.send(JSON.stringify(data));
+
+// Get response
 var response = JSON.parse(xhr.responseText);
 if (response.error) {
 	console.log(response.error_code + ' - ' + response.error_message);
@@ -99,15 +127,14 @@ if (response.error) {
 console.log(response); </code></pre>
 
 <strong>PHP with CURL</strong>
-<pre><code>// Create URL
-$base_url = 'http://localhost/theory/';
-$action = 'game/bid/';
-$url = $base_url . $action . '?api=true';
+<pre><code>// Action
+$path = 'game/bid';
+$url = '<?=base_url()?>' . $path . '/?api=true';
 
 // Create JSON POST
 $data = array();
-$data['user_id'] = 1;
-$data['api_key'] = '3c2b3fec3de9939d6c111b5782a67992';
+$data['user_id'] = <?php echo $user['id']; ?>;
+$data['api_key'] = '<?php echo $user['api_key']; ?>';
 $data['game_id'] = 3;
 $data['amount'] = 50;
 $post = json_encode($data);
@@ -137,7 +164,7 @@ var_dump($response); </code></pre>
 </ul>
 
 <h3>Get games on auction</h3>
-<pre><code>/games_on_auction?api=true</code></pre>
+<pre><code>/games_on_auction/?api=true</code></pre>
 <ul>
 	<li>Does not require authentication.</li>
 	<li>Does not require post parameters.</li>
@@ -159,7 +186,6 @@ var_dump($response); </code></pre>
 	</div>
 </div>
 
-
 <script src="<?=base_url()?>resources/highlightjs/highlightjs-9.4.0.min.js"></script>
 <script>
 // Include highlightjs main css
@@ -178,7 +204,9 @@ var link  = document.createElement('link');
 link.id   = 'highlight_css';
 link.rel  = 'stylesheet';
 link.type = 'text/css';
-link.href = '<?=base_url()?>resources/highlightjs/styles/tomorrow-night-eighties.css';
+// link.href = '<?=base_url()?>resources/highlightjs/styles/tomorrow-night-eighties.css';
+// link.href = '<?=base_url()?>resources/highlightjs/styles/tomorrow-night.css';
+link.href = '<?=base_url()?>resources/highlightjs/styles/paraiso-dark.css';
 link.media = 'all';
 head.appendChild(link);
 
