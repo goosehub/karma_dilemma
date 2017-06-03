@@ -116,7 +116,7 @@ class Cron extends CI_Controller {
         if (!$run_crontab) {
             return false;
         }
-        echo 'Finish Game - ' . time() . '<br>';
+        echo 'Finish Games - ' . time() . '<br>';
 
         // Get games to finish
         $games = $this->game_model->get_games_by_status_and_age($started = true, $finished = false, GAME_TIME_MINUTES);
