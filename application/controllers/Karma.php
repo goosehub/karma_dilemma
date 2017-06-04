@@ -53,7 +53,7 @@ class Karma extends CI_Controller {
 
         $karma_bid = $this->karma_model->get_highest_bid_on_karma($karma['id']);
 
-        if ($input->amount <= $karma_bid) {
+        if ($input->amount <= $karma_bid['amount']) {
             echo api_error_response('higher_karma_bid_exists', 'A higher bid for this karma exists.');
             return false;
         }

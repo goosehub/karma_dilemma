@@ -27,7 +27,7 @@ class Cron extends CI_Controller {
         // $this->finish_games();
         // $this->start_games();
         // $this->create_games();
-        // $this->finish_karma_auctions();
+        $this->finish_karma_auctions();
         $this->create_karma();
         echo 'End of Cron - ' . time() . '<br>';
     }
@@ -168,6 +168,16 @@ class Cron extends CI_Controller {
             return false;
         }
         echo 'Finish Karma Auctions - ' . time() . '<br>';
+
+        $karma_on_auction = $this->karma_model->get_karma_on_auction();
+
+        foreach ($karma_on_auction as $karma) {
+            $karma_bid = $this->karma_model->get_highest_bid_on_karma($karma['id']);
+            if ($karma_bid['created'] < date('Y-m-d H:i:s', time() - 60 * KARMA_AUCTION_TIME_BETWEEN_BIDS_MINUTES)) {
+                $this->karma_model->finish_karma_auction($karma['id'], $karma_bid['user_key']);
+                $this->karma_model->update_user_karma_owned($karma_bid['user_key'], $karma['type'], 1);
+            }
+        }
         
     }
 

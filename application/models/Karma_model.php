@@ -45,7 +45,7 @@ Class karma_model extends CI_Model
         $this->db->limit(1);
         $query = $this->db->get();
         $result = $query->result_array();
-        return isset($result[0]['amount']) ? $result[0]['amount'] : 0;
+        return isset($result[0]) ? $result[0] : 0;
     }
     function get_karma_bids_by_user_in_last_day($user_key)
     {
@@ -75,6 +75,26 @@ Class karma_model extends CI_Model
         $query = $this->db->get();
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
+    }
+    function finish_karma_auction($karma_key, $user_key)
+    {
+        $data = array(
+            'sold_flag' => 1,
+            'buyer_user_key' => $user_key,
+        );
+        $this->db->where('id', $karma_key);
+        $this->db->update('karma', $data);
+    }
+    function update_user_karma_owned($user_key, $karma_type, $karma_change)
+    {
+        if ($karma_type) {
+            $this->db->set('owned_positive_karma', 'owned_positive_karma+' . $karma_change, FALSE);
+        }
+        else {
+            $this->db->set('owned_negative_karma', 'owned_negative_karma+' . $karma_change, FALSE);
+        }
+        $this->db->where('id', $user_key);
+        $this->db->update('user');
     }
 
 }
