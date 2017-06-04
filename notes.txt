@@ -3,18 +3,22 @@ game theory
 	names
 dilemma
 
-	misc todo
-regen auth token
-show api on user ui?
-game has already started while scrolling
-finish game on both players explicit choice
+	high priority
+leaderboard
+UI
 auctions based on user activity
+api throttling
+	low priority
+regen auth token
+rename karma terminology
+finish game on both players explicit choice
 performance bottleneck testing
 put more view logic in controllers
 
 	explain these ui
+handle auctions expiring with ui
 easy to read matrix UI
-karma owned vs have
+karma available vs have
 bid start at -100 to 100
 2/3rd median bid wins
 
@@ -22,9 +26,7 @@ bid start at -100 to 100
 start with score of 0
 score can go negative
 each negative score removes a bid that can be made in a day
-auth post params as alternative to session
-on json get param dump data
-can do x bids a day (1440, once per minute)
+can do x bids a day
 
 	game auction
 for every x bids in x minutes, create a game
@@ -52,24 +54,6 @@ finished games list
 karma auction list
 leaderboard view
 account view
-
-	leaderboard
-timeframe
-high or low
-username
-id
-created
-last seen
-score
-games total
-bids total
-karma total
-karma positive
-karma negative
-karma ratio
-karma total owned
-karma positive owned
-karma negative owned
 
 	api documentation
 how to authenticate
@@ -112,8 +96,8 @@ user
 	username
 	avatar
 	score
-	owned_positive_karma
-	owned_negative_karma
+	available_positive_karma
+	available_negative_karma
 	positive_karma
 	negative_karma
 request

@@ -11,6 +11,8 @@ define('MAX_GAME_BIDS', 1500); // Maximum number of game bids in a day
 define('MIN_GAME_BIDS', 15); // Minimum number of game bids in a day
 define('MAX_KARMA_BIDS', 3000); // Maximum number of karma bids in a day
 define('MIN_KARMA_BIDS', 30); // Minimum number of karma bids in a day
+define('DEFAULT_LEADERBOARD_LIMIT', 100); // Maximum rows to get for leaderboard call
+define('MAX_LEADERBOARD_LIMIT', 100); // Maximum rows to get for leaderboard call
 
 // User Auth
 define('PASSWORD_OVERRIDE', false); // Dev and emergency use only

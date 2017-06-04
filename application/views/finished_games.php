@@ -72,7 +72,7 @@
                 <p>You are playing with <?php echo $other_player['username']; ?></p>
                 <p>Joined: <?php echo date('Y-m-d H:i:s', strtotime($other_player['created'])); ?></p>
                 <p>Games Played: <?php echo $other_player['games_played']; ?></p>
-                <p>Karma Owned: <?php echo $other_player['owned_positive_karma']; ?> / <?php echo $other_player['owned_negative_karma']; ?></p>
+                <p>Karma Available: <?php echo $other_player['available_positive_karma']; ?> / <?php echo $other_player['available_negative_karma']; ?></p>
                 <p>Karma: <?php echo $other_player['positive_karma']; ?> / <?php echo $other_player['negative_karma']; ?></p>
             </div>
             <form class="reward_revenge_parent" action="<?=base_url()?>game/bid/<?php echo $game['id']; ?>" method="post">

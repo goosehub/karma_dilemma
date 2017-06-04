@@ -15,8 +15,6 @@
             <hr>
 
             <?php foreach ($karma_on_auction as $karma) { ?>
-
-            <?php var_dump($karma); ?>
             
             <?php if ($user) { ?>
             <form class="karma_bid_parent" action="<?=base_url()?>karma/bid/" method="post">

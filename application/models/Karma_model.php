@@ -85,7 +85,7 @@ Class karma_model extends CI_Model
         $this->db->where('id', $karma_key);
         $this->db->update('karma', $data);
     }
-    function update_user_karma_owned($user_key, $karma_type, $karma_change, $increment)
+    function update_user_karma_available($user_key, $karma_type, $karma_change, $increment)
     {
         if ($increment) {
             $math_sign = '+';
@@ -94,10 +94,10 @@ Class karma_model extends CI_Model
             $math_sign = '-';
         }
         if ($karma_type) {
-            $this->db->set('owned_positive_karma', 'owned_positive_karma' . $math_sign . $karma_change, FALSE);
+            $this->db->set('available_positive_karma', 'available_positive_karma' . $math_sign . $karma_change, FALSE);
         }
         else {
-            $this->db->set('owned_negative_karma', 'owned_negative_karma' . $math_sign . $karma_change, FALSE);
+            $this->db->set('available_negative_karma', 'available_negative_karma' . $math_sign . $karma_change, FALSE);
         }
         $this->db->where('id', $user_key);
         $this->db->update('user');

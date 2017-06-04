@@ -199,6 +199,34 @@ class Main extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
+    public function leaderboard($column = 'score', $sort = 'DESC', $limit = DEFAULT_LEADERBOARD_LIMIT, $offset = 0)
+    {
+        $data['column'] = $column;
+        $data['sort'] = $sort;
+        $data['limit'] = $limit;
+        $data['offset'] = $offset;
+
+        if ($limit > MAX_LEADERBOARD_LIMIT) {
+            echo api_error_response('leaderboard_limit_too_high', 'Your limit parameter must be ' . MAX_LEADERBOARD_LIMIT . ' or less.');
+            return false;
+        }
+
+        // Get leaders
+        $data['leaders'] = $this->game_model->get_leaderboard($column, $sort, $limit, $offset);
+
+        // Return here for API
+        if ($this->input->get('api')) {
+            echo api_response($data);
+            return false;
+        }
+
+        // Load view
+        $data['page_title'] = site_name();
+        $this->load->view('templates/header', $data);
+        $this->load->view('leaderboard', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
     public function api_docs()
     {
         // Authentication

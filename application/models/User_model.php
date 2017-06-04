@@ -5,7 +5,7 @@ Class user_model extends CI_Model
 {
     function get_all_users()
     {
-        $this->db->select('id, username, avatar, created, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
+        $this->db->select('id, username, avatar, created, score, available_positive_karma, available_negative_karma, positive_karma, negative_karma');
         $this->db->from('user');
         $query = $this->db->get();
         $result = $query->result_array();
@@ -48,7 +48,7 @@ Class user_model extends CI_Model
     }
     function get_user_by_id($user_id)
     {
-        $this->db->select('id, username, avatar, created, score, owned_positive_karma, owned_negative_karma, positive_karma, negative_karma');
+        $this->db->select('id, username, avatar, created, score, available_positive_karma, available_negative_karma, positive_karma, negative_karma');
         $this->db->from('user');
         $this->db->where('id', $user_id);
         $this->db->limit(1);
@@ -125,8 +125,8 @@ Class user_model extends CI_Model
             'avatar' => $avatar,
             'last_load' => date('Y-m-d H:i:s'),
             'score' => 0,
-            'owned_positive_karma' => 0,
-            'owned_negative_karma' => 0,
+            'available_positive_karma' => 0,
+            'available_negative_karma' => 0,
             'positive_karma' => 0,
             'negative_karma' => 0,
             );

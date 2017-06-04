@@ -24,9 +24,9 @@ class Cron extends CI_Controller {
         }
 
         echo 'Start of Cron - ' . time() . '<br>';
-        // $this->finish_games();
-        // $this->start_games();
-        // $this->create_games();
+        $this->finish_games();
+        $this->start_games();
+        $this->create_games();
         $this->finish_karma_auctions();
         $this->create_karma();
         echo 'End of Cron - ' . time() . '<br>';
@@ -189,7 +189,7 @@ class Cron extends CI_Controller {
                 $this->game_model->update_user_score($karma_bid['user_key'], $karma_bid['amount'], false);
 
                 // Add karma
-                $this->karma_model->update_user_karma_owned($karma_bid['user_key'], $karma['type'], 1, true);
+                $this->karma_model->update_user_karma_available($karma_bid['user_key'], $karma['type'], 1, true);
 
                 // Add payment to seller if exists
                 if ($karma['seller_user_key']) {

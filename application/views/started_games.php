@@ -51,14 +51,14 @@
                 <p>You are playing with <?php echo $other_player['username']; ?></p>
                 <p>Joined: <?php echo date('Y-m-d H:i:s', strtotime($other_player['created'])); ?></p>
                 <p>Games Played: <?php echo $other_player['games_played']; ?></p>
-                <p>Karma Owned: <?php echo $other_player['owned_positive_karma']; ?> / <?php echo $other_player['owned_negative_karma']; ?></p>
+                <p>Karma Available: <?php echo $other_player['available_positive_karma']; ?> / <?php echo $other_player['available_negative_karma']; ?></p>
                 <p>Karma: <?php echo $other_player['positive_karma']; ?> / <?php echo $other_player['negative_karma']; ?></p>
             </div>
             <form class="game_choice_parent" action="<?=base_url()?>game/bid/<?php echo $game['id']; ?>" method="post">
                 <input class="game_id" name="game_id" type="hidden" value="<?php echo $game['id']; ?>">
                 <p>You are the <span class="<?php echo $player_class; ?>"><?php echo ucfirst($current_player_type); ?></span></p>
-                <button class="game_choice_button btn btn-primary" value="0" type="button">Do Nothing</button>
-                <button class="game_choice_button btn btn-primary" value="1" type="button">Take Action</button>
+                <button class="game_choice_button btn btn-success" value="0" type="button">Do Nothing</button>
+                <button class="game_choice_button btn btn-danger" value="1" type="button">Take Action</button>
             </form>
 
             <?php } ?>

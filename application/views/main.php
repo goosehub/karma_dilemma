@@ -14,6 +14,7 @@
             <p>Coming Soon</p>
             <div class="row">
                 <div class="col-md-6">
+                    <a href="<?=base_url()?>leaderboard" class="btn btn-action form-control">Leaderboard</a> <br>
                     <a href="<?=base_url()?>games_on_auction" class="btn btn-action form-control">Games on Auction</a> <br>
                     <a href="<?=base_url()?>karma_on_auction" class="btn btn-action form-control">Karma on Auction</a> <br>
                     <?php if ($user) { ?>
@@ -41,8 +42,8 @@
                     </div>
                     <div class="col-sm-8">
                         <p class="text-primary">Score: <strong class="pull-right"><?php echo $user['score']; ?></strong></p>
-                        <p class="text-success">Positive Karma Owned:<strong class="pull-right"> <?php echo $user['owned_positive_karma']; ?></strong></p>
-                        <p class="text-danger">Negative Karma Owned:<strong class="pull-right"> <?php echo $user['owned_negative_karma']; ?></strong></p>
+                        <p class="text-success">Positive Karma Available:<strong class="pull-right"> <?php echo $user['available_positive_karma']; ?></strong></p>
+                        <p class="text-danger">Negative Karma Available:<strong class="pull-right"> <?php echo $user['available_negative_karma']; ?></strong></p>
                         <p class="text-success">Positive Karma: <strong class="pull-right"><?php echo $user['positive_karma']; ?></strong></p>
                         <p class="text-danger">Negative Karma: <strong class="pull-right"><?php echo $user['negative_karma']; ?></strong></p>
                     </div>
