@@ -4,11 +4,9 @@ game theory
 dilemma
 
 	high priority
-leaderboard
-UI
-auctions based on user activity
-api throttling
+UI/UX
 	low priority
+api throttling
 api to route instead of get param
 regen auth token
 rename karma terminology

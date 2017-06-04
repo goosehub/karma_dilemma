@@ -23,13 +23,13 @@ class Cron extends CI_Controller {
             return false;
         }
 
-        echo 'Start of Cron - ' . time() . '<br>';
+        echo '<h1>Start of Cron - ' . time() . '</h1>';
         $this->finish_games();
         $this->start_games();
         $this->create_games();
         $this->finish_karma_auctions();
         $this->create_karma();
-        echo 'End of Cron - ' . time() . '<br>';
+        echo '<h1>End of Cron - ' . time() . '</h1>';
     }
 
     public function create_games()
@@ -41,15 +41,19 @@ class Cron extends CI_Controller {
         if (!$run_crontab) {
             return false;
         }
-        echo 'Create Games - ' . time() . '<br>';
+        echo '<h2>Create Games - ' . time() . '</h2>';
 
+        // Create games based on users currently bidding
+        $users_count = $this->game_model->get_count_of_users_currently_bidding(MINUTES_TO_GET_GAME_BID_ACTIVITY);
+        $games_to_create = GAME_AUCTIONS_TO_HAVE_ACTIVE_PER_ACTIVE_USER * $users_count;
+
+        // Create a minimum of games to have on auction
         $games_on_auction = $this->game_model->get_games_by_status($started_flag = false, $finished_flag = false);
+        if ($games_on_auction < MIN_GAME_AUCTIONS_TO_HAVE_ACTIVE) {
+            $games_to_create = MIN_GAME_AUCTIONS_TO_HAVE_ACTIVE;
+        }
 
-        // Create games
-        $games_to_create = GAME_AUCTIONS_TO_HAVE_ACTIVE - count($games_on_auction);
         for ($i = 0; $i < $games_to_create; $i++) {
-            echo '<hr> Creating game and payoffs - ' . time() . '<br>';
-
             // Create game
             $game_key = $this->game_model->insert_game();
 
@@ -66,6 +70,8 @@ class Cron extends CI_Controller {
             $primary_choice = 1;
             $secondary_choice = 1;
             $this->create_payoff($game_key, $primary_choice, $secondary_choice);
+
+            echo '<hr> Game Created - ' . time() . '<br>';
         }
     }
 
@@ -78,7 +84,7 @@ class Cron extends CI_Controller {
         if (!$run_crontab) {
             return false;
         }
-        echo 'Start Games - ' . time() . '<br>';
+        echo '<h2>Start Games - ' . time() . '</h2>';
 
         // Get games to start
         $games = $this->game_model->get_games_by_status_and_age($started = false, $finished = false, GAME_AUCTION_TIME_MINUTES);
@@ -90,7 +96,6 @@ class Cron extends CI_Controller {
             if (count($bids) < 2) {
                 continue;
             }
-            echo 'Starting Game - ' . time() . '<br>';
 
             // Sort and set data
             $sorted_bids = sort_array($bids, 'amount', SORT_ASC);
@@ -107,6 +112,8 @@ class Cron extends CI_Controller {
 
             // Start game
             $this->game_model->start_game($game['id'], $primary_user_key, $secondary_user_key);
+
+            echo 'Game Started - ' . time() . '<br>';
         }
     }
 
@@ -119,13 +126,12 @@ class Cron extends CI_Controller {
         if (!$run_crontab) {
             return false;
         }
-        echo 'Finish Games - ' . time() . '<br>';
+        echo '<h2>Finish Games - ' . time() . '</h2>';
 
         // Get games to finish
         $games = $this->game_model->get_games_by_status_and_age($started = true, $finished = false, GAME_TIME_MINUTES);
 
         foreach ($games as $game) {
-            echo 'Finishing Game - ' . time() . '<br>';
             // Get payoff
             $payoff = $this->game_model->get_game_payoff_by_choices_and_game_key($game['primary_choice'], $game['secondary_choice'], $game['id']);
 
@@ -135,6 +141,8 @@ class Cron extends CI_Controller {
 
             // Finish game
             $this->game_model->finish_game($game['id']);
+
+            echo 'Game Finished - ' . time() . '<br>';
         }
     }
 
@@ -147,14 +155,27 @@ class Cron extends CI_Controller {
         if (!$run_crontab) {
             return false;
         }
-        echo 'Create Karma - ' . time() . '<br>';
+        echo '<h2>Create Karma - ' . time() . '</h2>';
 
+        // Create games based on users currently bidding
+        $users_count = $this->game_model->get_count_of_users_currently_bidding(MINUTES_TO_GET_GAME_BID_ACTIVITY);
+        $karma_to_create = KARMA_AUCTIONS_TO_HAVE_ACTIVE_PER_ACTIVE_USER * $users_count;
+
+        // Create a minimum of games to have on auction
         $karma_on_auction = $this->karma_model->get_karma_on_auction();
+        if ($karma_on_auction < MIN_KARMA_AUCTIONS_TO_HAVE_ACTIVE) {
+            $karma_to_create = MIN_KARMA_AUCTIONS_TO_HAVE_ACTIVE;
+        }
 
-        $karma_to_create = KARMA_AUCTIONS_TO_HAVE_ACTIVE - count($karma_on_auction);
+        // Loop to create karma
         for ($i = 0; $i < $karma_to_create; $i++) {
+            // Random Type
             $karma_type = rand(0,1);
+
+            // Create Karma
             $this->karma_model->insert_karma($karma_type, $seller_user_key = 0);
+
+            echo 'Karma Created - ' . time() . '<br>';
         }
     }
 
@@ -167,7 +188,7 @@ class Cron extends CI_Controller {
         if (!$run_crontab) {
             return false;
         }
-        echo 'Finish Karma Auctions - ' . time() . '<br>';
+        echo '<h2>Finish Karma Auctions - ' . time() . '</h2>';
 
         // Get all karma on auction
         $karma_on_auction = $this->karma_model->get_karma_on_auction();
@@ -198,6 +219,8 @@ class Cron extends CI_Controller {
 
                 // Finish auction
                 $this->karma_model->finish_karma_auction($karma['id'], $karma_bid['user_key']);
+            
+                echo 'Karma Auction Created - ' . time() . '<br>';
             }
         }
         

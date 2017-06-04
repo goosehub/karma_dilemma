@@ -195,6 +195,17 @@ Class game_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
+    function get_count_of_users_currently_bidding($minutes_ago)
+    {
+        $minutes_ago = (int) $minutes_ago;
+        $this->db->select('COUNT(*) as user_count');
+        $this->db->from('game_bid');
+        $this->db->where('created >', date('Y-m-d H:i:s', time() - ($minutes_ago * 60) ) );
+        $this->db->group_by('user_key');
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return isset($result[0]['user_count']) ? $result[0]['user_count'] : 0;
+    }
     function get_leaderboard($column, $sort, $limit, $offset)
     {
         if (strtoupper($sort) != 'ASC' && strtoupper($sort) != 'DESC') {

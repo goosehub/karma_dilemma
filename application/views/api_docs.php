@@ -57,7 +57,7 @@ data.amount = 50;
 // Perform API Call
 var xhr = new XMLHttpRequest();
 xhr.open('POST', url, false);
-xhr.setRequestHeader('Content-Type', 'application/javascript; charset=UTF-8');
+xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 xhr.send(JSON.stringify(data));
 
 // Get Response
