@@ -24,62 +24,7 @@
 
 <p>Send your User ID, API Key, and any other paramters in a JSON POST request to the desired API path.</p>
 
-<h2>Examples</h2>
-
-<h3>Getting list of games on auction</h3>
-
-<h4>Path</h4>
-<pre><code><?=base_url()?>games_on_auction/?api=true</code></pre>
-
-<h4>JSON POST Request</h4>
-<pre><code>{
-  "user_id": <?php echo $user['id']; ?>,
-  "api_key": "<?php echo $user['api_key']; ?>"
-} </code></pre>
-
-<h4>Terminal</h4>
-<pre><code>curl -H "Content-Type: application/json" -X GET <?=base_url()?>games_on_auction?api=true </code></pre>
-
-<h4>Javascript</h4>
-<pre><code>// Create URL
-var path = 'games_on_auction';
-var url = '<?=base_url()?>' + path + '/?api=true';
-
-// Create JSON POST
-var data = {};
-data.user_id = <?php echo $user['id']; ?>;
-data.api_key = '<?php echo $user['api_key']; ?>';
-
-// Perform API Call
-var xhr = new XMLHttpRequest();
-xhr.open('POST', url, false);
-xhr.setRequestHeader('Content-Type', 'application/javascript; charset=UTF-8');
-xhr.send(JSON.stringify(data));
-
-// Get Response
-var response = JSON.parse(xhr.responseText);
-if (response.error) {
-	console.log(response.error_code + ' - ' + response.error_message);
-}
-console.log(response); </code></pre>
-
-<h4>PHP</h4>
-<pre><code>// Create URL
-$path = 'games_on_auction';
-$url = '<?=base_url()?>' . $path . '/?api=true';
-
-// Perform API Call
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$raw_response = curl_exec($ch);
-
-// Get Response
-$response = json_decode($raw_response);
-if ($response->error) {
-    echo $response->error_code . ' - ' . $response->error_message;
-}
-var_dump($response); </code></pre>
+<h2>Example</h2>
 
 <h3>Bidding 50 on game with id of 3</h3>
 
