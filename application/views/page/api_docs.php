@@ -22,7 +22,7 @@
 </p>
 <?php } ?>
 
-<p>Send your User ID, API Key, and any other paramters in a JSON POST request to the desired API path.</p>
+<p>Send your User ID, API Key, and any other paramters in a JSON POST request to the desired API path. API returns JSON. Check success or error bool in response to see if call succeeded. On error true, error_code and error_message will also be provided.</p>
 
 <h2>Example</h2>
 

@@ -39,6 +39,21 @@ $(document).ready(function(){
 		$(this).parent('.game_bid_parent').hide();
 	});
 
+	$('.karma_bid_submit').click(function(e){
+		var bid_value = $(this).parent('.karma_bid_parent').find('.karma_bid_value_label').html();
+		var karma_id = $(this).parent('.karma_bid_parent').find('.karma_bid_karma_id').val();
+
+		var data = {};
+		data.karma_id = parseInt(karma_id);
+		data.amount = parseInt(bid_value);
+		var karma_bid_url = base_url + 'karma/bid/';
+		ajax_post(karma_bid_url, data, false);
+	});
+
+	$('.karma_bid_input').change(function(){
+		$(this).parent('.karma_bid_parent').find('.karma_bid_value_label').html($(this).val());
+	});
+
 	$('.game_choice_button').click(function(e){
 		var choice = $(this).val();
 		var game_id = $(this).parent('.game_choice_parent').find('.game_id').val();

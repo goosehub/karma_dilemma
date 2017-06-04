@@ -48,7 +48,7 @@ Class game_model extends CI_Model
         $result = $query->result_array();
         return $result;
     }
-    function insert_bid($game_key, $user_key, $amount)
+    function insert_game_bid($game_key, $user_key, $amount)
     {
         $data = array(
             'game_key' => $game_key,
@@ -77,7 +77,7 @@ Class game_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
     }
-    function get_bids_by_user_in_last_day($user_key)
+    function get_game_bids_by_user_in_last_day($user_key)
     {
         $this->db->select('*');
         $this->db->from('game_bid');
@@ -108,6 +108,18 @@ Class game_model extends CI_Model
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
+    }
+    function count_games_by_status_and_user_key($started_flag, $finished_flag, $user_key)
+    {
+        $this->db->select('COUNT(*) as games_played');
+        $this->db->from('game');
+        $this->db->where('started_flag', $started_flag);
+        $this->db->where('finished_flag', $finished_flag);
+        $this->db->where('primary_user_key', $user_key);
+        $this->db->or_where('secondary_user_key', $user_key);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return isset($result[0]['games_played']) ? $result[0]['games_played'] : 0;
     }
     function get_games_by_status_and_age($started_flag, $finished_flag, $minutes_ago)
     {

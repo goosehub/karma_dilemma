@@ -38,16 +38,25 @@
             </table>
 
             <?php
-            $current_player = 'Primary';
+            $current_player_type = 'primary';
             $player_class = 'text-primary';
+            $other_player = $game['secondary_player'];
             if ($game['secondary_player']['id'] === $user['id']) {
-                $current_player = 'Secondary';
+                $other_player = $game['primary_player'];
+                $current_player_type = 'secondary';
                 $player_class = 'text-danger';
             }
             ?>
+            <div class="other_player_info_parent">
+                <p>You are playing with <?php echo $other_player['username']; ?></p>
+                <p>Joined: <?php echo date('Y-m-d H:i:s', strtotime($other_player['created'])); ?></p>
+                <p>Games Played: <?php echo $other_player['games_played']; ?></p>
+                <p>Karma Owned: <?php echo $other_player['owned_positive_karma']; ?> / <?php echo $other_player['owned_negative_karma']; ?></p>
+                <p>Karma: <?php echo $other_player['positive_karma']; ?> / <?php echo $other_player['negative_karma']; ?></p>
+            </div>
             <form class="game_choice_parent" action="<?=base_url()?>game/bid/<?php echo $game['id']; ?>" method="post">
                 <input class="game_id" name="game_id" type="hidden" value="<?php echo $game['id']; ?>">
-                <p>You are the <span class="<?php echo $player_class; ?>"><?php echo $current_player; ?></span></p>
+                <p>You are the <span class="<?php echo $player_class; ?>"><?php echo ucfirst($current_player_type); ?></span></p>
                 <button class="game_choice_button btn btn-primary" value="0" type="button">Do Nothing</button>
                 <button class="game_choice_button btn btn-primary" value="1" type="button">Take Action</button>
             </form>

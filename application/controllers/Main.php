@@ -9,6 +9,7 @@ class Main extends CI_Controller {
         $this->load->model('main_model', '', TRUE);
         $this->load->model('user_model', '', TRUE);
         $this->load->model('game_model', '', TRUE);
+        $this->load->model('karma_model', '', TRUE);
 
         $this->main_model->record_request();
     }
@@ -84,9 +85,8 @@ class Main extends CI_Controller {
             return false;
         }
 
-        $data['started_games'] = $this->game_model->get_games_by_status_and_user_key($started_flag = true, $finished_flag = false, $data['user']['id']);
-        foreach ($data['started_games'] as $key => &$game)
-        {
+        $data['started_games'] = $this->game_model->get_games_by_status_and_user_key(true, false, $data['user']['id']);
+        foreach ($data['started_games'] as $key => &$game) {
             $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
 
             if ($game['primary_user_key'] === $data['user']['id']) {
@@ -111,6 +111,9 @@ class Main extends CI_Controller {
             }
         }
 
+        $game['primary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $game['primary_player']['id']);
+        $game['secondary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $game['secondary_player']['id']);
+
 
         // Return here for API
         if ($this->input->get('api')) {
@@ -123,6 +126,29 @@ class Main extends CI_Controller {
         $data['page_title'] = 'Started Games';
         $this->load->view('templates/header', $data);
         $this->load->view('started_games', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function karma_on_auction()
+    {
+        $data['user'] = $this->user_model->get_this_user();
+
+        $data['karma_on_auction'] = $this->karma_model->get_karma_on_auction();
+        foreach ($data['karma_on_auction'] as &$karma) {
+            $karma['bids'] = $this->karma_model->get_bids_by_karma($karma['id']);
+        }
+
+        // Return here for API
+        if ($this->input->get('api')) {
+            unset($data['user']);
+            echo api_response($data);
+            return false;
+        }
+
+        // Load view
+        $data['page_title'] = 'Karma on Auction';
+        $this->load->view('templates/header', $data);
+        $this->load->view('karma_on_auction', $data);
         $this->load->view('templates/footer', $data);
     }
 

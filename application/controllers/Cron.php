@@ -7,6 +7,7 @@ class Cron extends CI_Controller {
         parent::__construct();
         $this->load->model('main_model', '', TRUE);
         $this->load->model('game_model', '', TRUE);
+        $this->load->model('karma_model', '', TRUE);
         
         $this->main_model->record_request();
     }
@@ -23,9 +24,11 @@ class Cron extends CI_Controller {
         }
 
         echo 'Start of Cron - ' . time() . '<br>';
-        $this->finish_games();
-        $this->start_games();
-        $this->create_games();
+        // $this->finish_games();
+        // $this->start_games();
+        // $this->create_games();
+        // $this->finish_karma_auctions();
+        $this->create_karma();
         echo 'End of Cron - ' . time() . '<br>';
     }
 
@@ -133,6 +136,39 @@ class Cron extends CI_Controller {
             // Finish game
             $this->game_model->finish_game($game['id']);
         }
+    }
+
+    public function create_karma()
+    {
+        // Check if it's time to run
+        $crontab = '* * * * *'; // Every minute
+        $now = date('Y-m-d H:i:s');
+        $run_crontab = parse_crontab($now, $crontab);
+        if (!$run_crontab) {
+            return false;
+        }
+        echo 'Create Karma - ' . time() . '<br>';
+
+        $karma_on_auction = $this->karma_model->get_karma_on_auction();
+
+        $karma_to_create = KARMA_AUCTIONS_TO_HAVE_ACTIVE - count($karma_on_auction);
+        for ($i = 0; $i < $karma_to_create; $i++) {
+            $karma_type = rand(0,1);
+            $this->karma_model->insert_karma($karma_type);
+        }
+    }
+
+    public function finish_karma_auctions()
+    {
+        // Check if it's time to run
+        $crontab = '* * * * *'; // Every minute
+        $now = date('Y-m-d H:i:s');
+        $run_crontab = parse_crontab($now, $crontab);
+        if (!$run_crontab) {
+            return false;
+        }
+        echo 'Finish Karma Auctions - ' . time() . '<br>';
+        
     }
 
     public function create_payoff($game_key, $primary_choice, $secondary_choice)

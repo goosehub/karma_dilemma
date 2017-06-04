@@ -8,13 +8,14 @@ regen auth token
 show api on user ui?
 game has already started while scrolling
 finish game on both players explicit choice
+auctions based on user activity
 
-explain these ui
-	easy to read matrix UI
-	karma owned vs have
-	bid start at -100 to 100
-	2/3rd median bid wins
-	
+	explain these ui
+easy to read matrix UI
+karma owned vs have
+bid start at -100 to 100
+2/3rd median bid wins
+
 	users
 start with score of 0
 score can go negative

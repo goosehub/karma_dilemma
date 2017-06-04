@@ -5,6 +5,7 @@ $route['default_controller'] = 'main';
 
 // Views
 $route['games_on_auction'] = 'main/games_on_auction';
+$route['karma_on_auction'] = 'main/karma_on_auction';
 $route['started_games'] = 'main/started_games';
 $route['api_docs'] = 'main/api_docs';
 

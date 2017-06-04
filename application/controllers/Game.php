@@ -58,7 +58,7 @@ class Game extends CI_Controller {
             return false;
         }
 
-        $bids_in_last_day = $this->game_model->get_bids_by_user_in_last_day($user['id']);
+        $bids_in_last_day = $this->game_model->get_game_bids_by_user_in_last_day($user['id']);
 
         if (count($bids_in_last_day) >= MAX_GAME_BIDS) {
             echo api_error_response('global_maximum_game_bids', 'You have reached the global limit of ' . MAX_GAME_BIDS . ' bids in a day.');
@@ -74,11 +74,11 @@ class Game extends CI_Controller {
         }
         
         if (count($bids_in_last_day) >= $user_bid_limit) {
-            echo api_error_response('user_maximum_game_bids', 'Your score is negative and you\'ve reached your limit of ' . $user_bid_limit . ' bids in a day. As your score rises, you\'ll be able to make more bids.');
+            echo api_error_response('user_maximum_game_bids', 'Your score is negative and you\'ve reached your limit of ' . $user_bid_limit . ' game bids in a day. As your score rises, you\'ll be able to make more bids.');
             return false;
         }
 
-        $this->game_model->insert_bid($input->game_id, $user['id'], $input->amount);
+        $this->game_model->insert_game_bid($input->game_id, $user['id'], $input->amount);
 
         echo api_response();
     }

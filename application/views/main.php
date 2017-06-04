@@ -15,6 +15,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <a href="<?=base_url()?>games_on_auction" class="btn btn-action form-control">Games on Auction</a> <br>
+                    <a href="<?=base_url()?>karma_on_auction" class="btn btn-action form-control">Karma on Auction</a> <br>
                     <?php if ($user) { ?>
                     <a href="<?=base_url()?>started_games" class="btn btn-action form-control">Started Games</a> <br>
                     <?php } ?>

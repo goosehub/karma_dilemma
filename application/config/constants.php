@@ -4,9 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // Game
 define('GAME_AUCTIONS_TO_HAVE_ACTIVE', 20); // How many games to have on auction at all times
 define('GAME_AUCTION_TIME_MINUTES', 1); // How long a game should be on auction 
+define('KARMA_AUCTIONS_TO_HAVE_ACTIVE', 3); // How many karmas to have on auction at all times
+define('KARMA_AUCTION_TIME_MINUTES', 1); // How long a karma should be on auction 
 define('GAME_TIME_MINUTES', 10); // How long a game should last 
-define('MAX_GAME_BIDS', 1500); // Maximum number of bids in a day
-define('MIN_GAME_BIDS', 15); // Minimum number of bids in a day
+define('MAX_GAME_BIDS', 1500); // Maximum number of game bids in a day
+define('MIN_GAME_BIDS', 15); // Minimum number of game bids in a day
+define('MAX_KARMA_BIDS', 3000); // Maximum number of karma bids in a day
+define('MIN_KARMA_BIDS', 30); // Minimum number of karma bids in a day
 
 // User Auth
 define('PASSWORD_OVERRIDE', false); // Dev and emergency use only
