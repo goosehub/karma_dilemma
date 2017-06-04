@@ -7,12 +7,8 @@
 
 <h2>Basics</h2>
 
-<p>Always include in your requests a GET parameter with key of api and value of true.</p>
-
-<pre><code>?api=true</code></pre>
-
 <?php if ($user) { ?>
-<p>This is your User ID and API Key. All examples on this page use this information.</p>
+<p>This is your User ID and API Key. All examples on this page are populated with information.</p>
 <p><strong>user_id:</strong> <code><?php echo $user['id']; ?></code></p>
 <p><strong>api_key:</strong> <code><?php echo $user['api_key']; ?></code></p>
 <?php } else { ?>
@@ -26,26 +22,26 @@
 </p>
 <?php } ?>
 
-<p>Send your User ID and API Key in your JSON POST request along with any parameters to the path as shown in the examples below.</p>
+<p>Send your User ID, API Key, and any other paramters in a JSON POST request to the desired API path.</p>
 
 <h2>Examples</h2>
 
 <h3>Getting list of games on auction</h3>
 
-<strong>Path</strong>
+<h4>Path</h4>
 <pre><code><?=base_url()?>games_on_auction/?api=true</code></pre>
 
-<strong>JSON to POST</strong>
+<h4>JSON POST Request</h4>
 <pre><code>{
   "user_id": <?php echo $user['id']; ?>,
   "api_key": "<?php echo $user['api_key']; ?>"
 } </code></pre>
 
-<strong>Terminal</strong>
+<h4>Terminal</h4>
 <pre><code>curl -H "Content-Type: application/json" -X GET <?=base_url()?>games_on_auction?api=true </code></pre>
 
-<strong>Javascript</strong>
-<pre><code>// Action
+<h4>Javascript</h4>
+<pre><code>// Create URL
 var path = 'games_on_auction';
 var url = '<?=base_url()?>' + path + '/?api=true';
 
@@ -54,31 +50,31 @@ var data = {};
 data.user_id = <?php echo $user['id']; ?>;
 data.api_key = '<?php echo $user['api_key']; ?>';
 
-// Make API Call
+// Perform API Call
 var xhr = new XMLHttpRequest();
 xhr.open('POST', url, false);
 xhr.setRequestHeader('Content-Type', 'application/javascript; charset=UTF-8');
 xhr.send(JSON.stringify(data));
 
-// Get response
+// Get Response
 var response = JSON.parse(xhr.responseText);
 if (response.error) {
 	console.log(response.error_code + ' - ' + response.error_message);
 }
 console.log(response); </code></pre>
 
-<strong>PHP with CURL</strong>
-<pre><code>// Action
+<h4>PHP</h4>
+<pre><code>// Create URL
 $path = 'games_on_auction';
 $url = '<?=base_url()?>' . $path . '/?api=true';
 
-// Make API Call
+// Perform API Call
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $raw_response = curl_exec($ch);
 
-// Get response
+// Get Response
 $response = json_decode($raw_response);
 if ($response->error) {
     echo $response->error_code . ' - ' . $response->error_message;
@@ -87,10 +83,10 @@ var_dump($response); </code></pre>
 
 <h3>Bidding 50 on game with id of 3</h3>
 
-<strong>Path</strong>
+<h4>Path</h4>
 <pre><code><?=base_url()?>game/bid/?api=true</code></pre>
 
-<strong>JSON to POST</strong>
+<h4>JSON POST Request</h4>
 <pre><code>{
   "user_id": <?php echo $user['id']; ?>,
   "api_key": "<?php echo $user['api_key']; ?>",
@@ -98,11 +94,11 @@ var_dump($response); </code></pre>
   "amount": 50
 } </code></pre>
 
-<strong>Terminal</strong>
+<h4>Terminal</h4>
 <pre><code>curl -H "Content-Type: application/json" -X POST -d '{"user_id":"<?php echo $user['id']; ?>","api_key":"<?php echo $user['api_key']; ?>","game_id":3,"amount":50}' <?=base_url()?>game/bid/?api=true </code></pre>
 
-<strong>Javascript</strong>
-<pre><code>// Action
+<h4>Javascript</h4>
+<pre><code>// Create URL
 $path = 'game/bid';
 var url = '<?=base_url()?>' + $path + '/?api=true';
 
@@ -113,21 +109,21 @@ data.api_key = '<?php echo $user['api_key']; ?>';
 data.game_id = 3;
 data.amount = 50;
 
-// Make API Call
+// Perform API Call
 var xhr = new XMLHttpRequest();
 xhr.open('POST', url, false);
 xhr.setRequestHeader('Content-Type', 'application/javascript; charset=UTF-8');
 xhr.send(JSON.stringify(data));
 
-// Get response
+// Get Response
 var response = JSON.parse(xhr.responseText);
 if (response.error) {
 	console.log(response.error_code + ' - ' + response.error_message);
 }
 console.log(response); </code></pre>
 
-<strong>PHP with CURL</strong>
-<pre><code>// Action
+<h4>PHP</h4>
+<pre><code>// Create URL
 $path = 'game/bid';
 $url = '<?=base_url()?>' . $path . '/?api=true';
 
@@ -139,7 +135,7 @@ $data['game_id'] = 3;
 $data['amount'] = 50;
 $post = json_encode($data);
 
-// Make API Call
+// Perform API Call
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -147,7 +143,7 @@ curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 $raw_response = curl_exec($ch);
 
-// Get response
+// Get Response
 $response = json_decode($raw_response);
 if ($response->error) {
     echo $response->error_code . ' - ' . $response->error_message;
@@ -156,31 +152,26 @@ var_dump($response); </code></pre>
 
 <h2>Paths</h2>
 
-<h3>Get your own user information</h3>
+<h3>Get your user information</h3>
 <pre><code>/?api=true</code></pre>
 <ul>
-	<li>Requires authentication.</li>
-	<li>Does not require post parameters.</li>
 </ul>
 
-<h3>Get games on auction</h3>
+<h3>Get all games currently on auction</h3>
 <pre><code>/games_on_auction/?api=true</code></pre>
 <ul>
-	<li>Does not require authentication.</li>
-	<li>Does not require post parameters.</li>
 </ul>
 
-<h3>Make bid on game</h3>
+<h3>Create a bid for a game on auction</h3>
 <pre><code>/game/bid/?api=true</code></pre>
 <ul>
-	<li>Requires authentication.</li>
-	<li>Requires post parameter <code>game_id</code>. Must be a positive integer. Must be the id of the game you're bidding on.</li>
-	<li>Requires post parameter <code>amount</code>. Must be between an integer -100 and 100.</li>
+	<li>Requires POST parameter <code>game_id</code>. Must be a positive integer.</li>
+	<li>Requires POST parameter <code>amount</code>. Must be between an integer -100 and 100.</li>
 </ul>
 
 <h2>Existing bots</h2>
 
-<p>If you make a bot for this game, send me a GitHub link at goosepostbox@gmail.com and I'll feature it here.</p>
+<p>If you have a bot for this game, send the GitHub link to goosepostbox@gmail.com and I'll feature it here.</p>
 
 		</div>
 	</div>
