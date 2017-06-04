@@ -9,6 +9,7 @@ UI
 auctions based on user activity
 api throttling
 	low priority
+api to route instead of get param
 regen auth token
 rename karma terminology
 finish game on both players explicit choice

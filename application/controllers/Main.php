@@ -129,7 +129,7 @@ class Main extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
-    public function finished_games()
+    public function finished_games($limit = DEFAULT_FINISHED_GAMES_LIMIT, $offset = 0)
     {
         $data['user'] = $this->user_model->get_this_user();
         if (!$data['user']) {
@@ -138,7 +138,7 @@ class Main extends CI_Controller {
             return false;
         }
 
-        $data['finished_games'] = $this->game_model->get_games_by_status_and_user_key(true, true, $data['user']['id']);
+        $data['finished_games'] = $this->game_model->get_games_by_status_and_user_key(true, true, $data['user']['id'], $limit, $offset);
         foreach ($data['finished_games'] as $key => &$game) {
             $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
 
@@ -183,6 +183,7 @@ class Main extends CI_Controller {
         $data['karma_on_auction'] = $this->karma_model->get_karma_on_auction();
         foreach ($data['karma_on_auction'] as &$karma) {
             $karma['bids'] = $this->karma_model->get_bids_by_karma($karma['id']);
+            $karma['highest_bid'] = isset($karma['bids'][0]['amount']) ? (int) $karma['bids'][0]['amount'] : 0;
         }
 
         // Return here for API
@@ -247,7 +248,7 @@ class Main extends CI_Controller {
         // Load view
         $data['page_title'] = site_name();
         $this->load->view('templates/header', $data);
-        $this->load->view('page/api_docs', $data);
+        $this->load->view('api_docs', $data);
         $this->load->view('templates/footer', $data);
     }
 }

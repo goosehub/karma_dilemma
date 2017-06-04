@@ -97,7 +97,7 @@ Class game_model extends CI_Model
         $result = $query->result_array();
         return $result;
     }
-    function get_games_by_status_and_user_key($started_flag, $finished_flag, $user_key)
+    function get_games_by_status_and_user_key($started_flag, $finished_flag, $user_key, $limit = 100, $offset = 0)
     {
         $this->db->select('*');
         $this->db->from('game');
@@ -105,6 +105,8 @@ Class game_model extends CI_Model
         $this->db->where('finished_flag', $finished_flag);
         $this->db->where('primary_user_key', $user_key);
         $this->db->or_where('secondary_user_key', $user_key);
+        $this->db->limit($limit);
+        $this->db->offset($offset);
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;

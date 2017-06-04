@@ -18,9 +18,10 @@
             
             <?php if ($user) { ?>
             <form class="karma_bid_parent" action="<?=base_url()?>karma/bid/" method="post">
+                <strong>Karma Type: <?php echo $karma['type'] ? 'Positive' : 'Negative'; ?></strong>
                 <input class="karma_bid_karma_id" name="karma_id" type="hidden" value="<?php echo $karma['id']; ?>">
-                <input class="karma_bid_input form-control" type="range" name="bid" min="1" max="100" value="1">
-                <span class="karma_bid_value_label">1</span>
+                <input class="karma_bid_input form-control" type="range" name="bid" min="1" max="100" value="<?php echo $karma['highest_bid'] + 1; ?>">
+                <span class="karma_bid_value_label"><?php echo $karma['highest_bid'] + 1; ?></span>
                 <button class="karma_bid_submit" type="button">Make this bid</button>
             </form>
             <hr>

@@ -34,8 +34,8 @@ class Karma extends CI_Controller {
             return false;
         }
 
-        if ($input->amount > 100 || $input->amount < -100) {
-            echo api_error_response('game_bid_amount_out_of_range', 'Your bid amount was not between -100 and 100.');
+        if ($input->amount > 100 || $input->amount < 0) {
+            echo api_error_response('game_bid_amount_out_of_range', 'Your bid amount was not between 0 and 100.');
             return false;
         }
 
@@ -54,7 +54,7 @@ class Karma extends CI_Controller {
         $karma_bid = $this->karma_model->get_highest_bid_on_karma($karma['id']);
 
         if ($input->amount <= $karma_bid['amount']) {
-            echo api_error_response('higher_karma_bid_exists', 'A higher bid for this karma exists.');
+            echo api_error_response('higher_karma_bid_exists', 'A higher or equal bid for this karma now exists.');
             return false;
         }
 
@@ -101,6 +101,11 @@ class Karma extends CI_Controller {
 
         if ($input->type != 0 && $input->type != 1) {
             echo api_error_response('game_choice_out_of_range', 'Your choice must be 0 or 1.');
+            return false;
+        }
+
+        if ($user['id'] === $input->other_player_user_id) {
+            echo api_error_response('other_player_user_id_is_current_player', 'You can not give yourself karma.');
             return false;
         }
 

@@ -107,11 +107,63 @@ var_dump($response); </code></pre>
 <ul>
 </ul>
 
+<h3>Get your started games</h3>
+<pre><code>/started_games/?api=true</code></pre>
+<ul>
+</ul>
+
+<h3>Get your finished games</h3>
+<pre><code>/finished_games/?api=true</code></pre>
+<ul>
+</ul>
+
+<h3>Get karma currently on auction</h3>
+<pre><code>/games_on_auction/?api=true</code></pre>
+<ul>
+</ul>
+
 <h3>Create a bid for a game on auction</h3>
 <pre><code>/game/bid/?api=true</code></pre>
 <ul>
 	<li>Requires POST parameter <code>game_id</code>. Must be a positive integer.</li>
 	<li>Requires POST parameter <code>amount</code>. Must be between an integer -100 and 100.</li>
+</ul>
+
+<h3>Play a game by sending your choice</h3>
+<pre><code>/game/play/?api=true</code></pre>
+<ul>
+	<li>Requires POST parameter <code>game_id</code>. Must be a positive integer.</li>
+	<li>Requires POST parameter <code>choice</code>. Must be either 0 or 1.</li>
+</ul>
+
+<h3>Create a bid for a karma on auction</h3>
+<pre><code>/karma/bid/?api=true</code></pre>
+<ul>
+	<li>Requires POST parameter <code>karma_id</code>. Must be a positive integer.</li>
+	<li>Requires POST parameter <code>amount</code>. Must be between an integer 0 and 100.</li>
+</ul>
+
+<h3>Give another user karma</h3>
+<pre><code>/karma/give/?api=true</code></pre>
+<ul>
+	<li>Requires POST parameter <code>type</code>. Must be either 0 or 1.</li>
+	<li>Requires POST parameter <code>other_player_user_id</code>. Must be a positive integer.</li>
+</ul>
+
+<h3>Sell karma by putting it up on auction</h3>
+<pre><code>/karma/sell/?api=true</code></pre>
+<ul>
+	<li>Requires POST parameter <code>type</code>. Must be either 0 or 1.</li>
+</ul>
+
+<h3>Get the leaderboard</h3>
+<pre><code>leaderboard/$1/$2/$3/$4/?api=true</code></pre>
+<ul>
+	<li><code>$1</code> is the column you want to sort by.</li>
+	<li><code>$2</code> is the direct you want to sort. You can pass ASC or DESC.</li>
+	<li><code>$3</code> is the limit. The maximum value is <?php echo MAX_LEADERBOARD_LIMIT; ?>.</li>
+	<li><code>$4</code> is the offset.</li>
+	<li>All these parameters are optional. By default it returns top 100 score leaders.</li>
 </ul>
 
 <h2>Existing bots</h2>
