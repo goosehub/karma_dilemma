@@ -54,6 +54,23 @@ $(document).ready(function(){
 		$(this).parent('.karma_bid_parent').find('.karma_bid_value_label').html($(this).val());
 	});
 
+	$('.reward_button').click(function(e){
+		give_karma(1);
+	});
+	$('.revenge_button').click(function(e){
+		give_karma(0);
+	});
+
+	function give_karma(type) {
+		var other_player_user_id = $('#other_player_user_id').val();
+		var game_bid_url = base_url + 'game/play/';
+		var data = {};
+		data.other_player_user_id = parseInt(other_player_user_id);
+		data.type = type;
+		var karma_give_url = base_url + 'karma/give/';
+		ajax_post(karma_give_url, data);
+	}
+
 	$('.game_choice_button').click(function(e){
 		var choice = $(this).val();
 		var game_id = $(this).parent('.game_choice_parent').find('.game_id').val();

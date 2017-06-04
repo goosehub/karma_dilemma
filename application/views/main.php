@@ -18,6 +18,7 @@
                     <a href="<?=base_url()?>karma_on_auction" class="btn btn-action form-control">Karma on Auction</a> <br>
                     <?php if ($user) { ?>
                     <a href="<?=base_url()?>started_games" class="btn btn-action form-control">Started Games</a> <br>
+                    <a href="<?=base_url()?>finished_games" class="btn btn-action form-control">Finished Games</a> <br>
                     <?php } ?>
                     <a href="<?=base_url()?>api_docs" class="btn btn-action form-control">API Documentation</a> <br>
                 </div>

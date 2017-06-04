@@ -7,6 +7,7 @@ $route['default_controller'] = 'main';
 $route['games_on_auction'] = 'main/games_on_auction';
 $route['karma_on_auction'] = 'main/karma_on_auction';
 $route['started_games'] = 'main/started_games';
+$route['finished_games'] = 'main/finished_games';
 $route['api_docs'] = 'main/api_docs';
 
 // Cron

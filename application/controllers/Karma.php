@@ -42,12 +42,12 @@ class Karma extends CI_Controller {
         $karma = $this->karma_model->get_karma_by_id($input->karma_id);
 
         if (empty($karma)) {
-            echo api_error_response('karma_bid_amount_out_of_range', 'karma with that id was not found.');
+            echo api_error_response('karma_bid_amount_out_of_range', 'Karma with that id was not found.');
             return false;
         }
 
         if ($karma['sold_flag']) {
-            echo api_error_response('karma_auction_has_ended', 'karma auction has ended.');
+            echo api_error_response('karma_auction_has_ended', 'Karma auction has ended.');
             return false;
         }
 
@@ -79,6 +79,34 @@ class Karma extends CI_Controller {
         }
 
         $this->karma_model->insert_karma_bid($input->karma_id, $user['id'], $input->amount);
+
+        echo api_response();
+    }
+
+    public function give()
+    {
+        $user = $this->user_model->get_this_user();
+
+        if (!$user) {
+            echo api_error_response('user_auth', 'You must be logged in or authenticated with the API to take this action.');
+            return false;
+        }
+
+        $input = get_json_post(true);
+
+        if (!is_int($input->other_player_user_id) || $input->other_player_user_id < 0) {
+            echo api_error_response('other_player_user_id_not_positive_int', 'Other player user id was not a positive int.');
+            return false;
+        }
+
+        if ($input->type != 0 && $input->type != 1) {
+            echo api_error_response('game_choice_out_of_range', 'Your choice must be 0 or 1.');
+            return false;
+        }
+
+        $this->karma_model->update_user_karma_owned($input->other_player_user_id, $input->type, 1, true);
+        $this->karma_model->update_user_karma_owned($user['id'], $input->type, 1, false);
+        $this->karma_model->update_user_karma($input->other_player_user_id, $input->type, 1);
 
         echo api_response();
     }

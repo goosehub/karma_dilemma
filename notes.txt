@@ -9,6 +9,8 @@ show api on user ui?
 game has already started while scrolling
 finish game on both players explicit choice
 auctions based on user activity
+performance bottleneck testing
+put more view logic in controllers
 
 	explain these ui
 easy to read matrix UI

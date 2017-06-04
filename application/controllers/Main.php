@@ -129,6 +129,53 @@ class Main extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
+    public function finished_games()
+    {
+        $data['user'] = $this->user_model->get_this_user();
+        if (!$data['user']) {
+            $this->output->set_status_header(401);
+            echo 'Must be logged in';
+            return false;
+        }
+
+        $data['finished_games'] = $this->game_model->get_games_by_status_and_user_key(true, true, $data['user']['id']);
+        foreach ($data['finished_games'] as $key => &$game) {
+            $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
+
+            foreach ($game['payoffs'] as $key => &$payoff) {
+                $payoff['choosen_payoff'] = false;
+                if ($game['primary_choice'] === $payoff['primary_choice'] && $game['secondary_choice'] === $payoff['secondary_choice']) {
+                    $payoff['choosen_payoff'] = true;
+                }
+            }
+
+            if ($game['primary_user_key'] === $data['user']['id']) {
+                $game['primary_player'] = $data['user'];
+                $game['secondary_player'] = $this->user_model->get_user_by_id($game['secondary_user_key']);
+            }
+            else {
+                $game['primary_player'] = $this->user_model->get_user_by_id($game['primary_user_key']);
+                $game['secondary_player'] = $data['user'];
+            }
+        }
+
+        $game['primary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $game['primary_player']['id']);
+        $game['secondary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $game['secondary_player']['id']);
+
+        // Return here for API
+        if ($this->input->get('api')) {
+            unset($data['user']);
+            echo api_response($data);
+            return false;
+        }
+
+        // Load view
+        $data['page_title'] = 'Finished Games';
+        $this->load->view('templates/header', $data);
+        $this->load->view('finished_games', $data);
+        $this->load->view('templates/footer', $data);
+    }
+
     public function karma_on_auction()
     {
         $data['user'] = $this->user_model->get_this_user();
