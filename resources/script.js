@@ -61,9 +61,24 @@ $(document).ready(function(){
 		give_karma(0);
 	});
 
+	$('.sell_positive_karma').click(function(){
+		sell_karma(1);
+	});
+
+	$('.sell_negative_karma').click(function(){
+		sell_karma(0);
+	});
+
+	function sell_karma(type) {
+		var data = {};
+		data.type = type;
+		var karma_sell_url = base_url + 'karma/sell/';
+		ajax_post(karma_sell_url, data);
+	}
+
 	function give_karma(type) {
 		var other_player_user_id = $('#other_player_user_id').val();
-		var game_bid_url = base_url + 'game/play/';
+
 		var data = {};
 		data.other_player_user_id = parseInt(other_player_user_id);
 		data.type = type;

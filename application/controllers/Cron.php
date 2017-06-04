@@ -102,8 +102,8 @@ class Cron extends CI_Controller {
             $secondary_user_bid = $sorted_bids[$two_thirds_median_bid_index]['amount'];
 
             // Update user scores
-            $this->game_model->update_user_score($primary_user_key, $primary_user_bid);
-            $this->game_model->update_user_score($secondary_user_key, $secondary_user_bid);
+            $this->game_model->update_user_score($primary_user_key, $primary_user_bid, true);
+            $this->game_model->update_user_score($secondary_user_key, $secondary_user_bid, true);
 
             // Start game
             $this->game_model->start_game($game['id'], $primary_user_key, $secondary_user_key);
@@ -130,8 +130,8 @@ class Cron extends CI_Controller {
             $payoff = $this->game_model->get_game_payoff_by_choices_and_game_key($game['primary_choice'], $game['secondary_choice'], $game['id']);
 
             // Update user scores
-            $this->game_model->update_user_score($game['primary_user_key'], $payoff['primary_payoff']);
-            $this->game_model->update_user_score($game['secondary_user_key'], $payoff['secondary_payoff']);
+            $this->game_model->update_user_score($game['primary_user_key'], $payoff['primary_payoff'], true);
+            $this->game_model->update_user_score($game['secondary_user_key'], $payoff['secondary_payoff'], true);
 
             // Finish game
             $this->game_model->finish_game($game['id']);
@@ -154,7 +154,7 @@ class Cron extends CI_Controller {
         $karma_to_create = KARMA_AUCTIONS_TO_HAVE_ACTIVE - count($karma_on_auction);
         for ($i = 0; $i < $karma_to_create; $i++) {
             $karma_type = rand(0,1);
-            $this->karma_model->insert_karma($karma_type);
+            $this->karma_model->insert_karma($karma_type, $seller_user_key = 0);
         }
     }
 
@@ -169,13 +169,35 @@ class Cron extends CI_Controller {
         }
         echo 'Finish Karma Auctions - ' . time() . '<br>';
 
+        // Get all karma on auction
         $karma_on_auction = $this->karma_model->get_karma_on_auction();
 
+        // Foreach Karma
         foreach ($karma_on_auction as $karma) {
+
+            // Get highest bid
             $karma_bid = $this->karma_model->get_highest_bid_on_karma($karma['id']);
-            if ($karma_bid['created'] < date('Y-m-d H:i:s', time() - 60 * KARMA_AUCTION_TIME_BETWEEN_BIDS_MINUTES)) {
+            if (!$karma_bid) {
+                continue;
+            }
+
+            // If time since last bid is long enough
+            if (strtotime($karma_bid['created']) < time() - 60 * KARMA_AUCTION_TIME_BETWEEN_BIDS_MINUTES) {
+                echo 'Finish Karma Auction - ' . time() . '<br>';
+
+                // Subtract payment
+                $this->game_model->update_user_score($karma_bid['user_key'], $karma_bid['amount'], false);
+
+                // Add karma
+                $this->karma_model->update_user_karma_owned($karma_bid['user_key'], $karma['type'], 1, true);
+
+                // Add payment to seller if exists
+                if ($karma['seller_user_key']) {
+                    $this->game_model->update_user_score($karma['seller_user_key'], $karma_bid['amount'], true);
+                }
+
+                // Finish auction
                 $this->karma_model->finish_karma_auction($karma['id'], $karma_bid['user_key']);
-                $this->karma_model->update_user_karma_owned($karma_bid['user_key'], $karma['type'], 1);
             }
         }
         

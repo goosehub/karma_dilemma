@@ -5,13 +5,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class karma_model extends CI_Model
 {
-    function insert_karma($type)
+    function insert_karma($type, $seller_user_key)
     {
         $data = array(
             'resale_flag' => 0,
             'sold_flag' => 0,
             'buyer_user_key' => 0,
-            'seller_user_key' => 0,
+            'seller_user_key' => $seller_user_key,
             'type' => $type,
         );
         $this->db->insert('karma', $data);
@@ -45,7 +45,7 @@ Class karma_model extends CI_Model
         $this->db->limit(1);
         $query = $this->db->get();
         $result = $query->result_array();
-        return isset($result[0]) ? $result[0] : 0;
+        return isset($result[0]) ? $result[0] : false;
     }
     function get_karma_bids_by_user_in_last_day($user_key)
     {

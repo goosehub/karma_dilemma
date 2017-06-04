@@ -49,9 +49,6 @@ karma can be reauctioned
 unstarted games list
 started games list
 finished games list
-unstarted game view
-started game view
-finished game view
 karma auction list
 leaderboard view
 account view

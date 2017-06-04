@@ -170,9 +170,15 @@ Class game_model extends CI_Model
         $this->db->where('id', $game_key);
         $this->db->update('game', $data);
     }
-    function update_user_score($user_key, $score_change)
+    function update_user_score($user_key, $score_change, $increment)
     {
-        $this->db->set('score', 'score+' . $score_change, FALSE);
+        if ($increment) {
+            $math_sign = '+';
+        }
+        else {
+            $math_sign = '-';
+        }
+        $this->db->set('score', 'score' . $math_sign . $score_change, FALSE);
         $this->db->where('id', $user_key);
         $this->db->update('user');
     }

@@ -104,11 +104,60 @@ class Karma extends CI_Controller {
             return false;
         }
 
+        if ($input->type) {
+            if ($user['owned_positive_karma'] < 1) {
+                echo api_error_response('not_enough_positive_karma', 'You do not have any positive karma to give.');
+                return false;
+            }
+        }
+        else {
+            if ($user['owned_negative_karma'] < 1) {
+                echo api_error_response('not_enough_negative_karma', 'You do not have any negative karma to give.');
+                return false;
+            }
+        }
+
         $this->karma_model->update_user_karma_owned($input->other_player_user_id, $input->type, 1, true);
         $this->karma_model->update_user_karma_owned($user['id'], $input->type, 1, false);
         $this->karma_model->update_user_karma($input->other_player_user_id, $input->type, 1);
 
         echo api_response();
+    }
+
+    function sell()
+    {
+        $user = $this->user_model->get_this_user();
+
+        if (!$user) {
+            echo api_error_response('user_auth', 'You must be logged in or authenticated with the API to take this action.');
+            return false;
+        }
+
+        $input = get_json_post(true);
+
+        if ($input->type != 0 && $input->type != 1) {
+            echo api_error_response('game_choice_out_of_range', 'Your choice must be 0 or 1.');
+            return false;
+        }
+
+        if ($input->type) {
+            if ($user['owned_positive_karma'] < 1) {
+                echo api_error_response('not_enough_positive_karma', 'You do not have any positive karma to give.');
+                return false;
+            }
+        }
+        else {
+            if ($user['owned_negative_karma'] < 1) {
+                echo api_error_response('not_enough_negative_karma', 'You do not have any negative karma to give.');
+                return false;
+            }
+        }
+
+        $this->karma_model->update_user_karma_owned($user['id'], $input->type, 1, false);
+        $this->karma_model->insert_karma($input->type, $user['id']);
+
+        echo api_response();
+
     }
 
 }
