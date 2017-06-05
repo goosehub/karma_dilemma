@@ -24,7 +24,17 @@ class Karma extends CI_Controller {
 
         $input = get_json_post(true);
 
-        if (!is_int($input->karma_id) || $input->karma_id < 0) {
+        if (!isset($input->karma_id)) {
+            echo api_error_response('karma_id_missing', 'Karma id is a required parameter and was not provided.');
+            return false;
+        }
+
+        if (!isset($input->amount)) {
+            echo api_error_response('amount', 'Amount is arequired parameter and was not provided.');
+            return false;
+        }
+
+        if (!is_int($input->karma_id) || $input->karma_id < 1) {
             echo api_error_response('karma_id_not_positive_int', 'Your karma id was not a positive int.');
             return false;
         }
@@ -94,7 +104,17 @@ class Karma extends CI_Controller {
 
         $input = get_json_post(true);
 
-        if (!is_int($input->other_player_user_id) || $input->other_player_user_id < 0) {
+        if (!isset($input->other_player_user_id)) {
+            echo api_error_response('other_player_user_id_missing', 'Other player user id is a required parameter and was not provided.');
+            return false;
+        }
+
+        if (!isset($input->type)) {
+            echo api_error_response('type', 'Type is a required parameter and was not provided.');
+            return false;
+        }
+
+        if (!is_int($input->other_player_user_id) || $input->other_player_user_id < 1) {
             echo api_error_response('other_player_user_id_not_positive_int', 'Other player user id was not a positive int.');
             return false;
         }
@@ -139,6 +159,11 @@ class Karma extends CI_Controller {
         }
 
         $input = get_json_post(true);
+
+        if (!isset($input->type)) {
+            echo api_error_response('type', 'Type is a required parameter and was not provided.');
+            return false;
+        }
 
         if ($input->type != 0 && $input->type != 1) {
             echo api_error_response('game_choice_out_of_range', 'Your choice must be 0 or 1.');

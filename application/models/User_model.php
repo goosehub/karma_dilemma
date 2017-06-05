@@ -19,7 +19,7 @@ Class user_model extends CI_Model
         // Get user by session
         if ($this->session->userdata('user_session')) {
             $session_data = $this->session->userdata('user_session');
-            $user = $this->user_model->get_user_by_id($session_data['id']);
+            $user = $this->user_model->get_user_extended_by_id($session_data['id']);
             if (!isset($user['username'])) {
                 redirect('user/logout', 'refresh');
                 exit();
@@ -29,7 +29,7 @@ Class user_model extends CI_Model
         }
 
         // Get user by api key
-        else if ($this->input->get('api')) {
+        else if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
             $input = get_json_post(false);
             if (isset($input->user_id) && isset($input->api_key)) {
                 $user_auth = $this->user_model->get_user_auth_by_id($input->user_id);
@@ -38,7 +38,7 @@ Class user_model extends CI_Model
                     echo api_error_response('bad_auth', 'Your user_id, api_key combination was incorrect');
                     exit();
                 }
-                $user = $this->get_user_by_id($user_auth['id']);
+                $user = $this->get_user_extended_by_id($user_auth['id']);
                 $this->user_loaded($user['id']);
             }
         }
@@ -55,6 +55,31 @@ Class user_model extends CI_Model
         $query = $this->db->get();
         $result = $query->result_array();
         return isset($result[0]) ? $result[0] : false;
+    }
+    function get_user_extended_by_id($user_id)
+    {
+        $this->db->select('
+            user.id,
+            user.username,
+            user.avatar,
+            user.score,
+            user.available_positive_karma,
+            user.available_negative_karma,
+            user.positive_karma,
+            user.negative_karma,
+            SUM(user.available_positive_karma + user.available_negative_karma) as total_available_karma,
+            SUM(positive_karma + negative_karma) as total_karma,
+            SUM(CASE WHEN `available_positive_karma` = 1 then 1 else 0 end)/COUNT(*) AS available_karma_ratio,
+            SUM(CASE WHEN `positive_karma` = 1 then 1 else 0 end)/COUNT(*) AS karma_ratio,
+            (SELECT COUNT(*) FROM game WHERE game.primary_user_key = user.id OR game.secondary_user_key = user.id) AS games_played,
+            user.last_load,
+            user.created as created
+        ');
+        $this->db->from('user');
+        $this->db->group_by('id');
+        $query = $this->db->get();
+        $result = $query->result_array();
+            return isset($result[0]) ? $result[0] : false;
     }
     function get_user_auth_by_id($user_id)
     {

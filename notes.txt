@@ -5,14 +5,16 @@ dilemma
 
 	high priority
 UI/UX
-	low priority
-api throttling
-api to route instead of get param
-regen auth token
-rename karma terminology
+tutorial
 finish game on both players explicit choice
+bool get unstarted games you haven't bid on
+bool get started games you haven't made a choice on
+	low priority
+positive/negative to good/bad
+api throttling
+regen auth token
+forgot password
 performance bottleneck testing
-put more view logic in controllers
 
 	explain these ui
 handle auctions expiring with ui

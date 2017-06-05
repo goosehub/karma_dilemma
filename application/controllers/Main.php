@@ -25,9 +25,9 @@ class Main extends CI_Controller {
             $data['user']['api_key'] = $user_auth['api_key'];
         }
 
-        // Return here for API
-        if ($this->input->get('api')) {
-            echo api_response($data);
+        // Return error for API
+        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
+            echo api_error_response('no_api_path_provided', 'You did not include a path in your api call.');
             return false;
         }
 
@@ -63,7 +63,7 @@ class Main extends CI_Controller {
         }
 
         // Return here for API
-        if ($this->input->get('api')) {
+        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
             unset($data['user']);
             echo api_response($data);
             return false;
@@ -97,7 +97,7 @@ class Main extends CI_Controller {
                 }
 
                 $game['primary_player'] = $data['user'];
-                $game['secondary_player'] = $this->user_model->get_user_by_id($game['secondary_user_key']);
+                $game['secondary_player'] = $this->user_model->get_user_extended_by_id($game['secondary_user_key']);
             }
             else {
                 // Skip game if user already made a choice
@@ -106,7 +106,7 @@ class Main extends CI_Controller {
                     continue;
                 }
 
-                $game['primary_player'] = $this->user_model->get_user_by_id($game['primary_user_key']);
+                $game['primary_player'] = $this->user_model->get_user_extended_by_id($game['primary_user_key']);
                 $game['secondary_player'] = $data['user'];
             }
         }
@@ -116,7 +116,7 @@ class Main extends CI_Controller {
 
 
         // Return here for API
-        if ($this->input->get('api')) {
+        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
             unset($data['user']);
             echo api_response($data);
             return false;
@@ -151,10 +151,10 @@ class Main extends CI_Controller {
 
             if ($game['primary_user_key'] === $data['user']['id']) {
                 $game['primary_player'] = $data['user'];
-                $game['secondary_player'] = $this->user_model->get_user_by_id($game['secondary_user_key']);
+                $game['secondary_player'] = $this->user_model->get_user_extended_by_id($game['secondary_user_key']);
             }
             else {
-                $game['primary_player'] = $this->user_model->get_user_by_id($game['primary_user_key']);
+                $game['primary_player'] = $this->user_model->get_user_extended_by_id($game['primary_user_key']);
                 $game['secondary_player'] = $data['user'];
             }
         }
@@ -163,7 +163,7 @@ class Main extends CI_Controller {
         $game['secondary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $game['secondary_player']['id']);
 
         // Return here for API
-        if ($this->input->get('api')) {
+        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
             unset($data['user']);
             echo api_response($data);
             return false;
@@ -187,7 +187,7 @@ class Main extends CI_Controller {
         }
 
         // Return here for API
-        if ($this->input->get('api')) {
+        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
             unset($data['user']);
             echo api_response($data);
             return false;
@@ -216,7 +216,7 @@ class Main extends CI_Controller {
         $data['leaders'] = $this->game_model->get_leaderboard($column, $sort, $limit, $offset);
 
         // Return here for API
-        if ($this->input->get('api')) {
+        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
             echo api_response($data);
             return false;
         }
@@ -226,6 +226,122 @@ class Main extends CI_Controller {
         $this->load->view('templates/header', $data);
         $this->load->view('leaderboard', $data);
         $this->load->view('templates/footer', $data);
+    }
+
+    public function single_game($game_id = false)
+    {
+        $data['user'] = $this->user_model->get_this_user();
+
+        if (!$game_id) {
+            echo api_error_response('game_id_missing', 'Game id is a required parameter and was not provided.');
+            return false;
+        }
+
+        $game_id = (int) $game_id;
+        if (!is_int($game_id) || $game_id < 1) {
+            echo api_error_response('game_id_not_positive_int', 'Your game id was not a positive int.');
+            return false;
+        }
+
+        $data['game'] = $this->game_model->get_game_by_id($game_id);
+
+        if (empty($data['game'])) {
+            echo api_error_response('game_bid_amount_out_of_range', 'Game with that id was not found.');
+            return false;
+        }
+
+        if ($data['game']['started_flag'] && $data['game']['primary_user_key'] != $data['user']['id'] && $data['game']['secondary_user_key'] != $data['user']['id']) {
+            echo api_error_response('game_is_started_and_is_not_yours', 'You can not get games that are started and are not yours.');
+            return false;
+        }
+
+        $data['game']['payoffs'] = $this->game_model->get_payoff_by_game_key($data['game']['id']);
+
+        if ($data['game']['finished_flag']) {
+            foreach ($data['game']['payoffs'] as $key => &$payoff) {
+                $payoff['choosen_payoff'] = false;
+                if ($data['game']['primary_choice'] === $payoff['primary_choice'] && $data['game']['secondary_choice'] === $payoff['secondary_choice']) {
+                    $payoff['choosen_payoff'] = true;
+                }
+            }
+        }
+
+        if ($data['game']['primary_user_key'] === $data['user']['id']) {
+            $data['game']['primary_player'] = $data['user'];
+            $data['game']['secondary_player'] = $this->user_model->get_user_extended_by_id($data['game']['secondary_user_key']);
+        }
+        else {
+            $data['game']['primary_player'] = $this->user_model->get_user_extended_by_id($data['game']['primary_user_key']);
+            $data['game']['secondary_player'] = $data['user'];
+        }
+
+        $data['game']['primary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $data['game']['primary_player']['id']);
+        $data['game']['secondary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $data['game']['secondary_player']['id']);
+
+        // Return here for API
+        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
+            unset($data['user']);
+            echo api_response($data);
+            return false;
+        }
+    }
+
+    public function single_karma($karma_id = false)
+    {
+        if (!$karma_id) {
+            echo api_error_response('karma_id_missing', 'Karma id is a required parameter and was not provided.');
+            return false;
+        }
+
+        $karma_id = (int) $karma_id;
+        if (!is_int($karma_id) || $karma_id < 1) {
+            echo api_error_response('karma_id_not_positive_int', 'Your karma id was not a positive int.');
+            return false;
+        }
+
+        $data['karma'] = $this->karma_model->get_karma_by_id($karma_id);
+        $data['karma']['bids'] = $this->karma_model->get_bids_by_karma($data['karma']['id']);
+        $data['karma']['highest_bid'] = isset($data['karma']['bids'][0]['amount']) ? (int) $data['karma']['bids'][0]['amount'] : 0;
+
+        if (empty($data['karma'])) {
+            echo api_error_response('karma_bid_amount_out_of_range', 'Karma with that id was not found.');
+            return false;
+        }
+
+        // Return here for API
+        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
+            unset($data['user']);
+            echo api_response($data);
+            return false;
+        }
+    }
+
+    public function user($user_id = false)
+    {
+        $user_id = (int) $user_id;
+        if ($user_id) {
+            if (!is_int($user_id) || $user_id < 1) {
+                echo api_error_response('user_id_not_positive_int', 'Your user id was not a positive int.');
+                return false;
+            }
+
+            $data['user'] = $this->user_model->get_user_extended_by_id($user_id);
+            if (!$data['user']) {
+                echo api_error_response('user_not_found', 'User not found.');
+            }
+        }
+        else {
+            $data['user'] = $this->user_model->get_this_user();
+            if (!$data['user']) {
+                echo api_error_response('user_auth', 'You must be logged in or authenticated with the API to take this action.');
+            }
+        }
+
+        // Return here for API
+        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
+            echo api_response($data);
+            return false;
+        }
     }
 
     public function api_docs()
@@ -239,9 +355,9 @@ class Main extends CI_Controller {
             $data['user']['api_key'] = $user_auth['api_key'];
         }
 
-        // Return here for API
-        if ($this->input->get('api')) {
-            echo api_response($data);
+        // Return error for API
+        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
+            echo api_error_response('not_a_valid_api_path', 'This is not a supported api path.');
             return false;
         }
 

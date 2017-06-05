@@ -15,7 +15,7 @@ Class main_model extends CI_Model
             $user_flag = 1;
             $user_key = $session_data['id'];
         }
-        if ($this->input->get('api')) {
+        if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
             $api_flag = 1;
         }
         $data = array(
@@ -31,7 +31,17 @@ Class main_model extends CI_Model
         $this->db->insert('request', $data);
         return $this->db->insert_id();
     }
-    function check_request_route($ip, $route_url, $timestamp)
+    function count_requests_by_route($ip, $route_url, $timestamp)
+    {
+        $this->db->select('*');
+        $this->db->from('request');
+        $this->db->where('ip', $ip);
+        $this->db->like('route_url', $route_url);
+        $this->db->where('created >', $timestamp);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    function count_requests_by_user_key($user_key, $route_url, $timestamp)
     {
         $this->db->select('*');
         $this->db->from('request');

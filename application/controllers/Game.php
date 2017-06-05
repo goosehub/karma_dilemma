@@ -24,7 +24,17 @@ class Game extends CI_Controller {
 
         $input = get_json_post(true);
 
-        if (!is_int($input->game_id) || $input->game_id < 0) {
+        if (!isset($input->game_id)) {
+            echo api_error_response('game_id_missing', 'Game id is a required parameter and was not provided.');
+            return false;
+        }
+
+        if (!isset($input->amount)) {
+            echo api_error_response('amount', 'Amount is arequired parameter and was not provided.');
+            return false;
+        }
+
+        if (!is_int($input->game_id) || $input->game_id < 1) {
             echo api_error_response('game_id_not_positive_int', 'Your game id was not a positive int.');
             return false;
         }
@@ -74,7 +84,7 @@ class Game extends CI_Controller {
         }
         
         if (count($bids_in_last_day) >= $user_bid_limit) {
-            echo api_error_response('user_maximum_game_bids', 'Your score is negative and you\'ve reached your limit of ' . $user_bid_limit . ' game bids in a day. As your score rises, you\'ll be able to make more bids.');
+            echo api_error_response('user_maximum_game_bids', 'Your score is negative and you\'ve reached your limit of ' . $user_bid_limit . ' game bids in a day. As your score rises, you will be able to make more bids.');
             return false;
         }
 
@@ -94,7 +104,17 @@ class Game extends CI_Controller {
 
         $input = get_json_post(true);
 
-        if (!is_int($input->game_id) || $input->game_id < 0) {
+        if (!isset($input->game_id)) {
+            echo api_error_response('game_id_missing', 'Game id is a required parameter and was not provided.');
+            return false;
+        }
+
+        if (!isset($input->choice)) {
+            echo api_error_response('amount', 'Amount is arequired parameter and was not provided.');
+            return false;
+        }
+
+        if (!is_int($input->game_id) || $input->game_id < 1) {
             echo api_error_response('game_id_not_positive_int', 'Your game id was not a positive int.');
             return false;
         }
