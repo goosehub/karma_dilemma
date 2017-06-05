@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// Homepage
 $route['default_controller'] = 'main';
 
 // Views
@@ -13,11 +14,15 @@ $route['leaderboard/(:any)'] = 'main/leaderboard/$1';
 $route['leaderboard/(:any)/(:any)'] = 'main/leaderboard/$1/$2';
 $route['leaderboard/(:any)/(:any)/(:any)'] = 'main/leaderboard/$1/$2/$3';
 $route['leaderboard/(:any)/(:any)/(:any)/(:any)'] = 'main/leaderboard/$1/$2/$3/$4';
+$route['user/register'] = 'user/register';
+$route['user/login'] = 'user/login';
+$route['user/avatar'] = 'user/avatar';
+$route['user/logout'] = 'user/logout';
 $route['user'] = 'main/user';
 $route['user/(:any)'] = 'main/user/$1';
 $route['api_docs'] = 'main/api_docs';
 
-// API Views
+// API Paths Views
 $route['api'] = 'main';
 $route['api/user'] = 'main/user';
 $route['api/user/(:any)'] = 'main/user/$1';
@@ -35,7 +40,7 @@ $route['api/single_game/(:any)'] = 'main/single_game/$1';
 $route['api/single_karma'] = 'main/single_karma';
 $route['api/single_karma/(:any)'] = 'main/single_karma/$1';
 
-// API Actions
+// API Paths Actions
 $route['api/game/bid'] = 'game/bid';
 $route['api/game/play'] = 'game/play';
 $route['api/karma/bid'] = 'karma/bid';
