@@ -69,14 +69,13 @@ Class user_model extends CI_Model
             user.negative_karma,
             SUM(user.available_positive_karma + user.available_negative_karma) as total_available_karma,
             SUM(positive_karma + negative_karma) as total_karma,
-            SUM(CASE WHEN `available_positive_karma` = 1 then 1 else 0 end)/COUNT(*) AS available_karma_ratio,
-            SUM(CASE WHEN `positive_karma` = 1 then 1 else 0 end)/COUNT(*) AS karma_ratio,
             (SELECT COUNT(*) FROM game WHERE game.primary_user_key = user.id OR game.secondary_user_key = user.id) AS games_played,
             user.last_load,
             user.created as created
         ');
         $this->db->from('user');
         $this->db->group_by('id');
+        $this->db->where('id', $user_id);
         $query = $this->db->get();
         $result = $query->result_array();
             return isset($result[0]) ? $result[0] : false;

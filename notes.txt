@@ -7,7 +7,6 @@ dilemma
 UI/UX
 tutorial
 finish game on both players explicit choice
-fix ratio
 make some bots
 
 	low priority

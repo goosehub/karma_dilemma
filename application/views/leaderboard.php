@@ -15,11 +15,9 @@
                         <th>Games Played</th>
                         <th>Avail. Positive Karma</th>
                         <th>Avail. Negative Karma</th>
-                        <th>Avail. Karma Ratio</th>
                         <th>Sum Avail. Karma</th>
                         <th>Positive Karma</th>
                         <th>Negative Karma</th>
-                        <th>Karma Ratio</th>
                         <th>Sum Karma</th>
                         <th>Joined</th>
                     </tr>
@@ -51,9 +49,6 @@
 	                        <?php echo number_format($leader['available_negative_karma']); ?>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['available_karma_ratio']); ?>
-                        </td>
-                        <td>
 	                        <?php echo number_format($leader['total_available_karma']); ?>
                         </td>
                         <td>
@@ -61,9 +56,6 @@
                         </td>
                         <td>
 	                        <?php echo number_format($leader['negative_karma']); ?>
-                        </td>
-                        <td>
-	                        <?php echo number_format($leader['karma_ratio']); ?>
                         </td>
                         <td>
 	                        <?php echo number_format($leader['total_karma']); ?>
