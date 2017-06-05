@@ -45,20 +45,6 @@ positive and negative karma
 karma can be placed on other players
 karma can be reauctioned
 
-	views
-unstarted games list
-started games list
-finished games list
-karma auction list
-leaderboard view
-account view
-
-	api documentation
-how to authenticate
-handling errors
-data routes and what they return
-action routes and what they expect
-
 ================================================================
 
 	database
