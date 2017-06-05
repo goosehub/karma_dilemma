@@ -61,11 +61,11 @@ $(document).ready(function(){
 		give_karma(0);
 	});
 
-	$('.sell_positive_karma').click(function(){
+	$('.sell_good_karma').click(function(){
 		sell_karma(1);
 	});
 
-	$('.sell_negative_karma').click(function(){
+	$('.sell_bad_karma').click(function(){
 		sell_karma(0);
 	});
 

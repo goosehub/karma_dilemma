@@ -7,8 +7,8 @@
             
             <?php if ($user) { ?>
             <form class="sell_karma_parent" action="<?=base_url()?>karma/sell/" method="post">
-                <button class="sell_positive_karma btn btn-success" value="0" type="button">Sell Positive Karma</button>
-                <button class="sell_negative_karma btn btn-danger" value="1" type="button">Sell Negative Karma</button>
+                <button class="sell_good_karma btn btn-success" value="0" type="button">Sell Good Karma</button>
+                <button class="sell_bad_karma btn btn-danger" value="1" type="button">Sell Bad Karma</button>
             </form>
             <?php } ?>
 

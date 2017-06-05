@@ -39,10 +39,10 @@
                     </div>
                     <div class="col-sm-8">
                         <p class="text-primary">Score: <strong class="pull-right"><?php echo $user['score']; ?></strong></p>
-                        <p class="text-success">Positive Karma Available:<strong class="pull-right"> <?php echo $user['available_positive_karma']; ?></strong></p>
-                        <p class="text-danger">Negative Karma Available:<strong class="pull-right"> <?php echo $user['available_negative_karma']; ?></strong></p>
-                        <p class="text-success">Positive Karma: <strong class="pull-right"><?php echo $user['positive_karma']; ?></strong></p>
-                        <p class="text-danger">Negative Karma: <strong class="pull-right"><?php echo $user['negative_karma']; ?></strong></p>
+                        <p class="text-success">Good Karma Available:<strong class="pull-right"> <?php echo $user['available_good_karma']; ?></strong></p>
+                        <p class="text-danger">Bad Karma Available:<strong class="pull-right"> <?php echo $user['available_bad_karma']; ?></strong></p>
+                        <p class="text-success">Good Karma: <strong class="pull-right"><?php echo $user['good_karma']; ?></strong></p>
+                        <p class="text-danger">Bad Karma: <strong class="pull-right"><?php echo $user['bad_karma']; ?></strong></p>
                     </div>
                 </div>
                 <br>

@@ -22,19 +22,19 @@
                             <a href="<?=base_url()?>leaderboard/games_played/<?php echo $column === 'games_played' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Games Played</a>
                         </th>
                         <th>
-                            <a href="<?=base_url()?>leaderboard/available_positive_karma/<?php echo $column === 'available_positive_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Avail. Positive Karma</a>
+                            <a href="<?=base_url()?>leaderboard/available_good_karma/<?php echo $column === 'available_good_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Avail. Good Karma</a>
                         </th>
                         <th>
-                            <a href="<?=base_url()?>leaderboard/available_negative_karma/<?php echo $column === 'available_negative_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Avail. Negative Karma</a>
+                            <a href="<?=base_url()?>leaderboard/available_bad_karma/<?php echo $column === 'available_bad_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Avail. Bad Karma</a>
                         </th>
                         <th>
                             <a href="<?=base_url()?>leaderboard/total_available_karma/<?php echo $column === 'total_available_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Sum Avail. Karma</a>
                         </th>
                         <th>
-                            <a href="<?=base_url()?>leaderboard/positive_karma/<?php echo $column === 'positive_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Positive Karma</a>
+                            <a href="<?=base_url()?>leaderboard/good_karma/<?php echo $column === 'good_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Good Karma</a>
                         </th>
                         <th>
-                            <a href="<?=base_url()?>leaderboard/negative_karma/<?php echo $column === 'negative_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Negative Karma</a>
+                            <a href="<?=base_url()?>leaderboard/bad_karma/<?php echo $column === 'bad_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Bad Karma</a>
                         </th>
                         <th>
                             <a href="<?=base_url()?>leaderboard/total_karma/<?php echo $column === 'total_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Sum Karma</a>
@@ -65,19 +65,19 @@
 	                        <?php echo number_format($leader['games_played']); ?>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['available_positive_karma']); ?>
+	                        <?php echo number_format($leader['available_good_karma']); ?>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['available_negative_karma']); ?>
+	                        <?php echo number_format($leader['available_bad_karma']); ?>
                         </td>
                         <td>
 	                        <?php echo number_format($leader['total_available_karma']); ?>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['positive_karma']); ?>
+	                        <?php echo number_format($leader['good_karma']); ?>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['negative_karma']); ?>
+	                        <?php echo number_format($leader['bad_karma']); ?>
                         </td>
                         <td>
 	                        <?php echo number_format($leader['total_karma']); ?>

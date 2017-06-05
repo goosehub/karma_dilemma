@@ -10,7 +10,6 @@ finish game on both players explicit choice
 make some bots
 
 	low priority
-positive/negative language to good/bad
 api throttling
 regen auth token
 forgot password
@@ -98,10 +97,10 @@ user
 	username
 	avatar
 	score
-	available_positive_karma
-	available_negative_karma
-	positive_karma
-	negative_karma
+	available_good_karma
+	available_bad_karma
+	good_karma
+	bad_karma
 request
 
 	2x2 decision games

@@ -130,14 +130,14 @@ class Karma extends CI_Controller {
         }
 
         if ($input->type) {
-            if ($user['available_positive_karma'] < 1) {
-                echo api_error_response('not_enough_positive_karma', 'You do not have any positive karma to give.');
+            if ($user['available_good_karma'] < 1) {
+                echo api_error_response('not_enough_good_karma', 'You do not have any good karma to give.');
                 return false;
             }
         }
         else {
-            if ($user['available_negative_karma'] < 1) {
-                echo api_error_response('not_enough_negative_karma', 'You do not have any negative karma to give.');
+            if ($user['available_bad_karma'] < 1) {
+                echo api_error_response('not_enough_bad_karma', 'You do not have any bad karma to give.');
                 return false;
             }
         }
@@ -171,14 +171,14 @@ class Karma extends CI_Controller {
         }
 
         if ($input->type) {
-            if ($user['available_positive_karma'] < 1) {
-                echo api_error_response('not_enough_positive_karma', 'You do not have any positive karma to give.');
+            if ($user['available_good_karma'] < 1) {
+                echo api_error_response('not_enough_good_karma', 'You do not have any good karma to give.');
                 return false;
             }
         }
         else {
-            if ($user['available_negative_karma'] < 1) {
-                echo api_error_response('not_enough_negative_karma', 'You do not have any negative karma to give.');
+            if ($user['available_bad_karma'] < 1) {
+                echo api_error_response('not_enough_bad_karma', 'You do not have any bad karma to give.');
                 return false;
             }
         }

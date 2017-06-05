@@ -5,7 +5,7 @@ Class user_model extends CI_Model
 {
     function get_all_users()
     {
-        $this->db->select('id, username, avatar, created, score, available_positive_karma, available_negative_karma, positive_karma, negative_karma');
+        $this->db->select('id, username, avatar, created, score, available_good_karma, available_bad_karma, good_karma, bad_karma');
         $this->db->from('user');
         $query = $this->db->get();
         $result = $query->result_array();
@@ -48,7 +48,7 @@ Class user_model extends CI_Model
     }
     function get_user_by_id($user_id)
     {
-        $this->db->select('id, username, avatar, created, score, available_positive_karma, available_negative_karma, positive_karma, negative_karma');
+        $this->db->select('id, username, avatar, created, score, available_good_karma, available_bad_karma, good_karma, bad_karma');
         $this->db->from('user');
         $this->db->where('id', $user_id);
         $this->db->limit(1);
@@ -63,12 +63,12 @@ Class user_model extends CI_Model
             user.username,
             user.avatar,
             user.score,
-            user.available_positive_karma,
-            user.available_negative_karma,
-            user.positive_karma,
-            user.negative_karma,
-            SUM(user.available_positive_karma + user.available_negative_karma) as total_available_karma,
-            SUM(positive_karma + negative_karma) as total_karma,
+            user.available_good_karma,
+            user.available_bad_karma,
+            user.good_karma,
+            user.bad_karma,
+            SUM(user.available_good_karma + user.available_bad_karma) as total_available_karma,
+            SUM(good_karma + bad_karma) as total_karma,
             (SELECT COUNT(*) FROM game WHERE game.primary_user_key = user.id OR game.secondary_user_key = user.id) AS games_played,
             user.last_load,
             user.created as created
@@ -149,10 +149,10 @@ Class user_model extends CI_Model
             'avatar' => $avatar,
             'last_load' => date('Y-m-d H:i:s'),
             'score' => 0,
-            'available_positive_karma' => 0,
-            'available_negative_karma' => 0,
-            'positive_karma' => 0,
-            'negative_karma' => 0,
+            'available_good_karma' => 0,
+            'available_bad_karma' => 0,
+            'good_karma' => 0,
+            'bad_karma' => 0,
             );
             $this->db->insert('user', $data);
 

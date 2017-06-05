@@ -48,8 +48,8 @@
                     <p>You are playing with <?php echo $game['other_player']['username']; ?></p>
                     <p>Joined: <?php echo date('Y-m-d H:i:s', strtotime($game['other_player']['created'])); ?></p>
                     <p>Games Played: <?php echo $game['other_player']['games_played']; ?></p>
-                    <p>Karma Available: <?php echo $game['other_player']['available_positive_karma']; ?> / <?php echo $game['other_player']['available_negative_karma']; ?></p>
-                    <p>Karma: <?php echo $game['other_player']['positive_karma']; ?> / <?php echo $game['other_player']['negative_karma']; ?></p>
+                    <p>Karma Available: <?php echo $game['other_player']['available_good_karma']; ?> / <?php echo $game['other_player']['available_bad_karma']; ?></p>
+                    <p>Karma: <?php echo $game['other_player']['good_karma']; ?> / <?php echo $game['other_player']['bad_karma']; ?></p>
                 </div>
                 <form class="game_choice_parent" action="<?=base_url()?>game/bid/<?php echo $game['id']; ?>" method="post">
                     <input class="game_id" name="game_id" type="hidden" value="<?php echo $game['id']; ?>">

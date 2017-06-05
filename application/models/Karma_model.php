@@ -94,10 +94,10 @@ Class karma_model extends CI_Model
             $math_sign = '-';
         }
         if ($karma_type) {
-            $this->db->set('available_positive_karma', 'available_positive_karma' . $math_sign . $karma_change, FALSE);
+            $this->db->set('available_good_karma', 'available_good_karma' . $math_sign . $karma_change, FALSE);
         }
         else {
-            $this->db->set('available_negative_karma', 'available_negative_karma' . $math_sign . $karma_change, FALSE);
+            $this->db->set('available_bad_karma', 'available_bad_karma' . $math_sign . $karma_change, FALSE);
         }
         $this->db->where('id', $user_key);
         $this->db->update('user');
@@ -105,10 +105,10 @@ Class karma_model extends CI_Model
     function update_user_karma($user_key, $karma_type, $karma_change)
     {
         if ($karma_type) {
-            $this->db->set('positive_karma', 'positive_karma+' . $karma_change, FALSE);
+            $this->db->set('good_karma', 'good_karma+' . $karma_change, FALSE);
         }
         else {
-            $this->db->set('negative_karma', 'negative_karma+' . $karma_change, FALSE);
+            $this->db->set('bad_karma', 'bad_karma+' . $karma_change, FALSE);
         }
         $this->db->where('id', $user_key);
         $this->db->update('user');
