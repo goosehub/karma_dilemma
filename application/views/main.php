@@ -4,10 +4,7 @@
             <h1 class="text-center"><?php echo $page_title; ?></h1>
         </div>
     </div>
-
     <hr>
-
-
     <div class="row">
         <div class="col-md-8">
             <h2>How it works</h2>

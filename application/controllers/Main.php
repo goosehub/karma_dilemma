@@ -353,6 +353,12 @@ class Main extends CI_Controller {
             echo api_response($data);
             return false;
         }
+
+        // Load view
+        $data['page_title'] = $data['user']['username'];
+        $this->load->view('templates/header', $data);
+        $this->load->view('user', $data);
+        $this->load->view('templates/footer', $data);
     }
 
     public function api_docs()

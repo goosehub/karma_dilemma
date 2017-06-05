@@ -13,6 +13,8 @@ $route['leaderboard/(:any)'] = 'main/leaderboard/$1';
 $route['leaderboard/(:any)/(:any)'] = 'main/leaderboard/$1/$2';
 $route['leaderboard/(:any)/(:any)/(:any)'] = 'main/leaderboard/$1/$2/$3';
 $route['leaderboard/(:any)/(:any)/(:any)/(:any)'] = 'main/leaderboard/$1/$2/$3/$4';
+$route['user'] = 'main/user';
+$route['user/(:any)'] = 'main/user/$1';
 $route['api_docs'] = 'main/api_docs';
 
 // API Views

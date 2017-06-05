@@ -31,7 +31,9 @@
 	                        <?php echo $leader['rank']; ?>
                         </td>
                         <td>
-	                        <p class="text-center"><?php echo $leader['username']; ?></p>
+	                        <a href="<?=base_url()?>user/<?php echo $leader['id']; ?>">
+		                        <p class="text-center"><?php echo $leader['username']; ?></p>
+	                        </a>
 	                        <a href="<?=base_url()?>uploads/<?php echo $leader['avatar']; ?>" target="_blank">
 		                        <img class="leaderboard_avatar" src="<?=base_url()?>uploads/<?php echo $leader['avatar']; ?>" alt="Avatar"/>
 	                        </a>
