@@ -1,7 +1,4 @@
-game theory
-
-	names
-dilemma
+karma_dilemma
 
 	high priority
 UI/UX

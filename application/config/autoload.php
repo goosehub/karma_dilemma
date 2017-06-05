@@ -19,7 +19,7 @@ date_default_timezone_set('America/New_York');
 
 // Return if this is dev
 function site_name() {
-    return 'Theory';
+    return 'Karma Dilemma';
 }
 
 // Return if this is dev

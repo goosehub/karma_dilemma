@@ -2,10 +2,10 @@
 
 // Local base URL
 if ($_SERVER['HTTP_HOST'] === 'localhost') {
-    $base_url = 'http://localhost/theory/';
+    $base_url = 'http://localhost/karma_dilemma/';
 }
 else {
-    $base_url = 'http://theory.xyz/';
+    $base_url = 'http://karma_dilemma.xyz/';
 }
 
 chdir(__DIR__);
