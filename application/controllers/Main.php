@@ -88,37 +88,56 @@ class Main extends CI_Controller {
         $data['started_games'] = $this->game_model->get_games_by_status_and_user_key(true, false, $data['user']['id']);
         foreach ($data['started_games'] as $key => &$game) {
 
+            // Detect which choices have been submitted
+            $game['primary_choice_made'] = $game['secondary_choice_made'] = false;
+            if ($game['start_timestamp'] < $game['primary_choice_timestamp']) {
+                $game['primary_choice_made'] = true;
+            }
+            if ($game['start_timestamp'] < $game['secondary_choice_timestamp']) {
+                $game['secondary_choice_made'] = true;
+            }
+
+            // Get payoffs
             $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
 
+            // Logic depending on if current user is primary or secondary
             if ($game['primary_user_key'] === $data['user']['id']) {
                 // Bool for if user already made a choice
-                $game['choice_made'] = false;
-                if ($game['start_timestamp'] < $game['primary_choice_timestamp']) {
-                    $game['choice_made'] = true;
-                    unset($data['started_games'][$key]);
-                    continue;
+                $game['your_choice_made'] = $game['other_player_choice_made'] = false;
+                if ($game['primary_choice_made']) {
+                    $game['your_choice_made'] = true;
+                }
+                if ($game['secondary_choice_made']) {
+                    $game['other_player_choice_made'] = true;
                 }
 
+                // Get users
                 $game['primary_player'] = $data['user'];
                 $game['secondary_player'] = $this->user_model->get_user_extended_by_id($game['secondary_user_key']);
+
+                // Set other player for easier view logic and api
+                $game['your_player_type'] = 'secondary';
+                $game['other_player'] = $game['secondary_player'];
             }
             else {
                 // Bool for if user already made a choice
-                $game['choice_made'] = false;
-                if ($game['start_timestamp'] < $game['secondary_choice_timestamp']) {
-                    $game['choice_made'] = true;
-                    unset($data['started_games'][$key]);
-                    continue;
+                $game['your_choice_made'] = $game['other_player_choice_made'] = false;
+                if ($game['primary_choice_made']) {
+                    $game['other_player_choice_made'] = true;
+                }
+                if ($game['secondary_choice_made']) {
+                    $game['your_choice_made'] = true;
                 }
 
+                // Get users
                 $game['primary_player'] = $this->user_model->get_user_extended_by_id($game['primary_user_key']);
                 $game['secondary_player'] = $data['user'];
+
+                // Set other player for easier view logic and api
+                $game['your_player_type'] = 'primary';
+                $game['other_player'] = $game['primary_player'];
             }
         }
-
-        $game['primary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $game['primary_player']['id']);
-        $game['secondary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $game['secondary_player']['id']);
-
 
         // Return here for API
         if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
@@ -145,8 +164,10 @@ class Main extends CI_Controller {
 
         $data['finished_games'] = $this->game_model->get_games_by_status_and_user_key(true, true, $data['user']['id'], $limit, $offset);
         foreach ($data['finished_games'] as $key => &$game) {
+            // Get payoffs
             $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
 
+            // Choosen payoff flag
             foreach ($game['payoffs'] as $key => &$payoff) {
                 $payoff['choosen_payoff'] = false;
                 if ($game['primary_choice'] === $payoff['primary_choice'] && $game['secondary_choice'] === $payoff['secondary_choice']) {
@@ -154,18 +175,28 @@ class Main extends CI_Controller {
                 }
             }
 
+            // Logic depending on if current user is primary or secondary
             if ($game['primary_user_key'] === $data['user']['id']) {
+                // Get users
                 $game['primary_player'] = $data['user'];
                 $game['secondary_player'] = $this->user_model->get_user_extended_by_id($game['secondary_user_key']);
+
+                // Set utility variables for easier view logic and api
+                $game['your_player_type'] = 0;
+                $game['other_player_type'] = 1;
+                $game['other_player'] = $game['secondary_player'];
             }
             else {
+                // Get users
                 $game['primary_player'] = $this->user_model->get_user_extended_by_id($game['primary_user_key']);
                 $game['secondary_player'] = $data['user'];
+
+                // Set utility variables for easier view logic and api
+                $game['your_player_type'] = 1;
+                $game['other_player_type'] = 0;
+                $game['other_player'] = $game['primary_player'];
             }
         }
-
-        $game['primary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $game['primary_player']['id']);
-        $game['secondary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $game['secondary_player']['id']);
 
         // Return here for API
         if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
@@ -285,9 +316,6 @@ class Main extends CI_Controller {
             $data['game']['primary_player'] = $this->user_model->get_user_extended_by_id($data['game']['primary_user_key']);
             $data['game']['secondary_player'] = $data['user'];
         }
-
-        $data['game']['primary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $data['game']['primary_player']['id']);
-        $data['game']['secondary_player']['games_played'] = $this->game_model->count_games_by_status_and_user_key(true, true, $data['game']['secondary_player']['id']);
 
         // Return here for API
         if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {

@@ -5,7 +5,7 @@
             <h1 class="text-center"><?php echo $page_title; ?></h1>
             <hr>
             <?php foreach ($started_games as $game) { ?>
-            <?php if ($game['choice_made']) { continue; } ?>
+            <?php if ($game['your_choice_made']) { continue; } ?>
             <div class="started_game_parent">
                 <table class="table table-bordered">
                     <?php $payoff_i = 0; ?>
@@ -38,26 +38,22 @@
                     </tbody>
                 </table>
 
-                <?php
-                $current_player_type = 'primary';
-                $player_class = 'text-primary';
-                $other_player = $game['secondary_player'];
-                if ($game['secondary_player']['id'] === $user['id']) {
-                    $other_player = $game['primary_player'];
-                    $current_player_type = 'secondary';
+                <?php if ($game['your_player_type']) {
                     $player_class = 'text-danger';
                 }
-                ?>
+                else {
+                    $player_class = 'text-primary';
+                } ?>
                 <div class="other_player_info_parent">
-                    <p>You are playing with <?php echo $other_player['username']; ?></p>
-                    <p>Joined: <?php echo date('Y-m-d H:i:s', strtotime($other_player['created'])); ?></p>
-                    <p>Games Played: <?php echo $other_player['games_played']; ?></p>
-                    <p>Karma Available: <?php echo $other_player['available_positive_karma']; ?> / <?php echo $other_player['available_negative_karma']; ?></p>
-                    <p>Karma: <?php echo $other_player['positive_karma']; ?> / <?php echo $other_player['negative_karma']; ?></p>
+                    <p>You are playing with <?php echo $game['other_player']['username']; ?></p>
+                    <p>Joined: <?php echo date('Y-m-d H:i:s', strtotime($game['other_player']['created'])); ?></p>
+                    <p>Games Played: <?php echo $game['other_player']['games_played']; ?></p>
+                    <p>Karma Available: <?php echo $game['other_player']['available_positive_karma']; ?> / <?php echo $game['other_player']['available_negative_karma']; ?></p>
+                    <p>Karma: <?php echo $game['other_player']['positive_karma']; ?> / <?php echo $game['other_player']['negative_karma']; ?></p>
                 </div>
                 <form class="game_choice_parent" action="<?=base_url()?>game/bid/<?php echo $game['id']; ?>" method="post">
                     <input class="game_id" name="game_id" type="hidden" value="<?php echo $game['id']; ?>">
-                    <p>You are the <span class="<?php echo $player_class; ?>"><?php echo ucfirst($current_player_type); ?></span></p>
+                    <p>You are the <span class="<?php echo $player_class; ?>"><?php echo $game['your_player_type'] ? 'Primary' : 'Secondary'; ?></span></p>
                     <button class="game_choice_button btn btn-success" value="0" type="button">Do Nothing</button>
                     <button class="game_choice_button btn btn-danger" value="1" type="button">Take Action</button>
                 </form>

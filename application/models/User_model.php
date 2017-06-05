@@ -16,7 +16,7 @@ Class user_model extends CI_Model
         // Default to user as false
         $user = false;
 
-        // Get user by session
+        // Get users by session
         if ($this->session->userdata('user_session')) {
             $session_data = $this->session->userdata('user_session');
             $user = $this->user_model->get_user_extended_by_id($session_data['id']);
@@ -28,7 +28,7 @@ Class user_model extends CI_Model
             $this->user_loaded($user['id']);
         }
 
-        // Get user by api key
+        // Get users by api key
         else if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
             $input = get_json_post(false);
             if (isset($input->user_id) && isset($input->api_key)) {

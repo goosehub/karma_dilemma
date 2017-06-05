@@ -16,7 +16,8 @@ regen auth token
 forgot password
 performance bottleneck testing
 
-	explain these ui
+	ui thoughts
+button on table labels
 handle auctions expiring with ui
 easy to read matrix UI
 karma available vs have
