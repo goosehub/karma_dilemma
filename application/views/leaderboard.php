@@ -9,17 +9,39 @@
             <table class="leaderboard_table table table-bordered table-striped table-hover table-condensed">
                 <thead>
                     <tr class="success">
-                        <th>Rank</th>
-                        <th>User</th>
-                        <th>Score</th>
-                        <th>Games Played</th>
-                        <th>Avail. Positive Karma</th>
-                        <th>Avail. Negative Karma</th>
-                        <th>Sum Avail. Karma</th>
-                        <th>Positive Karma</th>
-                        <th>Negative Karma</th>
-                        <th>Sum Karma</th>
-                        <th>Joined</th>
+                        <th>
+                            Rank
+                        </th>
+                        <th>
+                            <a href="<?=base_url()?>leaderboard/username/<?php echo $column === 'username' && $sort === 'desc' ? 'asc' : 'desc'; ?>">User</a>
+                        </th>
+                        <th>
+                            <a href="<?=base_url()?>leaderboard/score/<?php echo $column === 'score' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Score</a>
+                        </th>
+                        <th>
+                            <a href="<?=base_url()?>leaderboard/games_played/<?php echo $column === 'games_played' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Games Played</a>
+                        </th>
+                        <th>
+                            <a href="<?=base_url()?>leaderboard/available_positive_karma/<?php echo $column === 'available_positive_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Avail. Positive Karma</a>
+                        </th>
+                        <th>
+                            <a href="<?=base_url()?>leaderboard/available_negative_karma/<?php echo $column === 'available_negative_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Avail. Negative Karma</a>
+                        </th>
+                        <th>
+                            <a href="<?=base_url()?>leaderboard/total_available_karma/<?php echo $column === 'total_available_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Sum Avail. Karma</a>
+                        </th>
+                        <th>
+                            <a href="<?=base_url()?>leaderboard/positive_karma/<?php echo $column === 'positive_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Positive Karma</a>
+                        </th>
+                        <th>
+                            <a href="<?=base_url()?>leaderboard/negative_karma/<?php echo $column === 'negative_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Negative Karma</a>
+                        </th>
+                        <th>
+                            <a href="<?=base_url()?>leaderboard/total_karma/<?php echo $column === 'total_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Sum Karma</a>
+                        </th>
+                        <th>
+                            <a href="<?=base_url()?>leaderboard/created/<?php echo $column === 'created' && $sort === 'desc' ? 'asc' : 'desc'; ?>">Joined</a>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,12 +83,29 @@
 	                        <?php echo number_format($leader['total_karma']); ?>
                         </td>
                         <td>
-	                        <small><?php echo date('Y m d', strtotime($leader['created'])); ?></small>
+	                        <small><?php echo date('Y-m-d', strtotime($leader['created'])); ?></small>
                         </td>
                     </tr>
                 	<?php } ?>
                 </tbody>
             </table>
+
+            <!-- Previous Page -->
+            <?php if ($offset - $limit >= 0) { ?>
+            <a href="<?=base_url()?>leaderboard/<?php echo $column; ?>/<?php echo $sort; ?>/<?php echo $limit; ?>/<?php echo $offset - $limit; ?>">
+                Previous
+            </a>
+            <!-- Previous Page but offset is less than limit -->
+            <?php } else if ($offset > 0) { ?>
+            <a href="<?=base_url()?>leaderboard/<?php echo $column; ?>/<?php echo $sort; ?>/<?php echo $limit; ?>">
+                Previous
+            </a>
+            <?php } ?>
+
+            <!-- Next Page -->
+            <a href="<?=base_url()?>leaderboard/<?php echo $column; ?>/<?php echo $sort; ?>/<?php echo $limit; ?>/<?php echo $offset + $limit; ?>">
+                Next
+            </a>
 
         </div>
     </div>

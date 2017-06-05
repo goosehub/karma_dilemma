@@ -208,22 +208,45 @@ Class game_model extends CI_Model
     }
     function get_leaderboard($column, $sort, $limit, $offset)
     {
+        // Verify Column
+        $user_columns = array(
+            'id',
+            'username',
+            'avatar',
+            'score',
+            'available_positive_karma',
+            'available_negative_karma',
+            'positive_karma',
+            'total_available_karma',
+            'total_karma',
+            'games_played',
+            'last_load',
+            'created',
+        );
+        if (!in_array($column, $user_columns)) {
+            echo api_error_response('bad_leaderboard_column', 'Column provided was not valid.');
+            exit();
+        }
+
+        // Verify Sort
         if (strtoupper($sort) != 'ASC' && strtoupper($sort) != 'DESC') {
             echo api_error_response('bad_leaderboard_sort', 'Leaderboard sort parameter must be ASC or DESC.');
             exit();
         }
+
+        // Select user extended
         $this->db->select('
             user.id,
             user.username,
             user.avatar,
             user.score,
+            (SELECT COUNT(*) FROM game WHERE game.primary_user_key = user.id OR game.secondary_user_key = user.id) AS games_played,
             user.available_positive_karma,
             user.available_negative_karma,
             user.positive_karma,
             user.negative_karma,
             SUM(user.available_positive_karma + user.available_negative_karma) as total_available_karma,
             SUM(positive_karma + negative_karma) as total_karma,
-            (SELECT COUNT(*) FROM game WHERE game.primary_user_key = user.id OR game.secondary_user_key = user.id) AS games_played,
             user.last_load,
             user.created as created
         ');
