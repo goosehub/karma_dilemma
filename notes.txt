@@ -7,10 +7,10 @@ dilemma
 UI/UX
 tutorial
 finish game on both players explicit choice
-bool get unstarted games you haven't bid on
-bool get started games you haven't made a choice on
+fix ratio
+
 	low priority
-positive/negative to good/bad
+positive/negative language to good/bad
 api throttling
 regen auth token
 forgot password

@@ -5,6 +5,13 @@ body {
     color: #222;
 }
 
+/* Leaderboard */
+.leaderboard_avatar {
+    display: block;
+    max-height: 100px;
+    max-width: 100px;
+}
+
 /* Orange Action Bootstrap-Styled Button */
 .btn-action {   
     background-color: hsl(44, 100%, 56%) !important; 

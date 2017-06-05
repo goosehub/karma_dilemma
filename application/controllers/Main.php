@@ -56,9 +56,9 @@ class Main extends CI_Controller {
         {
             $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
 
-            $game['has_bid'] = false;
+            $game['has_bid_by_you'] = false;
             if ($data['user']) {
-                $game['has_bid'] = $this->game_model->get_bid_by_game_and_user_key($game['id'], $data['user']['id']) ? true : false;
+                $game['has_bid_by_you'] = $this->game_model->get_bid_by_game_and_user_key($game['id'], $data['user']['id']) ? true : false;
             }
         }
 
@@ -219,6 +219,12 @@ class Main extends CI_Controller {
 
         // Get leaders
         $data['leaders'] = $this->game_model->get_leaderboard($column, $sort, $limit, $offset);
+
+        $rank = 1;
+        foreach ($data['leaders'] as &$leader) {
+            $leader['rank'] = $rank;
+            $rank++;
+        }
 
         // Return here for API
         if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {

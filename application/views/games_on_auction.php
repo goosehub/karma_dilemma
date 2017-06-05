@@ -6,7 +6,7 @@
             <hr>
             <?php foreach ($games_on_auction as $game) { ?>
             <div class="unstarted_game_parent">
-                <?php if ($game['has_bid']) { continue; } ?>
+                <?php if ($game['has_bid_by_you']) { continue; } ?>
 
                 <table class="table table-bordered">
                     <?php $payoff_i = 0; ?>
@@ -39,7 +39,7 @@
                     </tbody>
                 </table>
                 
-                <?php if ($user && !$game['has_bid']) { ?>
+                <?php if ($user && !$game['has_bid_by_you']) { ?>
                 <form class="game_bid_parent" action="<?=base_url()?>game/bid/<?php echo $game['id']; ?>" method="post">
                     <!-- Input reflects opposite of real bid, instead of using hacks to reverse range UI -->
                     <input class="game_bid_game_id" name="game_id" type="hidden" value="<?php echo $game['id']; ?>">
