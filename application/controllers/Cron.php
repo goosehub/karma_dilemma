@@ -49,7 +49,7 @@ class Cron extends CI_Controller {
 
         // Create a minimum of games to have on auction
         $games_on_auction = $this->game_model->get_games_by_status($started_flag = false, $finished_flag = false);
-        if ($games_on_auction < MIN_GAME_AUCTIONS_TO_HAVE_ACTIVE) {
+        if (count($games_on_auction) < MIN_GAME_AUCTIONS_TO_HAVE_ACTIVE) {
             $games_to_create = MIN_GAME_AUCTIONS_TO_HAVE_ACTIVE;
         }
 
