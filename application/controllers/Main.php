@@ -88,6 +88,10 @@ class Main extends CI_Controller {
         $data['started_games'] = $this->game_model->get_games_by_status_and_user_key(true, false, $data['user']['id']);
         foreach ($data['started_games'] as $key => &$game) {
 
+            // Keep current choices private
+            unset($game['primary_choice']);
+            unset($game['secondary_choice']);
+
             // Detect which choices have been submitted
             $game['primary_choice_made'] = $game['secondary_choice_made'] = false;
             if ($game['start_timestamp'] < $game['primary_choice_timestamp']) {
@@ -116,7 +120,7 @@ class Main extends CI_Controller {
                 $game['secondary_player'] = $this->user_model->get_user_extended_by_id($game['secondary_user_key']);
 
                 // Set other player for easier view logic and api
-                $game['your_player_type'] = 'secondary';
+                $game['your_player_type'] = 1;
                 $game['other_player'] = $game['secondary_player'];
             }
             else {
@@ -134,7 +138,7 @@ class Main extends CI_Controller {
                 $game['secondary_player'] = $data['user'];
 
                 // Set other player for easier view logic and api
-                $game['your_player_type'] = 'primary';
+                $game['your_player_type'] = 0;
                 $game['other_player'] = $game['primary_player'];
             }
         }
@@ -288,7 +292,7 @@ class Main extends CI_Controller {
         $data['game'] = $this->game_model->get_game_by_id($game_id);
 
         if (empty($data['game'])) {
-            echo api_error_response('game_bid_amount_out_of_range', 'Game with that id was not found.');
+            echo api_error_response('game_not_found', 'Game with that id was not found.');
             return false;
         }
 
@@ -343,7 +347,7 @@ class Main extends CI_Controller {
         $data['karma']['highest_bid'] = isset($data['karma']['bids'][0]['amount']) ? (int) $data['karma']['bids'][0]['amount'] : 0;
 
         if (empty($data['karma'])) {
-            echo api_error_response('karma_bid_amount_out_of_range', 'Karma with that id was not found.');
+            echo api_error_response('karma_not_found', 'Karma with that id was not found.');
             return false;
         }
 

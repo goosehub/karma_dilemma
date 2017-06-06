@@ -30,7 +30,7 @@
 	"parameter": "value"
 } </code></pre>
 
-<p>The API returns JSON. Check <code>success</code> or <code>error</code> boolean in the response to verify if call succeeded or why it failed. When <code>error</code> is true, <code>error_code</code> and <code>error_message</code> will also be provided.</p>
+<p>The API returns JSON. Check <code>success</code> or <code>error</code> boolean in the response to verify if the call succeeded. When <code>error</code> is true, <code>error_code</code> and <code>error_message</code> will also be provided.</p>
 
 <pre><code>{
 	"success": false,
@@ -43,7 +43,7 @@
 
 <h3>Create a bid of 50 on a game with an id of 3</h3>
 
-<h4>Path</h4>
+<h4>URL</h4>
 <pre><code><?=base_url()?>api/game/bid</code></pre>
 
 <h4>JSON POST Request</h4>
@@ -139,34 +139,35 @@ var_dump($response); </code></pre>
 <pre><code>game/bid</code></pre>
 <ul>
 	<li>Requires POST parameter <code>game_id</code>. Must be a positive integer.</li>
-	<li>Requires POST parameter <code>amount</code>. Must be between an integer -100 and 100.</li>
+	<li>Requires POST parameter <code>amount</code>. Must be between an integer -100 (Lowest Bid) and 100 (Highest Bid).</li>
 </ul>
 
 <h3>Play a game by sending your choice</h3>
 <pre><code>game/play</code></pre>
 <ul>
 	<li>Requires POST parameter <code>game_id</code>. Must be a positive integer.</li>
-	<li>Requires POST parameter <code>choice</code>. Must be either 0 or 1.</li>
+	<li>Requires POST parameter <code>choice</code>. Must be either 0 (Do Nothing) or 1 (Take Action).</li>
+	<li>Will return the finished game if you are the second player to play.</li>
 </ul>
 
 <h3>Create a bid for a karma on auction</h3>
 <pre><code>karma/bid</code></pre>
 <ul>
 	<li>Requires POST parameter <code>karma_id</code>. Must be a positive integer.</li>
-	<li>Requires POST parameter <code>amount</code>. Must be between an integer 0 and 100.</li>
+	<li>Requires POST parameter <code>amount</code>. Must be between an integer 0 (Lowest Bid) and 100 (Highest Bid).</li>
 </ul>
 
 <h3>Give another user karma</h3>
 <pre><code>karma/give</code></pre>
 <ul>
-	<li>Requires POST parameter <code>type</code>. Must be either 0 or 1.</li>
+	<li>Requires POST parameter <code>type</code>. Must be either 0 (Bad Karma) or 1 (Good Karma).</li>
 	<li>Requires POST parameter <code>other_player_user_id</code>. Must be a positive integer.</li>
 </ul>
 
 <h3>Sell karma by putting it up on auction</h3>
 <pre><code>karma/sell</code></pre>
 <ul>
-	<li>Requires POST parameter <code>type</code>. Must be either 0 for negative or 1 for positive.</li>
+	<li>Requires POST parameter <code>type</code>. Must be either 0 (Bad Karma) or 1 (Good Karma).</li>
 </ul>
 
 <h3>Get a game</h3>

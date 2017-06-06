@@ -94,7 +94,22 @@ $(document).ready(function(){
 		data.game_id = parseInt(game_id);
 		data.choice = parseInt(choice);
 		var game_bid_url = base_url + 'game/play/';
-		ajax_post(game_bid_url, data, false);
+		ajax_post(game_bid_url, data, function(result){
+			var other_player_choice = '';
+			if (result.game.other_player.id === result.game.primary_player.id && result.game.primary_choice) {
+				var other_player_choice = 'Take Action';
+			}
+			if (result.game.other_player.id === result.game.primary_player.id && !result.game.primary_choice) {
+				var other_player_choice = 'Do Nothing';
+			}
+			if (result.game.other_player.id === result.game.secondary_player.id && result.game.secondary_choice) {
+				var other_player_choice = 'Take Action';
+			}
+			if (result.game.other_player.id === result.game.secondary_player.id && result.game.secondary_choice) {
+				var other_player_choice = 'Do Nothing';
+			}
+			alert('The other player choose to ' + other_player_choice);
+		});
 
 		$(this).parent('.game_choice_parent').hide();
 	});
@@ -116,7 +131,7 @@ $(document).ready(function(){
 
 				// Do callback if provided
 				if (callback && typeof(callback) === 'function') {
-					callback();
+					callback(data);
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -142,7 +157,7 @@ $(document).ready(function(){
 
 				// Do callback if provided
 				if (callback && typeof(callback) === 'function') {
-					callback();
+					callback(data);
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {

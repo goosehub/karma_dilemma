@@ -151,7 +151,7 @@ class Game extends CI_Controller {
             return false;
         }
 
-
+        $finish_game = false;
         if ($game['primary_user_key'] === $user['id']) {
             if ($game['start_timestamp'] < $game['primary_choice_timestamp']) {
                 echo api_error_response('choice_already_made', 'You have already made your choice for this game.');
@@ -160,6 +160,13 @@ class Game extends CI_Controller {
 
             // Update choice for this player
             $this->game_model->update_game_primary_choice($input->game_id, $input->choice);
+
+            // Finish game if both choices have explicitly been made
+            if ($game['start_timestamp'] < $game['secondary_choice_timestamp']) {
+                $game['primary_choice'] = $input->choice;
+                $game['primary_choice_timestamp'] = date('Y-m-d H:i:s');
+                $finish_game = true;
+            }
         }
         else {
             if ($game['start_timestamp'] < $game['secondary_choice_timestamp']) {
@@ -169,9 +176,57 @@ class Game extends CI_Controller {
 
             // Update choice for this player
             $this->game_model->update_game_secondary_choice($input->game_id, $input->choice);
+
+            // Finish game if both choices have explicitly been made
+            if ($game['start_timestamp'] < $game['primary_choice_timestamp']) {
+                $game['secondary_choice'] = $input->choice;
+                $game['secondary_choice_timestamp'] = date('Y-m-d H:i:s');
+                $finish_game = true;
+            }
         }
 
-        echo api_response();
+        if ($finish_game) {
+            $this->finish_game_on_choice($game);
+            $game['finished_flag'] = true;
+
+            $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
+            foreach ($game['payoffs'] as $key => &$payoff) {
+                $payoff['choosen_payoff'] = false;
+                if ($game['primary_choice'] === $payoff['primary_choice'] && $game['secondary_choice'] === $payoff['secondary_choice']) {
+                    $payoff['choosen_payoff'] = true;
+                }
+            }
+
+            if ($game['primary_user_key'] === $user['id']) {
+                $game['primary_player'] = $user;
+                $game['secondary_player'] = $this->user_model->get_user_extended_by_id($game['secondary_user_key']);
+                $game['other_player'] = $game['secondary_player'];
+            }
+            else {
+                $game['primary_player'] = $this->user_model->get_user_extended_by_id($game['primary_user_key']);
+                $game['other_player'] = $game['primary_player'];
+                $game['secondary_player'] = $user;
+            }
+            $data['game'] = $game;
+            echo api_response($data);
+        }
+        else {
+            echo api_response();
+        }
+
+    }
+
+    public function finish_game_on_choice($game)
+    {
+        // Get payoff
+        $payoff = $this->game_model->get_game_payoff_by_choices_and_game_key($game['primary_choice'], $game['secondary_choice'], $game['id']);
+
+        // Update user scores
+        $this->game_model->update_user_score($game['primary_user_key'], $payoff['primary_payoff'], true);
+        $this->game_model->update_user_score($game['secondary_user_key'], $payoff['secondary_payoff'], true);
+
+        // Finish game
+        $this->game_model->finish_game($game['id']);
     }
 
 }

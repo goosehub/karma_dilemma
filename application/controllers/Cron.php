@@ -24,7 +24,7 @@ class Cron extends CI_Controller {
         }
 
         echo '<h1>Start of Cron - ' . time() . '</h1>';
-        $this->finish_games();
+        $this->finish_games_on_time_expired();
         $this->start_games();
         $this->create_games();
         $this->finish_karma_auctions();
@@ -117,7 +117,7 @@ class Cron extends CI_Controller {
         }
     }
 
-    public function finish_games()
+    public function finish_games_on_time_expired()
     {
         // Check if it's time to run
         $crontab = '* * * * *'; // Every minute

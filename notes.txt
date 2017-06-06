@@ -1,9 +1,9 @@
 karma_dilemma
 
 	high priority
+fix karma created algo
 UI/UX
 tutorial
-finish game on both players explicit choice
 make some bots
 
 	low priority
@@ -20,6 +20,9 @@ karma available vs have
 bid start at -100 to 100
 2/3rd median bid wins
 
+================================================================
+
+		mechanics
 	users
 start with score of 0
 score can go negative
@@ -44,8 +47,6 @@ open auction
 positive and negative karma
 karma can be placed on other players
 karma can be reauctioned
-
-================================================================
 
 	database
 game bid

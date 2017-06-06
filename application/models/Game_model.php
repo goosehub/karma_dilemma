@@ -103,8 +103,7 @@ Class game_model extends CI_Model
         $this->db->from('game');
         $this->db->where('started_flag', $started_flag);
         $this->db->where('finished_flag', $finished_flag);
-        $this->db->where('primary_user_key', $user_key);
-        $this->db->or_where('secondary_user_key', $user_key);
+        $this->db->where('(primary_user_key = ' . $user_key . ' OR secondary_user_key = ' . $user_key . ')');
         $this->db->limit($limit);
         $this->db->offset($offset);
         $query = $this->db->get();

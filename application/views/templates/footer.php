@@ -8,6 +8,10 @@
 <!-- Pass Variables to Local Script -->
 <script>
 	var base_url = '<?php echo base_url(); ?>';
+	var user = false;
+	<?php if ($user) { ?>
+	var user = '<?php echo json_encode($user); ?>';
+	<?php } ?>
 </script>
 <!-- Local Script -->
 <script src="<?=base_url()?>resources/script.js?<?php echo time(); ?>"></script>
