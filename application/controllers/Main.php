@@ -359,7 +359,7 @@ class Main extends CI_Controller {
         }
     }
 
-    public function user($user_id = false)
+    public function single_user($user_id = false)
     {
         $user_id = (int) $user_id;
         if ($user_id) {
@@ -371,12 +371,14 @@ class Main extends CI_Controller {
             $data['user'] = $this->user_model->get_user_extended_by_id($user_id);
             if (!$data['user']) {
                 echo api_error_response('user_not_found', 'User not found.');
+                return false;
             }
         }
         else {
             $data['user'] = $this->user_model->get_this_user();
             if (!$data['user']) {
                 echo api_error_response('user_auth', 'You must be logged in or authenticated with the API to take this action.');
+                return false;
             }
         }
 

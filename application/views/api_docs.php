@@ -171,19 +171,19 @@ var_dump($response); </code></pre>
 </ul>
 
 <h3>Get a game</h3>
-<pre><code>game/@1</code></pre>
+<pre><code>single_game/@1</code></pre>
 <ul>
 	<li><code>@1</code> is the game id. Must be a positive integer.</li>
 </ul>
 
 <h3>Get a karma</h3>
-<pre><code>karma/@1</code></pre>
+<pre><code>single_karma/@1</code></pre>
 <ul>
 	<li><code>@1</code> is the karma id. Must be a positive integer.</li>
 </ul>
 
 <h3>Get a user</h3>
-<pre><code>user/@1</code></pre>
+<pre><code>single_user/@1</code></pre>
 <ul>
 	<li><code>@1</code> is the user id. Must be a positive integer.</li>
 </ul>

@@ -14,18 +14,14 @@ $route['leaderboard/(:any)'] = 'main/leaderboard/$1';
 $route['leaderboard/(:any)/(:any)'] = 'main/leaderboard/$1/$2';
 $route['leaderboard/(:any)/(:any)/(:any)'] = 'main/leaderboard/$1/$2/$3';
 $route['leaderboard/(:any)/(:any)/(:any)/(:any)'] = 'main/leaderboard/$1/$2/$3/$4';
-$route['user/register'] = 'user/register';
-$route['user/login'] = 'user/login';
-$route['user/avatar'] = 'user/avatar';
-$route['user/logout'] = 'user/logout';
-$route['user'] = 'main/user';
-$route['user/(:any)'] = 'main/user/$1';
+$route['single_user'] = 'main/single_user';
+$route['single_user/(:any)'] = 'main/single_user/$1';
 $route['api_docs'] = 'main/api_docs';
 
 // API Paths Views
 $route['api'] = 'main';
-$route['api/user'] = 'main/user';
-$route['api/user/(:any)'] = 'main/user/$1';
+$route['api/single_user'] = 'main/single_user';
+$route['api/single_user/(:any)'] = 'main/single_user/$1';
 $route['api/games_on_auction'] = 'main/games_on_auction';
 $route['api/karma_on_auction'] = 'main/karma_on_auction';
 $route['api/started_games'] = 'main/started_games';
