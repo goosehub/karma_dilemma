@@ -70,12 +70,5 @@
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-            <h2 class="text-center">Leaderboards</h2>
-            <p>Coming Soon</p>
-        </div>
-    </div>
-
+    
 </div>

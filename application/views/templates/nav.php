@@ -13,30 +13,37 @@
             <ul class="nav navbar-nav">
                 <?php if ($user) { ?>
                 <li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'games_on_auction') !== false ? 'active' : ''; ?>">
-                    <a href="<?=base_url()?>games_on_auction" class="nav_link">Games</a> <br>
+                    <a href="<?=base_url()?>games_on_auction" class="nav_link">Games</a>
                 </li>
                 <li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'started_games') !== false ? 'active' : ''; ?>">
-                    <a href="<?=base_url()?>started_games" class="nav_link">Your Turn</a> <br>
+                    <a href="<?=base_url()?>started_games" class="nav_link">
+                        Your Turn
+                        <span id="started_games_count">
+                            <?php if ($user['started_games_count'] > 0) { ?>
+                            (<?php echo $user['started_games_count']; ?>)
+                            <?php } ?>
+                        </span>
+                    </a>
                 </li>
                 <li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'finished_games') !== false ? 'active' : ''; ?>">
-                    <a href="<?=base_url()?>finished_games" class="nav_link">Past Games</a> <br>
+                    <a href="<?=base_url()?>finished_games" class="nav_link">Past Games</a>
                 </li>
                 <li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'karma_on_auction') !== false ? 'active' : ''; ?>">
-                    <a href="<?=base_url()?>karma_on_auction" class="nav_link">Karma</a> <br>
+                    <a href="<?=base_url()?>karma_on_auction" class="nav_link">Karma</a>
                 </li>
                 <?php } ?>
                 <li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'leaderboard') !== false ? 'active' : ''; ?>">
-                    <a href="<?=base_url()?>leaderboard" class="nav_link">Leaderboard</a> <br>
+                    <a href="<?=base_url()?>leaderboard" class="nav_link">Leaderboard</a>
                 </li>
                 <li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'api_docs') !== false ? 'active' : ''; ?>">
-                    <a href="<?=base_url()?>api_docs" class="nav_link">API / Make Bots</a> <br>
+                    <a href="<?=base_url()?>api_docs" class="nav_link">API / Make Bots</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if ($user) { ?>
                 <li>
                     <p class="navbar-text">
-                        <a href="<?=base_url()?>single_user/<?php echo $user['id']; ?>"><?php echo $user['username'] ?></a>
+                        <a class="nav_username" href="<?=base_url()?>single_user/<?php echo $user['id']; ?>"><?php echo $user['username'] ?></a>
                     </p>
                 </li>
                 <li>

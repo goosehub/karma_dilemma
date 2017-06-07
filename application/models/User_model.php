@@ -20,6 +20,7 @@ Class user_model extends CI_Model
         if ($this->session->userdata('user_session')) {
             $session_data = $this->session->userdata('user_session');
             $user = $this->user_model->get_user_extended_by_id($session_data['id']);
+            $user['started_games_count'] = $this->game_model->count_games_by_status_and_user_key(true, false, $user['id']);
             if (!isset($user['username'])) {
                 redirect('user/logout', 'refresh');
                 exit();
@@ -39,6 +40,7 @@ Class user_model extends CI_Model
                     exit();
                 }
                 $user = $this->get_user_extended_by_id($user_auth['id']);
+                $user['started_games_count'] = $this->game_model->count_games_by_status_and_user_key(true, false, $user['id']);
                 $this->user_loaded($user['id']);
             }
         }
