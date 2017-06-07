@@ -71,7 +71,7 @@ class Main extends CI_Controller {
         }
 
         // Load view
-        $data['page_title'] = 'Games on Auction';
+        $data['page_title'] = 'Game Auctions';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/nav', $data);
         $this->load->view('games_on_auction', $data);
@@ -153,7 +153,7 @@ class Main extends CI_Controller {
         }
 
         // Load view
-        $data['page_title'] = 'Started Games';
+        $data['page_title'] = 'Your Turn';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/nav', $data);
         $this->load->view('started_games', $data);
@@ -213,7 +213,7 @@ class Main extends CI_Controller {
         }
 
         // Load view
-        $data['page_title'] = 'Finished Games';
+        $data['page_title'] = 'Past Games';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/nav', $data);
         $this->load->view('finished_games', $data);
@@ -238,7 +238,7 @@ class Main extends CI_Controller {
         }
 
         // Load view
-        $data['page_title'] = 'Karma on Auction';
+        $data['page_title'] = 'Karma Auctions';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/nav', $data);
         $this->load->view('karma_on_auction', $data);
@@ -367,29 +367,20 @@ class Main extends CI_Controller {
         }
     }
 
-    public function single_user($user_id = false)
+    public function single_user($user_id)
     {
         $data['user'] = $this->user_model->get_this_user();
 
         $user_id = (int) $user_id;
-        if ($user_id) {
-            if (!is_int($user_id) || $user_id < 1) {
-                echo api_error_response('user_id_not_positive_int', 'Your user id was not a positive int.');
-                return false;
-            }
-
-            $data['this_user'] = $this->user_model->get_user_extended_by_id($user_id);
-            if (!$data['this_user']) {
-                echo api_error_response('user_not_found', 'User not found.');
-                return false;
-            }
+        if (!is_int($user_id) || $user_id < 1) {
+            echo api_error_response('user_id_not_positive_int', 'Your user id was not a positive int.');
+            return false;
         }
-        else {
-            $data['this_user'] = $this->user_model->get_this_user();
-            if (!$data['this_user']) {
-                echo api_error_response('user_auth', 'You must be logged in or authenticated with the API to take this action.');
-                return false;
-            }
+
+        $data['this_user'] = $this->user_model->get_user_extended_by_id($user_id);
+        if (!$data['this_user']) {
+            echo api_error_response('user_not_found', 'User not found.');
+            return false;
         }
 
         // Return here for API
@@ -399,7 +390,7 @@ class Main extends CI_Controller {
         }
 
         // Load view
-        $data['page_title'] = $data['user']['username'];
+        $data['page_title'] = html_escape($data['user']['username']);
         $this->load->view('templates/header', $data);
         $this->load->view('templates/nav', $data);
         $this->load->view('user', $data);
@@ -424,7 +415,7 @@ class Main extends CI_Controller {
         }
 
         // Load view
-        $data['page_title'] = site_name();
+        $data['page_title'] = 'API Documentation';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/nav', $data);
         $this->load->view('api_docs', $data);

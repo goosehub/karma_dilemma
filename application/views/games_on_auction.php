@@ -43,8 +43,8 @@
                     <!-- Input reflects opposite of real bid, instead of using hacks to reverse range UI -->
                     <input class="game_bid_game_id" name="game_id" type="hidden" value="<?php echo $game['id']; ?>">
                     <input class="game_bid_input form-control" type="range" name="bid" min="-100" max="100" value="-100">
-                    <span class="game_bid_value_label">100</span>
-                    <button class="game_bid_submit" type="button">Make this bid</button>
+                    <strong class="game_bid_value_label">100</strong>
+                    <button class="game_bid_submit btn btn-primary pull-right" type="button">Make this bid</button>
                 </form>
                 <hr>
                 <?php } ?>

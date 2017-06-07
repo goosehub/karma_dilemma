@@ -187,11 +187,6 @@ var_dump($response); </code></pre>
 	<li><code>@1</code> is the user id. Must be a positive integer.</li>
 </ul>
 
-<h3>Get your own user</h3>
-<pre><code>user</code></pre>
-<ul>
-</ul>
-
 <h3>Get the leaderboard</h3>
 <pre><code>leaderboard/@1/@2/@3/@4</code></pre>
 <ul>
