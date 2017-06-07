@@ -33,8 +33,7 @@ class Karma extends CI_Controller {
             echo api_error_response('amount', 'Amount is arequired parameter and was not provided.');
             return false;
         }
-
-        var_dump($input);
+        
         if (!is_int($input->karma_id) || $input->karma_id < 1) {
             echo api_error_response('karma_id_not_positive_int', 'Your karma id was not a positive int.');
             return false;
@@ -59,6 +58,11 @@ class Karma extends CI_Controller {
 
         if ($karma['sold_flag']) {
             echo api_error_response('karma_auction_has_ended', 'Karma auction has ended.');
+            return false;
+        }
+
+        if ($user['score'] - $input->amount < 0) {
+            echo api_error_response('not_enough_score', 'You need more score to make this bid.');
             return false;
         }
 

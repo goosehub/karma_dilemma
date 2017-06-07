@@ -22,7 +22,7 @@
                     <a href="<?=base_url()?>finished_games" class="nav_link">Past Games</a> <br>
                 </li>
                 <li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'karma_on_auction') !== false ? 'active' : ''; ?>">
-                    <a href="<?=base_url()?>karma_on_auction" class="nav_link">Karma Auctions</a> <br>
+                    <a href="<?=base_url()?>karma_on_auction" class="nav_link">Karma</a> <br>
                 </li>
                 <?php } ?>
                 <li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'leaderboard') !== false ? 'active' : ''; ?>">
