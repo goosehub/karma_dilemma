@@ -44,13 +44,17 @@ class Cron extends CI_Controller {
         echo '<h2>Create Games - ' . time() . '</h2>';
 
         // Create games based on users currently bidding
-        $users_count = $this->game_model->get_count_of_users_currently_bidding(MINUTES_TO_GET_GAME_BID_ACTIVITY);
-        $games_to_create = GAME_AUCTIONS_TO_HAVE_ACTIVE_PER_ACTIVE_USER * $users_count;
+        $count_of_users_currently_bidding = $this->game_model->get_count_of_users_currently_bidding(MINUTES_TO_GET_GAME_BID_ACTIVITY);
 
-        // Create a minimum of games to have on auction
-        $games_on_auction = $this->game_model->get_games_by_status($started_flag = false, $finished_flag = false);
-        if (count($games_on_auction) < MIN_GAME_AUCTIONS_TO_HAVE_ACTIVE) {
-            $games_to_create = MIN_GAME_AUCTIONS_TO_HAVE_ACTIVE;
+        // Get count of games currently on auction
+        $count_of_games_on_auction = $this->game_model->count_games_by_status($started_flag = false, $finished_flag = false);
+
+        // Create games we want to have on auction
+        $games_to_create = floor(GAME_AUCTIONS_TO_HAVE_ACTIVE_PER_ACTIVE_USER * $count_of_users_currently_bidding) - $count_of_games_on_auction;
+
+        // Minimum of games to have on auction
+        if ($count_of_games_on_auction < MIN_GAME_AUCTIONS_TO_HAVE_ACTIVE) {
+            $games_to_create = MIN_GAME_AUCTIONS_TO_HAVE_ACTIVE - $count_of_games_on_auction;
         }
 
         for ($i = 0; $i < $games_to_create; $i++) {
@@ -158,13 +162,20 @@ class Cron extends CI_Controller {
         echo '<h2>Create Karma - ' . time() . '</h2>';
 
         // Create games based on users currently bidding
-        $users_count = $this->game_model->get_count_of_users_currently_bidding(MINUTES_TO_GET_GAME_BID_ACTIVITY);
-        $karma_to_create = KARMA_AUCTIONS_TO_HAVE_ACTIVE_PER_ACTIVE_USER * $users_count;
+        $count_of_users_currently_bidding = $this->game_model->get_count_of_users_currently_bidding(MINUTES_TO_GET_GAME_BID_ACTIVITY);
 
-        // Create a minimum of games to have on auction
-        $karma_on_auction = $this->karma_model->get_karma_on_auction();
-        if ($karma_on_auction < MIN_KARMA_AUCTIONS_TO_HAVE_ACTIVE) {
-            $karma_to_create = MIN_KARMA_AUCTIONS_TO_HAVE_ACTIVE;
+        // Get count of games currently on auction
+        $count_of_games_on_auction = $this->game_model->count_games_by_status($started_flag = false, $finished_flag = false);
+
+        // Get count of karma on auction
+        $count_of_karma_on_auction = $this->karma_model->count_of_karma_on_auction();
+
+        // Create games we want to have on auction
+        $karma_to_create = floor(KARMA_AUCTIONS_TO_HAVE_ACTIVE_PER_ACTIVE_USER * $count_of_users_currently_bidding) - $count_of_games_on_auction;
+
+        // Minimum of games to have on auction
+        if ($count_of_karma_on_auction < MIN_KARMA_AUCTIONS_TO_HAVE_ACTIVE) {
+            $karma_to_create = MIN_KARMA_AUCTIONS_TO_HAVE_ACTIVE - $count_of_karma_on_auction;
         }
 
         // Loop to create karma

@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Game
 define('MINUTES_TO_GET_GAME_BID_ACTIVITY', 1); // How long in minutes to get user bidding activity
-define('MIN_GAME_AUCTIONS_TO_HAVE_ACTIVE', 20); // How many games to have on auction at all times at minimum
+define('MIN_GAME_AUCTIONS_TO_HAVE_ACTIVE', 10); // How many games to have on auction at all times at minimum
 define('GAME_AUCTIONS_TO_HAVE_ACTIVE_PER_ACTIVE_USER', 2); // Games to create for each active user
 define('GAME_AUCTION_TIME_MINUTES', 1); // How long a game should be on auction 
 define('GAME_TIME_MINUTES', 10); // How long a game should last 
@@ -11,8 +11,8 @@ define('MAX_GAME_BIDS', 1500); // Maximum number of game bids in a day
 define('MIN_GAME_BIDS', 15); // Minimum number of game bids in a day
 
 // Karma
-define('KARMA_AUCTIONS_TO_HAVE_ACTIVE_PER_ACTIVE_USER', 10); // How many karmas to have on auction per user
-define('MIN_KARMA_AUCTIONS_TO_HAVE_ACTIVE', 10); // How many karma to have on auction al all times minimum
+define('KARMA_AUCTIONS_TO_HAVE_ACTIVE_PER_ACTIVE_USER', 0.1); // How many karmas to have on auction per user
+define('MIN_KARMA_AUCTIONS_TO_HAVE_ACTIVE', 5); // How many karma to have on auction al all times minimum
 define('KARMA_AUCTION_TIME_BETWEEN_BIDS_MINUTES', 1); // How long a karma should be on auction
 define('MAX_KARMA_BIDS', 3000); // Maximum number of karma bids in a day
 define('MIN_KARMA_BIDS', 30); // Minimum number of karma bids in a day

@@ -26,6 +26,15 @@ Class karma_model extends CI_Model
         $result = $query->result_array();
         return $result;
     }
+    function count_of_karma_on_auction()
+    {
+        $this->db->select('COUNT(*) as karma_count');
+        $this->db->from('karma');
+        $this->db->where('sold_flag', 0);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return isset($result[0]['karma_count']) ? $result[0]['karma_count'] : 0;
+    }
     function get_bids_by_karma($karma_key)
     {
         $this->db->select('*');

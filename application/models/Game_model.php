@@ -97,6 +97,16 @@ Class game_model extends CI_Model
         $result = $query->result_array();
         return $result;
     }
+    function count_games_by_status($started_flag, $finished_flag)
+    {
+        $this->db->select('COUNT(*) as game_count');
+        $this->db->from('game');
+        $this->db->where('started_flag', $started_flag);
+        $this->db->where('finished_flag', $finished_flag);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return isset($result[0]['game_count']) ? $result[0]['game_count'] : 0;
+    }
     function get_games_by_status_and_user_key($started_flag, $finished_flag, $user_key, $limit = 100, $offset = 0)
     {
         $this->db->select('*');
