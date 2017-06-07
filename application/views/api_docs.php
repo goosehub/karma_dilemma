@@ -1,8 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-offset-2 col-md-8">
-            <a href="<?=base_url()?>"><p class="lead text-center"><?php echo site_name(); ?></p></a>
-
+		
 <h1 class="text-center">API Documentation</h1>
 
 <h2>Basics</h2>
@@ -197,7 +196,7 @@ var_dump($response); </code></pre>
 <pre><code>leaderboard/@1/@2/@3/@4</code></pre>
 <ul>
 	<li><code>@1</code> is the column you want to sort by. Must be a valid column. Example: <code>score</code></li>
-	<li><code>@2</code> is the direct you want to sort. Value must be <code>ASC</code> or <code>DESC</code>.</li>
+	<li><code>@2</code> is the direct you want to sort. Value must be <code>asc</code> or <code>desc</code>.</li>
 	<li><code>@3</code> is the limit of results to get. Must be a positive integer. The maximum value is <?php echo MAX_LEADERBOARD_LIMIT; ?>.</li>
 	<li><code>@4</code> is the offset. Must be a positive integer.</li>
 	<li>All these parameters are optional. By default it returns top 100 score leaders.</li>

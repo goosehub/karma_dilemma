@@ -226,8 +226,8 @@ Class game_model extends CI_Model
         }
 
         // Verify Sort
-        if (strtoupper($sort) != 'ASC' && strtoupper($sort) != 'DESC') {
-            echo api_error_response('bad_leaderboard_sort', 'Leaderboard sort parameter must be ASC or DESC.');
+        if (strtolower($sort) != 'asc' && strtolower($sort) != 'desc') {
+            echo api_error_response('bad_leaderboard_sort', 'Leaderboard sort parameter must be asc or desc.');
             exit();
         }
 

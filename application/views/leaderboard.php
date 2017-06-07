@@ -1,8 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-center"><?php echo $page_title; ?></h1>
-            <h2 class="text-center">Leaderboards</h2>
+            <h1 class="text-center">Leaderboards</h1>
 
             <?php // var_dump($leaders); die(); ?>
 

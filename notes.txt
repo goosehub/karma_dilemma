@@ -1,7 +1,6 @@
 karma_dilemma
 
 	high priority
-fix karma created algo
 UI/UX
 tutorial
 make some bots

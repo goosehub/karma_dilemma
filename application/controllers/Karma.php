@@ -34,6 +34,7 @@ class Karma extends CI_Controller {
             return false;
         }
 
+        var_dump($input);
         if (!is_int($input->karma_id) || $input->karma_id < 1) {
             echo api_error_response('karma_id_not_positive_int', 'Your karma id was not a positive int.');
             return false;

@@ -43,6 +43,7 @@ class Main extends CI_Controller {
         // Load view
         $data['page_title'] = site_name();
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav', $data);
         $this->load->view('main', $data);
         $this->load->view('templates/footer', $data);
     }
@@ -72,6 +73,7 @@ class Main extends CI_Controller {
         // Load view
         $data['page_title'] = 'Games on Auction';
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav', $data);
         $this->load->view('games_on_auction', $data);
         $this->load->view('templates/footer', $data);
     }
@@ -153,6 +155,7 @@ class Main extends CI_Controller {
         // Load view
         $data['page_title'] = 'Started Games';
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav', $data);
         $this->load->view('started_games', $data);
         $this->load->view('templates/footer', $data);
     }
@@ -212,6 +215,7 @@ class Main extends CI_Controller {
         // Load view
         $data['page_title'] = 'Finished Games';
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav', $data);
         $this->load->view('finished_games', $data);
         $this->load->view('templates/footer', $data);
     }
@@ -236,12 +240,15 @@ class Main extends CI_Controller {
         // Load view
         $data['page_title'] = 'Karma on Auction';
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav', $data);
         $this->load->view('karma_on_auction', $data);
         $this->load->view('templates/footer', $data);
     }
 
-    public function leaderboard($column = 'score', $sort = 'DESC', $limit = DEFAULT_LEADERBOARD_LIMIT, $offset = 0)
+    public function leaderboard($column = 'score', $sort = 'desc', $limit = DEFAULT_LEADERBOARD_LIMIT, $offset = 0)
     {
+        $data['user'] = $this->user_model->get_this_user();
+        
         $data['column'] = $column;
         $data['sort'] = $sort;
         $data['limit'] = $limit;
@@ -270,6 +277,7 @@ class Main extends CI_Controller {
         // Load view
         $data['page_title'] = site_name();
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav', $data);
         $this->load->view('leaderboard', $data);
         $this->load->view('templates/footer', $data);
     }
@@ -391,6 +399,7 @@ class Main extends CI_Controller {
         // Load view
         $data['page_title'] = $data['user']['username'];
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav', $data);
         $this->load->view('user', $data);
         $this->load->view('templates/footer', $data);
     }
@@ -415,6 +424,7 @@ class Main extends CI_Controller {
         // Load view
         $data['page_title'] = site_name();
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/nav', $data);
         $this->load->view('api_docs', $data);
         $this->load->view('templates/footer', $data);
     }

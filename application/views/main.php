@@ -1,26 +1,9 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <h1 class="text-center"><?php echo $page_title; ?></h1>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
         <div class="col-md-8">
+            <h1 class="text-center"><?php echo $page_title; ?></h1>
             <h2>How it works</h2>
             <p>Coming Soon</p>
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="<?=base_url()?>leaderboard" class="btn btn-action form-control">Leaderboard</a> <br>
-                    <a href="<?=base_url()?>games_on_auction" class="btn btn-action form-control">Games on Auction</a> <br>
-                    <a href="<?=base_url()?>karma_on_auction" class="btn btn-action form-control">Karma on Auction</a> <br>
-                    <?php if ($user) { ?>
-                    <a href="<?=base_url()?>started_games" class="btn btn-action form-control">Started Games</a> <br>
-                    <a href="<?=base_url()?>finished_games" class="btn btn-action form-control">Finished Games</a> <br>
-                    <?php } ?>
-                    <a href="<?=base_url()?>api_docs" class="btn btn-action form-control">API Documentation</a> <br>
-                </div>
-            </div>
         </div>
 
         <div class="col-md-4">
