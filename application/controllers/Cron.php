@@ -65,14 +65,14 @@ class Cron extends CI_Controller {
             $primary_choice = 0;
             $secondary_choice = 0;
             $this->create_payoff($game_key, $primary_choice, $secondary_choice);
-            $primary_choice = 1;
-            $secondary_choice = 0;
-            $this->create_payoff($game_key, $primary_choice, $secondary_choice);
             $primary_choice = 0;
             $secondary_choice = 1;
             $this->create_payoff($game_key, $primary_choice, $secondary_choice);
             $primary_choice = 1;
             $secondary_choice = 1;
+            $this->create_payoff($game_key, $primary_choice, $secondary_choice);
+            $primary_choice = 1;
+            $secondary_choice = 0;
             $this->create_payoff($game_key, $primary_choice, $secondary_choice);
 
             echo '<hr> Game Created - ' . time() . '<br>';

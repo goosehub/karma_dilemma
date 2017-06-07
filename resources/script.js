@@ -21,14 +21,22 @@ $(document).ready(function(){
 		$('#avatar_form').submit();
 	});
 
-	$('.game_bid_input').change(function(){
+	$('.game_bid_input_range').change(function(){
+		console.log('marco');
 		var true_value = $(this).val() * -1;
-		$(this).parent('.game_bid_parent').find('.game_bid_value_label').html(true_value);
+		$(this).closest('.game_bid_parent').find('.game_bid_input_number').val(true_value);
+	});
+
+	$('.game_bid_input_number').change(function(){
+		console.log('polo');
+		console.log($(this).closest('.game_bid_parent').find('.game_bid_input_range'));
+		var true_value = $(this).val() * -1;
+		$(this).closest('.game_bid_parent').find('.game_bid_input_range').val(true_value);
 	});
 
 	$('.game_bid_submit').click(function(e){
-		var bid_value = $(this).parent('.game_bid_parent').find('.game_bid_value_label').html();
-		var game_id = $(this).parent('.game_bid_parent').find('.game_bid_game_id').val();
+		var bid_value = $(this).closest('.game_bid_parent').find('.game_bid_input_number').val();
+		var game_id = $(this).closest('.game_bid_parent').find('.game_bid_game_id').val();
 
 		var data = {};
 		data.game_id = parseInt(game_id);
@@ -36,12 +44,12 @@ $(document).ready(function(){
 		var game_bid_url = base_url + 'game/bid/';
 		ajax_post(game_bid_url, data, false);
 
-		$(this).parent('.game_bid_parent').hide();
+		$(this).closest('.game_bid_parent').hide();
 	});
 
 	$('.karma_bid_submit').click(function(e){
-		var bid_value = $(this).parent('.karma_bid_parent').find('.karma_bid_value_label').html();
-		var karma_id = $(this).parent('.karma_bid_parent').find('.karma_bid_karma_id').val();
+		var bid_value = $(this).closest('.karma_bid_parent').find('.karma_bid_value_label').html();
+		var karma_id = $(this).closest('.karma_bid_parent').find('.karma_bid_karma_id').val();
 
 		var data = {};
 		data.karma_id = parseInt(karma_id);
@@ -51,7 +59,7 @@ $(document).ready(function(){
 	});
 
 	$('.karma_bid_input').change(function(){
-		$(this).parent('.karma_bid_parent').find('.karma_bid_value_label').html($(this).val());
+		$(this).closest('.karma_bid_parent').find('.karma_bid_value_label').html($(this).val());
 	});
 
 	$('.reward_button').click(function(e){
@@ -88,7 +96,7 @@ $(document).ready(function(){
 
 	$('.game_choice_button').click(function(e){
 		var choice = $(this).val();
-		var game_id = $(this).parent('.game_choice_parent').find('.game_id').val();
+		var game_id = $(this).closest('.game_choice_parent').find('.game_id').val();
 
 		var data = {};
 		data.game_id = parseInt(game_id);
@@ -111,7 +119,7 @@ $(document).ready(function(){
 			alert('The other player choose to ' + other_player_choice);
 		});
 
-		$(this).parent('.game_choice_parent').hide();
+		$(this).closest('.game_choice_parent').hide();
 	});
 
 	// Abstract simple ajax calls

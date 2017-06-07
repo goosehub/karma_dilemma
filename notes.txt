@@ -5,7 +5,11 @@ UI/UX
 tutorial
 make some bots
 
+	moderate priority
+bid interface quicker feedback
+
 	low priority
+write testss
 api throttling
 regen auth token
 forgot password

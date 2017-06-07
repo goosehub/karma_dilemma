@@ -82,8 +82,7 @@ class Main extends CI_Controller {
     {
         $data['user'] = $this->user_model->get_this_user();
         if (!$data['user']) {
-            $this->output->set_status_header(401);
-            echo 'Must be logged in';
+            redirect(base_url() . '?logged_out=true', 'refresh');
             return false;
         }
 
@@ -164,8 +163,7 @@ class Main extends CI_Controller {
     {
         $data['user'] = $this->user_model->get_this_user();
         if (!$data['user']) {
-            $this->output->set_status_header(401);
-            echo 'Must be logged in';
+            redirect(base_url() . '?logged_out=true', 'refresh');
             return false;
         }
 
