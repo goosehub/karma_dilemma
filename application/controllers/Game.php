@@ -180,7 +180,7 @@ class Game extends CI_Controller {
             // Finish game if both choices have explicitly been made
             if ($game['primary_choice_made']) {
                 $game['secondary_choice'] = $input->choice;
-                $game['secondary_choice_timestamp'] = 1;
+                $game['secondary_choice_made'] = 1;
                 $finish_game = true;
             }
         }

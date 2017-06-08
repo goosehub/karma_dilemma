@@ -115,12 +115,35 @@ Class game_model extends CI_Model
         $this->db->from('game');
         $this->db->where('started_flag', $started_flag);
         $this->db->where('finished_flag', $finished_flag);
-        $this->db->where('(primary_user_key = ' . $user_key . ' OR secondary_user_key = ' . $user_key . ')');
+        $this->db->group_start();
+            $this->db->where('primary_user_key', $user_key);
+            $this->db->or_where('secondary_user_key', $user_key);
+        $this->db->group_end();
         $this->db->limit($limit);
         $this->db->offset($offset);
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
+    }
+    function count_your_turn($user_key)
+    {
+        // Cast to int to sanitize
+        $user_key = (int) $user_key;
+
+        // Raw query because of layered AND OR logic
+        $raw_query = "
+            SELECT COUNT(*) as game_count
+            FROM `game`
+            WHERE `started_flag` = 1 AND `finished_flag` = 0 
+            AND (
+                ( `primary_user_key` = '$user_key' AND `primary_choice_made` = 0 ) 
+                OR
+                ( `secondary_user_key` = '$user_key' AND `secondary_choice_made` = 0 )
+            );
+        ";
+        $query = $this->db->query($raw_query);
+        $result = $query->result_array();
+        return isset($result[0]['game_count']) ? $result[0]['game_count'] : 0;
     }
     function count_games_by_status_and_user_key($started_flag, $finished_flag, $user_key, $limit = 100, $offset = 0)
     {
@@ -179,7 +202,7 @@ Class game_model extends CI_Model
     {
         $data = array(
             'secondary_choice' => $choice,
-            'secondary_choice_timestamp' => date('Y-m-d H:i:s'),
+            'secondary_choice_made' => 1,
         );
         $this->db->where('id', $game_key);
         $this->db->update('game', $data);

@@ -6,8 +6,6 @@ tutorial
 make some bots
 
 	moderate priority
-count your turn to not include moves made
-choice time to bool
 finished games (x) to see unseen
 
 	low priority
