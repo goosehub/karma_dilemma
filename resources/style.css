@@ -16,11 +16,18 @@ body {
 .nav_username:hover {
     color: #ffffff;
 }
+.nav .nav_score {
+    color: #ffffff;
+}
 
 /* Started Games */
 .choice_pre_label {
     width: 25%;
     display: inline-block;
+}
+.game_choice_button {
+    width: 100%;
+    height: 100px;
 }
 
 /* Leaderboard */

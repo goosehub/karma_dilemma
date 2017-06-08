@@ -45,7 +45,7 @@
                     </p>
                 </li>
                 <li>
-                    <p class="navbar-text">Score: <?php echo $user['score'] ?></p>
+                    <p class="nav_score navbar-text">Score: <?php echo $user['score'] ?></p>
                 </li>
                 <?php } else { ?>
                 <a class="btn btn-primary navbar-btn" href="<?=base_url()?>?logged_out=true">Login</a>

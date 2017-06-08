@@ -22,6 +22,7 @@
                             } ?>
                             <tr>
                                 <td></td>
+                                <td></td>
                                 <td>
                                     <strong>You</strong>
                                 </td>
@@ -29,10 +30,13 @@
                                     <strong><?php echo $game['other_player']['username']; ?></strong>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="info">
+                                <td rowspan="2">
+                                    <button class="game_choice_button btn btn-primary" value="0" type="button">Do Nothing</button>
+                                </td>
                                 <td>
                                     <strong class="choice_pre_label">Both Players</strong>
-                                    <button class="game_choice_button btn btn-default" value="0" type="button">Do Nothing</button></td>
+                                </td>
                                 <td>
                                     <?php $this_payoff = $game['payoffs'][0][$this_player_type . '_payoff']; ?>
                                     <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
@@ -45,10 +49,10 @@
                                     </span>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="info">
                                 <td>
                                     <strong class="choice_pre_label">Only You</strong>
-                                    <button class="game_choice_button btn btn-default" value="0" type="button">Do Nothing</button></td>
+                                </td>
                                 <td>
                                     <?php $this_payoff = $game['payoffs'][1][$this_player_type . '_payoff']; ?>
                                     <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
@@ -61,10 +65,13 @@
                                     </span>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="danger">
+                                <td rowspan="2">
+                                    <button class="game_choice_button btn btn-action" value="1" type="button">Take Action</button>
+                                </td>
                                 <td>
                                     <strong class="choice_pre_label">Both Players</strong>
-                                    <button class="game_choice_button btn btn-default" value="1" type="button">Take Action</button></td>
+                                </td>
                                 <td>
                                     <?php $this_payoff = $game['payoffs'][2][$this_player_type . '_payoff']; ?>
                                     <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
@@ -77,10 +84,10 @@
                                     </span>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="danger">
                                 <td>
                                     <strong class="choice_pre_label">Only You</strong>
-                                    <button class="game_choice_button btn btn-default" value="1" type="button">Take Action</button></td>
+                                </td>
                                 <td>
                                     <?php $this_payoff = $game['payoffs'][3][$this_player_type . '_payoff']; ?>
                                     <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
