@@ -1,36 +1,24 @@
 $(document).ready(function(){
-	// Login switch
-	$('#show_login').click(function(){
-	    $('#new_user_parent').hide();
-	    $('#login_parent').show();
-	});
-	$('#show_register').click(function(){
-	    $('#new_user_parent').show();
-	    $('#login_parent').hide();
-	});
 
-	if (getParameterByName('logged_out')) {
-		$('#show_login').click();
-	}
+	// 
+	// Games on auctions functions
+	// 
 
-	$('#change_avatar').click(function(){
-		$('#avatar_form_parent').show();
-	});
-
-	$('#avatar_input').change(function(){
-		$('#avatar_form').submit();
-	});
-
+	// Game bid change value
 	$('.game_bid_input_range').on('input', function(){
+		// Inverse value so range
 		var true_value = $(this).val() * -1;
 		$(this).closest('.game_bid_parent').find('.game_bid_input_number').val(true_value);
 	});
 
+	// Game bid change value
 	$('.game_bid_input_number').on('input', function(){
+		// Inverse value so range
 		var true_value = $(this).val() * -1;
 		$(this).closest('.game_bid_parent').find('.game_bid_input_range').val(true_value);
 	});
 
+	// Game bid submit
 	$('.game_bid_submit').click(function(e){
 		var bid_value = $(this).closest('.game_bid_parent').find('.game_bid_input_number').val();
 		var game_id = $(this).closest('.game_bid_parent').find('.game_bid_game_id').val();
@@ -44,6 +32,11 @@ $(document).ready(function(){
 		$(this).closest('.game_bid_parent').hide();
 	});
 
+	// 
+	// Your turn functions
+	// 
+
+	// Switch perspective
 	$('.switch_perspective').click(function(e){
 		if ($(this).hasClass('active')) {
 			$(this).removeClass('active').removeClass('btn-info').addClass('btn-default');
@@ -57,57 +50,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$('.karma_bid_submit').click(function(e){
-		var bid_value = $(this).closest('.karma_bid_parent').find('.karma_bid_input_number').html();
-		var karma_id = $(this).closest('.karma_bid_parent').find('.karma_bid_karma_id').val();
-
-		var data = {};
-		data.karma_id = parseInt(karma_id);
-		data.amount = parseInt(bid_value);
-		var karma_bid_url = base_url + 'karma/bid/';
-		ajax_post(karma_bid_url, data, false);
-	});
-
-	$('.karma_bid_input_range').on('input', function(){
-		$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val($(this).val());
-	});
-
-	$('.karma_bid_input_number').on('input', function(){
-		$(this).closest('.karma_bid_parent').find('.karma_bid_input_range').val($(this).val());
-	});
-
-	$('.reward_button').click(function(e){
-		give_karma(1);
-	});
-	$('.revenge_button').click(function(e){
-		give_karma(0);
-	});
-
-	$('.sell_good_karma').click(function(){
-		sell_karma(1);
-	});
-
-	$('.sell_bad_karma').click(function(){
-		sell_karma(0);
-	});
-
-	function sell_karma(type) {
-		var data = {};
-		data.type = type;
-		var karma_sell_url = base_url + 'karma/sell/';
-		ajax_post(karma_sell_url, data);
-	}
-
-	function give_karma(type) {
-		var other_player_user_id = $('#other_player_user_id').val();
-
-		var data = {};
-		data.other_player_user_id = parseInt(other_player_user_id);
-		data.type = type;
-		var karma_give_url = base_url + 'karma/give/';
-		ajax_post(karma_give_url, data);
-	}
-
+	// Submit game choice
 	$('.game_choice_button').click(function(e){
 		var choice = $(this).val();
 		var game_id = $(this).closest('.game_choice_parent').find('.game_id').val();
@@ -135,6 +78,96 @@ $(document).ready(function(){
 
 		$(this).closest('.started_game_parent').fadeOut();
 	});
+
+	// 
+	// Finished games functions
+	// 
+
+	// Give karma
+	$('.reward_button').click(function(e){
+		give_karma(1);
+	});
+	$('.revenge_button').click(function(e){
+		give_karma(0);
+	});
+
+	// 
+	// Karma functions
+	// 
+
+	// Karma bid value change
+	$('.karma_bid_input_range').on('input', function(){
+		$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val($(this).val());
+	});
+	$('.karma_bid_input_number').on('input', function(){
+		$(this).closest('.karma_bid_parent').find('.karma_bid_input_range').val($(this).val());
+	});
+
+	// Sell karma
+	$('.sell_good_karma').click(function(){
+		sell_karma(1);
+	});
+	$('.sell_bad_karma').click(function(){
+		sell_karma(0);
+	});
+
+	// Submit karma bid
+	$('.karma_bid_submit').click(function(e){
+		var bid_value = $(this).closest('.karma_bid_parent').find('.karma_bid_input_number').html();
+		var karma_id = $(this).closest('.karma_bid_parent').find('.karma_bid_karma_id').val();
+
+		var data = {};
+		data.karma_id = parseInt(karma_id);
+		data.amount = parseInt(bid_value);
+		var karma_bid_url = base_url + 'karma/bid/';
+		ajax_post(karma_bid_url, data, false);
+	});
+
+	function sell_karma(type) {
+		var data = {};
+		data.type = type;
+		var karma_sell_url = base_url + 'karma/sell/';
+		ajax_post(karma_sell_url, data);
+	}
+
+	function give_karma(type) {
+		var other_player_user_id = $('#other_player_user_id').val();
+
+		var data = {};
+		data.other_player_user_id = parseInt(other_player_user_id);
+		data.type = type;
+		var karma_give_url = base_url + 'karma/give/';
+		ajax_post(karma_give_url, data);
+	}
+
+	// 
+	// User functions
+	// 
+
+	// Show login or register
+	$('#show_login').click(function(){
+	    $('#new_user_parent').hide();
+	    $('#login_parent').show();
+	});
+	$('#show_register').click(function(){
+	    $('#new_user_parent').show();
+	    $('#login_parent').hide();
+	});
+	if (getParameterByName('logged_out')) {
+		$('#show_login').click();
+	}
+
+	// Avatar
+	$('#change_avatar').click(function(){
+		$('#avatar_form_parent').show();
+	});
+	$('#avatar_input').change(function(){
+		$('#avatar_form').submit();
+	});
+
+	// 
+	// Utilties functions
+	// 
 
 	// Abstract simple ajax calls
 	function ajax_post(url, data, callback) {
