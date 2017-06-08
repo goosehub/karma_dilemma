@@ -58,7 +58,7 @@ $(document).ready(function(){
 	});
 
 	$('.karma_bid_submit').click(function(e){
-		var bid_value = $(this).closest('.karma_bid_parent').find('.karma_bid_value_label').html();
+		var bid_value = $(this).closest('.karma_bid_parent').find('.karma_bid_input_number').html();
 		var karma_id = $(this).closest('.karma_bid_parent').find('.karma_bid_karma_id').val();
 
 		var data = {};
@@ -68,8 +68,12 @@ $(document).ready(function(){
 		ajax_post(karma_bid_url, data, false);
 	});
 
-	$('.karma_bid_input').change(function(){
-		$(this).closest('.karma_bid_parent').find('.karma_bid_value_label').html($(this).val());
+	$('.karma_bid_input_range').change(function(){
+		$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val($(this).val());
+	});
+
+	$('.karma_bid_input_number').change(function(){
+		$(this).closest('.karma_bid_parent').find('.karma_bid_input_range').val($(this).val());
 	});
 
 	$('.reward_button').click(function(e){
