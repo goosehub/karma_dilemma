@@ -6,7 +6,9 @@ tutorial
 make some bots
 
 	moderate priority
+count your turn to not include moves made
 bid interface quicker feedback
+choice time to bool
 
 	low priority
 write testss

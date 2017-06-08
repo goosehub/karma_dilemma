@@ -122,6 +122,7 @@ class Main extends CI_Controller {
 
                 // Set other player for easier view logic and api
                 $game['your_player_type'] = 1;
+                $game['other_player_type'] = 0;
                 $game['other_player'] = $game['secondary_player'];
             }
             else {
@@ -140,6 +141,7 @@ class Main extends CI_Controller {
 
                 // Set other player for easier view logic and api
                 $game['your_player_type'] = 0;
+                $game['other_player_type'] = 1;
                 $game['other_player'] = $game['primary_player'];
             }
         }

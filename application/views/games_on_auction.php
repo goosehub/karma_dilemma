@@ -8,15 +8,14 @@
                 <?php if ($game['has_bid_by_you']) { continue; } ?>
 
                 <table class="table">
-                    <?php $payoff_i = 0; ?>
                     <thead>
+                        <tr>
+                            <th></th>
+                            <th>Primary</th>
+                            <th>Secondary</th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td>Primary</td>
-                            <td>Secondary</td>
-                        </tr>
                         <tr>
                             <td>Both Players Do Nothing</td>
                             <td>
