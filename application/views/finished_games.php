@@ -7,9 +7,13 @@
             if ($game['primary_user_key'] === $user['id']) { 
                 $this_player_type = 'primary';
                 $other_player_type = 'secondary';
+                $player_class = 'text-primary';
+                $other_player_class = 'text-danger';
             } else {
                 $this_player_type = 'secondary';
                 $other_player_type = 'primary';
+                $player_class = 'text-danger';
+                $other_player_class = 'text-primary';
             } ?>
             <div class="finished_game_parent">
                 <form class="game_choice_parent" action="<?=base_url()?>game/bid/<?php echo $game['id']; ?>" method="post">
@@ -95,13 +99,6 @@
                         </tbody>
                     </table>
 
-                <?php if ($game['secondary_player']['id'] === $user['id']) {
-                    $player_class = 'text-danger';
-                    $other_player_class = 'text-primary';
-                } else {
-                    $player_class = 'text-primary';
-                    $other_player_class = 'text-danger';
-                } ?>
                 <div class="other_player_info_parent">
                     <p>You played with <?php echo $game['other_player']['username']; ?></p>
                     <p>Joined: <?php echo date('Y-m-d H:i:s', strtotime($game['other_player']['created'])); ?></p>
@@ -113,6 +110,10 @@
                     <input id="other_player_user_id" name="other_player_user_id" type="hidden" value="<?php echo $game['other_player']['id']; ?>">
                     <p>You were the <span class="<?php echo $player_class; ?>"><?php echo $game['your_player_type'] ? 'Primary' : 'Secondary'; ?></span></p>
                     <p>They was the <span class="<?php echo $other_player_class; ?>"><?php echo $game['other_player_type'] ? 'Primary' : 'Secondary'; ?></span></p>
+                    <p>
+                        You have <strong class="text-success"><?php echo $user['available_good_karma']; ?> Available Good Karma</strong>
+                        and <strong class="text-danger"><?php echo $user['available_good_karma']; ?> Available Bad Karma</strong>.
+                    </p>
                     <button class="reward_button btn btn-success" value="0" type="button">Reward</button>
                     <button class="revenge_button btn btn-danger" value="1" type="button">Revenge</button>
                 </form>

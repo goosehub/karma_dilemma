@@ -33,8 +33,8 @@ body {
 /* Leaderboard */
 .leaderboard_avatar {
     display: block;
-    max-height: 100px;
-    max-width: 100px;
+    max-height: 50px;
+    max-width: 50px;
 }
 
 /* Fancy Range */

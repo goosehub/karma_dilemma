@@ -7,8 +7,8 @@ make some bots
 
 	moderate priority
 count your turn to not include moves made
-bid interface quicker feedback
 choice time to bool
+bid interface quicker feedback
 
 	low priority
 write testss
