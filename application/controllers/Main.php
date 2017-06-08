@@ -93,15 +93,6 @@ class Main extends CI_Controller {
             unset($game['primary_choice']);
             unset($game['secondary_choice']);
 
-            // Detect which choices have been submitted
-            $game['primary_choice_made'] = $game['secondary_choice_made'] = false;
-            if ($game['start_timestamp'] < $game['primary_choice_timestamp']) {
-                $game['primary_choice_made'] = true;
-            }
-            if ($game['start_timestamp'] < $game['secondary_choice_timestamp']) {
-                $game['secondary_choice_made'] = true;
-            }
-
             // Get payoffs
             $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
 

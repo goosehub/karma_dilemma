@@ -35,8 +35,8 @@ CREATE TABLE `game` (
   `primary_choice` bit(1) NOT NULL,
   `secondary_choice` bit(1) NOT NULL,
   `start_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `primary_choice_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `secondary_choice_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `primary_choice_made` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `secondary_choice_made` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

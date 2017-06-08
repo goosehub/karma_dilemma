@@ -14,6 +14,8 @@ Class game_model extends CI_Model
             'secondary_user_key' => 0,
             'primary_choice' => 0,
             'secondary_choice' => 0,
+            'primary_choice_made' => 0,
+            'secondary_choice_made' => 0,
         );
         $this->db->insert('game', $data);
         return $this->db->insert_id();
@@ -168,7 +170,7 @@ Class game_model extends CI_Model
     {
         $data = array(
             'primary_choice' => $choice,
-            'primary_choice_timestamp' => date('Y-m-d H:i:s'),
+            'primary_choice_made' => 1,
         );
         $this->db->where('id', $game_key);
         $this->db->update('game', $data);

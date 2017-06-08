@@ -153,7 +153,7 @@ class Game extends CI_Controller {
 
         $finish_game = false;
         if ($game['primary_user_key'] === $user['id']) {
-            if ($game['start_timestamp'] < $game['primary_choice_timestamp']) {
+            if ($game['primary_choice_made']) {
                 echo api_error_response('choice_already_made', 'You have already made your choice for this game.');
                 return false;
             }
@@ -162,14 +162,14 @@ class Game extends CI_Controller {
             $this->game_model->update_game_primary_choice($input->game_id, $input->choice);
 
             // Finish game if both choices have explicitly been made
-            if ($game['start_timestamp'] < $game['secondary_choice_timestamp']) {
+            if ($game['secondary_choice_made']) {
                 $game['primary_choice'] = $input->choice;
-                $game['primary_choice_timestamp'] = date('Y-m-d H:i:s');
+                $game['primary_choice_made'] = 1;
                 $finish_game = true;
             }
         }
         else {
-            if ($game['start_timestamp'] < $game['secondary_choice_timestamp']) {
+            if ($game['secondary_choice_made']) {
                 echo api_error_response('choice_already_made', 'You have already made your choice for this game.');
                 return false;
             }
@@ -178,9 +178,9 @@ class Game extends CI_Controller {
             $this->game_model->update_game_secondary_choice($input->game_id, $input->choice);
 
             // Finish game if both choices have explicitly been made
-            if ($game['start_timestamp'] < $game['primary_choice_timestamp']) {
+            if ($game['primary_choice_made']) {
                 $game['secondary_choice'] = $input->choice;
-                $game['secondary_choice_timestamp'] = date('Y-m-d H:i:s');
+                $game['secondary_choice_timestamp'] = 1;
                 $finish_game = true;
             }
         }
