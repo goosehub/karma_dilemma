@@ -30,11 +30,11 @@
                 <strong class="<?php echo $karma['type'] ? 'text-success' : 'text-danger'; ?>"><?php echo $karma['type'] ? 'Good' : 'Bad'; ?> Karma</strong>
                 <input class="karma_bid_karma_id" name="karma_id" type="hidden" value="<?php echo $karma['id']; ?>">
                 <input class="karma_bid_input_range form-control" type="range" name="bid" min="1" max="100" value="<?php echo $karma['highest_bid'] + 1; ?>">
-                <div class="col-sm-6">
-                    <input class="karma_bid_input_number form-control" type="number" min="1" max="100" value="<?php echo $karma['highest_bid'] + 1; ?>"/>
+                <div class="col-sm-3">
+                    <input class="karma_bid_input_number text-center form-control" type="number" min="1" max="100" value="<?php echo $karma['highest_bid'] + 1; ?>"/>
                     <strong class="karma_bid_value_label"></strong>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-9">
                     <button class="karma_bid_submit btn btn-primary pull-right" type="button">Make this bid</button>
                 </div>
             </form>

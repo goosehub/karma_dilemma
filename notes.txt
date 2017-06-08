@@ -8,7 +8,7 @@ make some bots
 	moderate priority
 count your turn to not include moves made
 choice time to bool
-bid interface quicker feedback
+finished games (x) to see unseen
 
 	low priority
 write testss
@@ -24,6 +24,10 @@ easy to read matrix UI
 karma available vs have
 bid start at -100 to 100
 2/3rd median bid wins
+
+	game ideas
+unique bid?
+different type of auction for secondary player
 
 ================================================================
 

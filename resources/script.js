@@ -21,12 +21,12 @@ $(document).ready(function(){
 		$('#avatar_form').submit();
 	});
 
-	$('.game_bid_input_range').change(function(){
+	$('.game_bid_input_range').on('input', function(){
 		var true_value = $(this).val() * -1;
 		$(this).closest('.game_bid_parent').find('.game_bid_input_number').val(true_value);
 	});
 
-	$('.game_bid_input_number').change(function(){
+	$('.game_bid_input_number').on('input', function(){
 		var true_value = $(this).val() * -1;
 		$(this).closest('.game_bid_parent').find('.game_bid_input_range').val(true_value);
 	});
@@ -68,11 +68,11 @@ $(document).ready(function(){
 		ajax_post(karma_bid_url, data, false);
 	});
 
-	$('.karma_bid_input_range').change(function(){
+	$('.karma_bid_input_range').on('input', function(){
 		$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val($(this).val());
 	});
 
-	$('.karma_bid_input_number').change(function(){
+	$('.karma_bid_input_number').on('input', function(){
 		$(this).closest('.karma_bid_parent').find('.karma_bid_input_range').val($(this).val());
 	});
 

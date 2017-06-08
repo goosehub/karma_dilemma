@@ -71,13 +71,27 @@
                 <form class="game_bid_parent" action="<?=base_url()?>game/bid/<?php echo $game['id']; ?>" method="post">
                     <!-- Input reflects opposite of real bid, instead of using hacks to reverse range UI -->
                     <input class="game_bid_game_id" name="game_id" type="hidden" value="<?php echo $game['id']; ?>">
-                    <input class="game_bid_input_range form-control" type="range" name="bid" min="-100" max="100" value="-100">
                     <div class="row">
                         <div class="col-sm-6">
-                            <input class="game_bid_input_number form-control" type="number" min="-100" max="100" value="100"/>
+                            <small class="pull-right text-info">
+                                <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>
+                                How much you're paid to play
+                            </small>
                         </div>
                         <div class="col-sm-6">
-                            <button class="game_bid_submit btn btn-action form-control" type="button">Make this bid</button>
+                            <small class="pull-left text-info">
+                                How much you'll pay to play
+                                <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+                            </small>
+                        </div>
+                    </div>
+                    <input class="game_bid_input_range form-control" type="range" name="bid" min="-100" max="100" value="-100">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <input class="game_bid_input_number text-center form-control" type="number" min="-100" max="100" value="100"/>
+                        </div>
+                        <div class="col-xs-9">
+                            <button class="game_bid_submit btn btn-action pull-right" type="button">Make this bid</button>
                         </div>
                     </div>
                 </form>

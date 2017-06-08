@@ -20,6 +20,14 @@ body {
     color: #ffffff;
 }
 
+/* Bid */
+input[type=range].game_bid_input_range, input[type=range].karma_bid_input_range {
+    margin: 4px 0;
+}
+.game_bid_input_number, .karma_bid_input_number {
+    font-weight: bold;
+}
+
 /* Started Games */
 .choice_pre_label {
     width: 25%;
