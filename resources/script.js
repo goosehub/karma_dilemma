@@ -22,14 +22,11 @@ $(document).ready(function(){
 	});
 
 	$('.game_bid_input_range').change(function(){
-		console.log('marco');
 		var true_value = $(this).val() * -1;
 		$(this).closest('.game_bid_parent').find('.game_bid_input_number').val(true_value);
 	});
 
 	$('.game_bid_input_number').change(function(){
-		console.log('polo');
-		console.log($(this).closest('.game_bid_parent').find('.game_bid_input_range'));
 		var true_value = $(this).val() * -1;
 		$(this).closest('.game_bid_parent').find('.game_bid_input_range').val(true_value);
 	});
@@ -45,6 +42,19 @@ $(document).ready(function(){
 		ajax_post(game_bid_url, data, false);
 
 		$(this).closest('.game_bid_parent').hide();
+	});
+
+	$('.switch_perspective').click(function(e){
+		if ($(this).hasClass('active')) {
+			$(this).removeClass('active').removeClass('btn-info').addClass('btn-default');
+			$(this).closest('.game_choice_parent').find('.you_do_nothing_row').removeClass('danger').addClass('info');
+			$(this).closest('.game_choice_parent').find('.you_take_action_row').removeClass('info').addClass('danger');
+		}
+		else {
+			$(this).addClass('active').removeClass('btn-default').addClass('btn-info');
+			$(this).closest('.game_choice_parent').find('.you_do_nothing_row').removeClass('info').addClass('danger');
+			$(this).closest('.game_choice_parent').find('.you_take_action_row').removeClass('danger').addClass('info');
+		}
 	});
 
 	$('.karma_bid_submit').click(function(e){
@@ -119,7 +129,7 @@ $(document).ready(function(){
 			alert('The other player choose to ' + other_player_choice);
 		});
 
-		$(this).closest('.game_choice_parent').hide();
+		$(this).closest('.started_game_parent').fadeOut();
 	});
 
 	// Abstract simple ajax calls

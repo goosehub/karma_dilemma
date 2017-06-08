@@ -21,8 +21,11 @@
                                 $other_player_type = 'primary';
                             } ?>
                             <tr>
-                                <td></td>
-                                <td></td>
+                                <td>
+                                </td>
+                                <td>
+                                    <button class="switch_perspective btn btn-default form-control" type="button">Switch Perspective</button>
+                                </td>
                                 <td>
                                     <strong>You</strong>
                                 </td>
@@ -30,7 +33,7 @@
                                     <strong><?php echo $game['other_player']['username']; ?></strong>
                                 </td>
                             </tr>
-                            <tr class="info">
+                            <tr class="both_do_nothing_row info">
                                 <td rowspan="2">
                                     <button class="game_choice_button btn btn-primary" value="0" type="button">Do Nothing</button>
                                 </td>
@@ -49,7 +52,7 @@
                                     </span>
                                 </td>
                             </tr>
-                            <tr class="info">
+                            <tr class="you_do_nothing_row info">
                                 <td>
                                     <strong class="choice_pre_label">Only You</strong>
                                 </td>
@@ -65,7 +68,7 @@
                                     </span>
                                 </td>
                             </tr>
-                            <tr class="danger">
+                            <tr class="both_take_action_row danger">
                                 <td rowspan="2">
                                     <button class="game_choice_button btn btn-action" value="1" type="button">Take Action</button>
                                 </td>
@@ -84,7 +87,7 @@
                                     </span>
                                 </td>
                             </tr>
-                            <tr class="danger">
+                            <tr class="you_take_action_row danger">
                                 <td>
                                     <strong class="choice_pre_label">Only You</strong>
                                 </td>
