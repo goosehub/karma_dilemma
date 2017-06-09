@@ -16,25 +16,76 @@
                 $player_class = 'text-danger';
                 $other_player_class = 'text-primary';
             } ?>
+            <!-- <p>You are the <span class="<?php echo $player_class; ?>"><?php echo ucfirst($your_player_type); ?></span></p> -->
             <div class="started_game_parent">
                 <form class="game_choice_parent" action="<?=base_url()?>game/bid/<?php echo $game['id']; ?>" method="post">
                     <input class="game_id" name="game_id" type="hidden" value="<?php echo $game['id']; ?>">
                     <table class="table">
                         <thead>
+                            <tr>
                                 <th>
+                                    <?php if ( ($game['your_player_type'] && $game['secondary_choice_made']) || (!$game['your_player_type'] && $game['primary_choice_made']) ) { ?>
+                                    <p>Waiting on you</p>
+                                    <?php } ?>
                                 </th>
                                 <th>
                                     <button class="switch_perspective btn btn-default form-control" type="button">Switch Perspective</button>
                                 </th>
                                 <th>
-                                    <strong>You</strong>
+                                    <div class="user_card_button btn btn-default form-control">You</div>
                                 </th>
                                 <th>
-                                    <strong><?php echo $game['other_player']['username']; ?></strong>
+                                    <div class="user_card_button btn btn-default form-control"><?php echo $game['other_player']['username']; ?></div>
                                 </th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td class="game_user_td" colspan="4">
+                                    <table class="game_user_table table table-condensed" style="display: none;">
+                                        <thead>
+                                            <tr class="active">
+                                                <th>Player</th>
+                                                <th>Type</th>
+                                                <th>Karma</th>
+                                                <th>Owned Karma</th>
+                                                <th>Joined</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="<?php echo $other_player_class; ?>">
+                                                <td><strong><?php echo $game['other_player']['username']; ?></strong></td>
+                                                <td><?php echo ucfirst($other_player_type); ?></td>
+                                                <td>
+                                                    <span class="text-success"><?php echo $game['other_player']['good_karma']; ?></span>
+                                                    /
+                                                    <span class="text-danger"><?php echo $game['other_player']['bad_karma']; ?></span>
+                                                </td>
+                                                <td>
+                                                    <span class="text-success"><?php echo $game['other_player']['available_good_karma']; ?></span>
+                                                    /
+                                                    <span class="text-danger"><?php echo $game['other_player']['available_bad_karma']; ?></span>
+                                                </td>
+                                                <td><span class="text-info"><?php echo date('F jS Y', strtotime($game['other_player']['created'])); ?></td>
+                                            </tr>
+                                            <tr class="<?php echo $player_class; ?>">
+                                                <td><strong><?php echo $user['username']; ?></strong></td>
+                                                <td><?php echo ucfirst($your_player_type); ?></td>
+                                                <td>
+                                                    <span class="text-success"><?php echo $user['good_karma']; ?></span>
+                                                    /
+                                                    <span class="text-danger"><?php echo $user['bad_karma']; ?></span>
+                                                </td>
+                                                <td>
+                                                    <span class="text-success"><?php echo $user['available_good_karma']; ?></span>
+                                                    /
+                                                    <span class="text-danger"><?php echo $user['available_bad_karma']; ?></span>
+                                                </td>
+                                                <td><span class="text-info"><?php echo date('F jS Y', strtotime($user['created'])); ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
                             </tr>
                             <tr class="both_do_nothing_row info">
                                 <td rowspan="2">
@@ -109,28 +160,6 @@
                         </tbody>
                     </table>
                 </form>
-
-                <div class="other_player_info_parent">
-                    <p>You are playing with <strong><?php echo $game['other_player']['username']; ?></strong></p>
-                    <p>Joined on <span class="text-info"><?php echo date('F dS Y', strtotime($game['other_player']['created'])); ?></span></p>
-                    <p>Has played <span class="text-primary"><?php echo $game['other_player']['games_played']; ?></span> games</p>
-                    <p>Karma: 
-                        <span class="text-success"><?php echo $game['other_player']['good_karma']; ?></span>
-                        /
-                        <span class="text-danger"><?php echo $game['other_player']['bad_karma']; ?></span>
-                    </p>
-                    <p>Karma Available: 
-                        <span class="text-success"><?php echo $game['other_player']['available_good_karma']; ?></span>
-                        /
-                        <span class="text-danger"><?php echo $game['other_player']['available_bad_karma']; ?></span>
-                    </p>
-                    <?php // var_dump($game); ?>
-                    <p>You are the <span class="<?php echo $player_class; ?>"><?php echo ucfirst($your_player_type); ?></span></p>
-                    <p>They are the <span class="<?php echo $other_player_class; ?>"><?php echo ucfirst($other_player_type); ?></span></p>
-                    <?php if ( ($game['your_player_type'] && $game['secondary_choice_made']) || (!$game['your_player_type'] && $game['primary_choice_made']) ) { ?>
-                    <p>They have made their move and is waiting on you</p>
-                    <?php } ?>
-                </div>
 
             </div>
             <?php } ?>

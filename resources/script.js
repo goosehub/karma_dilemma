@@ -38,16 +38,14 @@ $(document).ready(function(){
 
 	// Switch perspective
 	$('.switch_perspective').click(function(e){
-		if ($(this).hasClass('active')) {
-			$(this).removeClass('active').removeClass('btn-info').addClass('btn-default');
-			$(this).closest('.game_choice_parent').find('.you_do_nothing_row').removeClass('danger').addClass('info');
-			$(this).closest('.game_choice_parent').find('.you_take_action_row').removeClass('info').addClass('danger');
-		}
-		else {
-			$(this).addClass('active').removeClass('btn-default').addClass('btn-info');
-			$(this).closest('.game_choice_parent').find('.you_do_nothing_row').removeClass('info').addClass('danger');
-			$(this).closest('.game_choice_parent').find('.you_take_action_row').removeClass('danger').addClass('info');
-		}
+		$(this).closest('.game_choice_parent').find('.you_do_nothing_row').toggleClass('info').toggleClass('danger');
+		$(this).closest('.game_choice_parent').find('.you_take_action_row').toggleClass('info').toggleClass('danger');
+		$(this).removeClass('active').toggleClass('btn-info').toggleClass('btn-default');
+	});
+
+	$('.user_card_button').click(function(){
+		$(this).closest('.game_choice_parent').find('.user_card_button').toggleClass('btn-default').toggleClass('btn-info');
+		$(this).closest('.game_choice_parent').find('.game_user_table').toggle();
 	});
 
 	// Submit game choice
@@ -89,6 +87,15 @@ $(document).ready(function(){
 	});
 	$('.revenge_button').click(function(e){
 		give_karma(0);
+	});
+
+	// 
+	// User Card
+	// 
+
+	$('.user_card_button').click(function(){
+		var this_user = jQuery.parseJSON($(this).next().prop('user'));
+		console.log(this_user);
 	});
 
 	// 

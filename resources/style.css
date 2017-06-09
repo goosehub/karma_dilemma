@@ -37,6 +37,10 @@ input[type=range].game_bid_input_range, input[type=range].karma_bid_input_range 
     width: 100%;
     height: 100px;
 }
+.table .game_user_td, .game_user_table {
+    padding: 0;
+    margin: 0;
+}
 
 /* Leaderboard */
 .leaderboard_avatar {
