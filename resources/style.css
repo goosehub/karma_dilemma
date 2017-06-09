@@ -41,6 +41,9 @@ input[type=range].game_bid_input_range, input[type=range].karma_bid_input_range 
     padding: 0;
     margin: 0;
 }
+.choice_pre_label {
+    white-space: nowrap;
+}
 
 /* Leaderboard */
 .leaderboard_avatar {

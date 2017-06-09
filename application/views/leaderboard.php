@@ -182,7 +182,7 @@
 	                        <?php echo number_format($leader['total_karma']); ?>
                         </td>
                         <td>
-	                        <small><?php echo date('Y-m-d', strtotime($leader['created'])); ?></small>
+	                        <small><?php echo date('F jS Y', strtotime($leader['created'])); ?></small>
                         </td>
                     </tr>
                 	<?php } ?>

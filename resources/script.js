@@ -43,11 +43,6 @@ $(document).ready(function(){
 		$(this).removeClass('active').toggleClass('btn-info').toggleClass('btn-default');
 	});
 
-	$('.user_card_button').click(function(){
-		$(this).closest('.game_choice_parent').find('.user_card_button').toggleClass('btn-default').toggleClass('btn-info');
-		$(this).closest('.game_choice_parent').find('.game_user_table').toggle();
-	});
-
 	// Submit game choice
 	$('.game_choice_button').click(function(e){
 		var choice = $(this).val();
