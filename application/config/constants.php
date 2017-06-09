@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// Polling
+define('MY_USER_UPDATE_INTERVAL', 10); // How frequent to update current user information
+
 // Game
 define('MINUTES_TO_GET_GAME_BID_ACTIVITY', 1); // How long in minutes to get user bidding activity
 define('MIN_GAME_AUCTIONS_TO_HAVE_ACTIVE', 10); // How many games to have on auction at all times at minimum

@@ -388,6 +388,13 @@ class Main extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
+    public function my_user()
+    {
+        $data['user'] = $this->user_model->get_this_user();
+        echo api_response($data);
+        return false;
+    }
+
     public function api_docs()
     {
         // Authentication

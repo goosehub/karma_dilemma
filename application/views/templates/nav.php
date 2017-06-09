@@ -19,7 +19,9 @@
                     <a href="<?=base_url()?>started_games" class="nav_link">
                         Your Turn
                         <span id="started_games_count">
+                            <?php if ($user['started_games_count']) { ?>
                             (<?php echo $user['started_games_count']; ?>)
+                            <?php } ?>
                         </span>
                     </a>
                 </li>

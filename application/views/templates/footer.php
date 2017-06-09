@@ -11,6 +11,7 @@
 	var user = false;
 	<?php if ($user) { ?>
 	var user = '<?php echo json_encode($user); ?>';
+	var my_user_update_interval = <?php echo MY_USER_UPDATE_INTERVAL; ?>
 	<?php } ?>
 </script>
 <!-- Local Script -->

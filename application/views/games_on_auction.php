@@ -31,7 +31,7 @@
                         <tr>
                             <td>Only Primary Player Does Nothing</td>
                             <td>
-                                <span class="h4 payoff_value <?php echo $game['payoffs'][2]['primary_payoff'] < 0 ? 'text-danger' : 'text-success'; ?>">
+                                <span class="h4 payoff_value <?php echo $game['payoffs'][1]['primary_payoff'] < 0 ? 'text-danger' : 'text-success'; ?>">
                                     <?php echo $game['payoffs'][1]['primary_payoff'] > 0 ? '+' . $game['payoffs'][1]['primary_payoff'] : $game['payoffs'][1]['primary_payoff']; ?>
                                 </span>
                             <td>
@@ -43,7 +43,7 @@
                         <tr>
                             <td>Both Players Take Action</td>
                             <td>
-                                <span class="h4 payoff_value <?php echo $game['payoffs'][3]['primary_payoff'] < 0 ? 'text-danger' : 'text-success'; ?>">
+                                <span class="h4 payoff_value <?php echo $game['payoffs'][2]['primary_payoff'] < 0 ? 'text-danger' : 'text-success'; ?>">
                                     <?php echo $game['payoffs'][2]['primary_payoff'] > 0 ? '+' . $game['payoffs'][2]['primary_payoff'] : $game['payoffs'][2]['primary_payoff']; ?>
                                 </span>
                             <td>
@@ -55,7 +55,7 @@
                         <tr>
                             <td>Only Primary Player Takes Action</td>
                             <td>
-                                <span class="h4 payoff_value <?php echo $game['payoffs'][1]['primary_payoff'] < 0 ? 'text-danger' : 'text-success'; ?>">
+                                <span class="h4 payoff_value <?php echo $game['payoffs'][3]['primary_payoff'] < 0 ? 'text-danger' : 'text-success'; ?>">
                                     <?php echo $game['payoffs'][3]['primary_payoff'] > 0 ? '+' . $game['payoffs'][3]['primary_payoff'] : $game['payoffs'][3]['primary_payoff']; ?>
                                 </span>
                             <td>

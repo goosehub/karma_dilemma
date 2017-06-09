@@ -141,6 +141,31 @@ $(document).ready(function(){
 	}
 
 	// 
+	// Update user
+	// 
+
+	var url = 'my_user'
+	if (user) {
+		setInterval(function(){
+			ajax_get(url, function(data){
+				if (!data.user) {
+					return false;
+				}
+				started_games_count(data);
+			});
+		}, my_user_update_interval * 1000);
+	}
+
+	function started_games_count(data) {
+		if (data.user.started_games_count > 0) {
+			$('#started_games_count').html('(' + data.user.started_games_count + ')');
+		}
+		else {
+			$('#started_games_count').html('');
+		}
+	}
+
+	// 
 	// User functions
 	// 
 
@@ -178,6 +203,7 @@ $(document).ready(function(){
 			dataType: 'json',
 			success: function(data) {
 				// Handle errors
+				console.log(url);
 				console.log(data);
 				if (data['error']) {
 					alert(data['error_message']);
@@ -204,6 +230,7 @@ $(document).ready(function(){
 			dataType: 'json',
 			success: function(data) {
 				// Handle errors
+				console.log(url);
 				console.log(data);
 				if (data['error']) {
 					alert(data['error_message']);
