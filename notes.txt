@@ -6,26 +6,14 @@ tutorial
 make some bots
 
 	moderate priority
-finished games (x) to see unseen
+handle auctions expiring with ui
 
 	low priority
-write testss
+write tests
 api throttling
 regen auth token
 forgot password
 performance bottleneck testing
-
-	ui thoughts
-button on table labels
-handle auctions expiring with ui
-easy to read matrix UI
-karma available vs have
-bid start at -100 to 100
-2/3rd median bid wins
-
-	game ideas
-unique bid?
-different type of auction for secondary player
 
 ================================================================
 

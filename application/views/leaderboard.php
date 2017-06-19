@@ -150,7 +150,7 @@
 	                        <h2><?php echo $leader['rank']; ?></h2>
                         </td>
                         <td>
-	                        <a href="<?=base_url()?>user/<?php echo $leader['id']; ?>">
+	                        <a href="<?=base_url()?>single_user/<?php echo $leader['id']; ?>">
 		                        <p class="text-center"><?php echo $leader['username']; ?></p>
 	                        </a>
 	                        <a href="<?=base_url()?>uploads/<?php echo $leader['avatar']; ?>" target="_blank">

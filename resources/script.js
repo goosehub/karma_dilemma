@@ -209,7 +209,7 @@ $(document).ready(function(){
 	// Abstract simple ajax calls
 	function ajax_post(url, data, callback) {
 		$.ajax({
-			url: url,
+			url: base_url + url,
 			type: 'POST',
 			data: JSON.stringify(data),
 			dataType: 'json',
@@ -237,7 +237,7 @@ $(document).ready(function(){
 	// Abstract simple ajax calls
 	function ajax_get(url, callback) {
 		$.ajax({
-			url: url,
+			url: base_url + url,
 			type: 'GET',
 			dataType: 'json',
 			success: function(data) {

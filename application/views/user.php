@@ -4,7 +4,7 @@
             <h1 class="text-center"><?php echo $page_title; ?></h1>
             <hr>
 
-            <?php var_dump($this_user); ?>
+            <?php echo '<pre>'; var_dump($this_user); echo '</pre>'; ?>
 
         </div>
     </div>

@@ -9,6 +9,14 @@ hr {
     color: #888;
 }
 
+/* Player Types */
+.primary_player_text {
+    color: #068E8E;
+}
+.secondary_player_text {
+    color: #EC700A;
+}
+
 /* Nav */
 body {
     padding-top: 70px;
