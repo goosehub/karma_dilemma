@@ -34,8 +34,9 @@ CREATE TABLE `game` (
   `secondary_user_key` int(10) UNSIGNED NOT NULL,
   `primary_choice` bit(1) NOT NULL,
   `secondary_choice` bit(1) NOT NULL,
-  `primary_choice_made` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `secondary_choice_made` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `primary_choice_made` bit(1) NOT NULL,
+  `secondary_choice_made` bit(1) NOT NULL,
+  `finished_viewed` bit(1) NOT NULL,
   `start_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

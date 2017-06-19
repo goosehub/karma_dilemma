@@ -21,6 +21,7 @@ Class user_model extends CI_Model
             $session_data = $this->session->userdata('user_session');
             $user = $this->user_model->get_user_extended_by_id($session_data['id']);
             $user['started_games_count'] = $this->game_model->count_your_turn($user['id']);
+            $user['finished_unviewed_games_count'] = $this->game_model->count_user_finished_unviewed($user['id']);
             if (!isset($user['username'])) {
                 redirect('user/logout', 'refresh');
                 exit();

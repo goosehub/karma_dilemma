@@ -127,6 +127,10 @@ var_dump($response); </code></pre>
 <h3>Get your finished games</h3>
 <pre><code>finished_games</code></pre>
 <ul>
+	<li><code>@1</code> is the direct you want to sort. Value must be <code>asc</code> or <code>desc</code>.</li>
+	<li><code>@2</code> is the limit of results to get. Must be a positive integer. The maximum value is <?php echo DEFAULT_FINISHED_GAMES_LIMIT; ?>.</li>
+	<li><code>@3</code> is the offset. Must be a positive integer.</li>
+	<li>All these parameters are optional. By default it returns the <?php echo DEFAULT_FINISHED_GAMES_LIMIT; ?> most recent games.</li>
 </ul>
 
 <h3>Get karma currently on auction</h3>

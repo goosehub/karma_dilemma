@@ -26,7 +26,14 @@
                     </a>
                 </li>
                 <li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'finished_games') !== false ? 'active' : ''; ?>">
-                    <a href="<?=base_url()?>finished_games" class="nav_link">Past Games</a>
+                    <a href="<?=base_url()?>finished_games" class="nav_link">
+                        Past Games
+                        <span id="finished_unviewed_games_count">
+                            <?php if ($user['finished_unviewed_games_count']) { ?>
+                            (<?php echo $user['finished_unviewed_games_count']; ?>)
+                            <?php } ?>
+                        </span>
+                    </a>
                 </li>
                 <li class="<?php echo strpos($_SERVER['REQUEST_URI'], 'karma_on_auction') !== false ? 'active' : ''; ?>">
                     <a href="<?=base_url()?>karma_on_auction" class="nav_link">Karma</a>

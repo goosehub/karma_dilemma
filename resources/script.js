@@ -154,6 +154,7 @@ $(document).ready(function(){
 					return false;
 				}
 				started_games_count(data);
+				finished_unviewed_games_count(data);
 			});
 		}, my_user_update_interval * 1000);
 	}
@@ -164,6 +165,15 @@ $(document).ready(function(){
 		}
 		else {
 			$('#started_games_count').html('');
+		}
+	}
+
+	function finished_unviewed_games_count(data) {
+		if (data.user.finished_unviewed_games_count > 0) {
+			$('#finished_unviewed_games_count').html('(' + data.user.finished_unviewed_games_count + ')');
+		}
+		else {
+			$('#finished_unviewed_games_count').html('');
 		}
 	}
 

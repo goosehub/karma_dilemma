@@ -16,6 +16,7 @@ Class game_model extends CI_Model
             'secondary_choice' => 0,
             'primary_choice_made' => 0,
             'secondary_choice_made' => 0,
+            'finished_viewed' => 0,
         );
         $this->db->insert('game', $data);
         return $this->db->insert_id();
@@ -109,8 +110,14 @@ Class game_model extends CI_Model
         $result = $query->result_array();
         return isset($result[0]['game_count']) ? $result[0]['game_count'] : 0;
     }
-    function get_games_by_status_and_user_key($started_flag, $finished_flag, $user_key, $limit = 100, $offset = 0)
+    function get_games_by_status_and_user_key($started_flag, $finished_flag, $user_key, $limit = 100, $offset = 0, $sort = 'ASC')
     {
+        // Verify Sort
+        if (strtolower($sort) != 'asc' && strtolower($sort) != 'desc') {
+            echo api_error_response('bad_leaderboard_sort', 'Leaderboard sort parameter must be asc or desc.');
+            exit();
+        }
+
         $this->db->select('*');
         $this->db->from('game');
         $this->db->where('started_flag', $started_flag);
@@ -121,6 +128,7 @@ Class game_model extends CI_Model
         $this->db->group_end();
         $this->db->limit($limit);
         $this->db->offset($offset);
+        $this->db->order_by('id', $sort);
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
@@ -144,6 +152,25 @@ Class game_model extends CI_Model
         $query = $this->db->query($raw_query);
         $result = $query->result_array();
         return isset($result[0]['game_count']) ? $result[0]['game_count'] : 0;
+    }
+    function count_user_finished_unviewed($user_key)
+    {
+        $this->db->select('COUNT(*) as game_count');
+        $this->db->from('game');
+        $this->db->where('finished_flag', 1);
+        $this->db->where('finished_viewed' , 0);
+        $this->db->where('(primary_user_key = ' . $user_key . ' OR secondary_user_key = ' . $user_key . ')');
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return isset($result[0]['game_count']) ? $result[0]['game_count'] : 0;
+    }
+    function mark_all_user_finished_games_as_viewed($user_key)
+    {
+        $data = array(
+            'finished_viewed' => 1,
+        );
+        $this->db->where('(primary_user_key = ' . $user_key . ' OR secondary_user_key = ' . $user_key . ')');
+        $this->db->update('game', $data); 
     }
     function count_games_by_status_and_user_key($started_flag, $finished_flag, $user_key, $limit = 100, $offset = 0)
     {

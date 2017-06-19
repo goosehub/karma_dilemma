@@ -152,7 +152,7 @@ class Main extends CI_Controller {
         $this->load->view('templates/footer', $data);
     }
 
-    public function finished_games($limit = DEFAULT_FINISHED_GAMES_LIMIT, $offset = 0)
+    public function finished_games($sort = 'DESC', $limit = DEFAULT_FINISHED_GAMES_LIMIT, $offset = 0)
     {
         $data['user'] = $this->user_model->get_this_user();
         if (!$data['user']) {
@@ -160,7 +160,16 @@ class Main extends CI_Controller {
             return false;
         }
 
-        $data['finished_games'] = $this->game_model->get_games_by_status_and_user_key(true, true, $data['user']['id'], $limit, $offset);
+        // Mark all finished games as viewed
+        $this->game_model->mark_all_user_finished_games_as_viewed($data['user']['id']);
+
+        // Update user object to reflect the finished unviewed games change
+        $data['user']['finished_unviewed_games_count'] = 0;
+
+        // Get finished games
+        $data['finished_games'] = $this->game_model->get_games_by_status_and_user_key(true, true, $data['user']['id'], $limit, $offset, $sort);
+
+        // Foreach finished game
         foreach ($data['finished_games'] as $key => &$game) {
             // Get payoffs
             $game['payoffs'] = $this->game_model->get_payoff_by_game_key($game['id']);
