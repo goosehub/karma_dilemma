@@ -31,6 +31,9 @@ body {
 .nav .nav_score {
     color: #ffffff;
 }
+.main_nav {
+    margin-right: 0;
+}
 
 /* Bid */
 input[type=range].game_bid_input_range, input[type=range].karma_bid_input_range {
@@ -61,6 +64,22 @@ input[type=range].game_bid_input_range, input[type=range].karma_bid_input_range 
 }
 .choice_pre_label {
     white-space: nowrap;
+}
+@media only screen and (max-device-width: 600px) {
+    .finished_game_flat_parent {
+        font-size: 0.9em;
+    }
+    .started_game_flat_parent {
+        font-size: 0.8em;
+    }
+}
+
+/* Karma */
+.karma_type_label {
+    margin-bottom: 1px;
+    height: 2.5em;
+    line-height: 2.5em;
+    padding: 0 1.25em;
 }
 
 /* Leaderboard */

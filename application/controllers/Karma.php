@@ -8,6 +8,7 @@ class Karma extends CI_Controller {
         parent::__construct();
         $this->load->model('main_model', '', TRUE);
         $this->load->model('user_model', '', TRUE);
+        $this->load->model('game_model', '', TRUE);
         $this->load->model('karma_model', '', TRUE);
 
         $this->main_model->record_request();

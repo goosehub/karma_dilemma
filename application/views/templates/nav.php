@@ -46,7 +46,7 @@
                     <a href="<?=base_url()?>api_docs" class="nav_link">API / Make Bots</a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="main_nav nav navbar-nav navbar-right">
                 <?php if ($user) { ?>
                 <li>
                     <p class="navbar-text">

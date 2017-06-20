@@ -26,7 +26,7 @@ $(document).ready(function(){
 		var data = {};
 		data.game_id = parseInt(game_id);
 		data.amount = parseInt(bid_value);
-		var game_bid_url = base_url + 'game/bid/';
+		var game_bid_url = 'game/bid/';
 		ajax_post(game_bid_url, data, false);
 
 		$(this).closest('.game_bid_parent').hide();
@@ -51,7 +51,7 @@ $(document).ready(function(){
 		var data = {};
 		data.game_id = parseInt(game_id);
 		data.choice = parseInt(choice);
-		var game_bid_url = base_url + 'game/play/';
+		var game_bid_url = 'game/play/';
 		ajax_post(game_bid_url, data, function(result){
 			var other_player_choice = '';
 			if (result.game.other_player.id === result.game.primary_player.id && result.game.primary_choice) {
@@ -121,15 +121,17 @@ $(document).ready(function(){
 		var data = {};
 		data.karma_id = parseInt(karma_id);
 		data.amount = parseInt(bid_value);
-		var karma_bid_url = base_url + 'karma/bid/';
+		var karma_bid_url = 'karma/bid/';
 		ajax_post(karma_bid_url, data, false);
 	});
 
 	function sell_karma(type) {
 		var data = {};
 		data.type = type;
-		var karma_sell_url = base_url + 'karma/sell/';
-		ajax_post(karma_sell_url, data);
+		var karma_sell_url = 'karma/sell/';
+		ajax_post(karma_sell_url, data, function(){
+			update_karma_display(type);
+		});
 	}
 
 	function give_karma(type) {
@@ -138,8 +140,19 @@ $(document).ready(function(){
 		var data = {};
 		data.other_player_user_id = parseInt(other_player_user_id);
 		data.type = type;
-		var karma_give_url = base_url + 'karma/give/';
-		ajax_post(karma_give_url, data);
+		var karma_give_url = 'karma/give/';
+		ajax_post(karma_give_url, data, function(){
+			update_karma_display(type);
+		});
+	}
+
+	function update_karma_display(type) {
+		if (type) {
+			$('.available_good_karma').html($('.available_good_karma').html() - 1);
+		}
+		else {
+			$('.available_bad_karma').html($('.available_bad_karma').html() - 1);
+		}
 	}
 
 	// 

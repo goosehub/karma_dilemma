@@ -16,220 +16,225 @@
                 $player_class = 'secondary_player_text';
                 $other_player_class = 'primary_player_text';
             } ?>
+            <div class="started_game_parent well">
 
-            <table class="game_user_table table table-condensed">
-                <thead>
-                    <tr class="active">
-                        <th>Player</th>
-                        <th>Type</th>
-                        <th>Score</th>
-                        <th>Games</th>
-                        <th>Karma</th>
-                        <th>Owned Karma</th>
-                        <th>Joined</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="<?php echo $other_player_class; ?>"><strong><?php echo $game['other_player']['username']; ?></strong></td>
-                        <td class="<?php echo $other_player_class; ?>"><?php echo ucfirst($other_player_type); ?></td>
-                        <td><?php echo $game['other_player']['score']; ?></td>
-                        <td><?php echo $game['other_player']['games_played']; ?></td>
-                        <td>
-                            <span class="text-success"><?php echo $game['other_player']['good_karma']; ?></span>
-                            /
-                            <span class="text-danger"><?php echo $game['other_player']['bad_karma']; ?></span>
-                        </td>
-                        <td>
-                            <span class="text-success"><?php echo $game['other_player']['available_good_karma']; ?></span>
-                            /
-                            <span class="text-danger"><?php echo $game['other_player']['available_bad_karma']; ?></span>
-                        </td>
-                        <td><span class="text-info"><?php echo date('F jS Y', strtotime($game['other_player']['created'])); ?></td>
-                    </tr>
-                    <tr>
-                        <td class="<?php echo $player_class; ?>"><strong><?php echo $user['username']; ?></strong></td>
-                        <td class="<?php echo $player_class; ?>"><?php echo ucfirst($your_player_type); ?></td>
-                        <td><?php echo $user['score']; ?></td>
-                        <td><?php echo $user['games_played']; ?></td>
-                        <td>
-                            <span class="text-success"><?php echo $user['good_karma']; ?></span>
-                            /
-                            <span class="text-danger"><?php echo $user['bad_karma']; ?></span>
-                        </td>
-                        <td>
-                            <span class="text-success"><?php echo $user['available_good_karma']; ?></span>
-                            /
-                            <span class="text-danger"><?php echo $user['available_bad_karma']; ?></span>
-                        </td>
-                        <td><span class="text-info"><?php echo date('F jS Y', strtotime($user['created'])); ?></td>
-                    </tr>
-                </tbody>
-            </table>
+                <table class="game_user_table table table-condensed">
+                    <thead>
+                        <tr class="active">
+                            <th>Player</th>
+                            <th class="hidden-xs">Type</th>
+                            <th>Score</th>
+                            <th>Games</th>
+                            <th>Karma</th>
+                            <th>Owned Karma</th>
+                            <th class="hidden-xs">Joined</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="<?php echo $other_player_class; ?>"><strong><?php echo $game['other_player']['username']; ?></strong></td>
+                            <td class="<?php echo $other_player_class; ?> hidden-xs"><?php echo ucfirst($other_player_type); ?></td>
+                            <td><?php echo $game['other_player']['score']; ?></td>
+                            <td><?php echo $game['other_player']['games_played']; ?></td>
+                            <td>
+                                <span class="text-success"><?php echo $game['other_player']['good_karma']; ?></span>
+                                /
+                                <span class="text-danger"><?php echo $game['other_player']['bad_karma']; ?></span>
+                            </td>
+                            <td>
+                                <span class="text-success"><?php echo $game['other_player']['available_good_karma']; ?></span>
+                                /
+                                <span class="text-danger"><?php echo $game['other_player']['available_bad_karma']; ?></span>
+                            </td>
+                            <td class="hidden-xs"><span class="text-info"><?php echo date('F jS Y', strtotime($game['other_player']['created'])); ?></td>
+                        </tr>
+                        <tr>
+                            <td class="<?php echo $player_class; ?>"><strong><?php echo $user['username']; ?></strong></td>
+                            <td class="<?php echo $player_class; ?> hidden-xs"><?php echo ucfirst($your_player_type); ?></td>
+                            <td><?php echo $user['score']; ?></td>
+                            <td><?php echo $user['games_played']; ?></td>
+                            <td>
+                                <span class="text-success"><?php echo $user['good_karma']; ?></span>
+                                /
+                                <span class="text-danger"><?php echo $user['bad_karma']; ?></span>
+                            </td>
+                            <td>
+                                <span class="text-success"><?php echo $user['available_good_karma']; ?></span>
+                                /
+                                <span class="text-danger"><?php echo $user['available_bad_karma']; ?></span>
+                            </td>
+                            <td class="hidden-xs"><span class="text-info"><?php echo date('F jS Y', strtotime($user['created'])); ?></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <br>
+                <br>
 
-            <table class="game_grid_table table table-bordered">
-                <thead>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            You are the <span class="<?php echo $player_class; ?>"><?php echo ucfirst($your_player_type); ?></span>
-                        </td>
-                        <td><strong class="primary_player_text">Primary Do Nothing</strong></td>
-                        <td><strong class="primary_player_text">Primary Take Action</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong class="secondary_player_text">Secondary Do Nothing</strong></td>
-                        <td class="game_cell">
-                            <strong class="primary_player_text">P:</strong>
-                            <span class="<?php echo $game['payoffs'][0]['primary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
-                                <?php echo $game['payoffs'][0]['primary_payoff'] >= 0 ? '+' . $game['payoffs'][0]['primary_payoff'] : $game['payoffs'][0]['primary_payoff']; ?>
-                            </span>
-                            <strong>/</strong>
-                            <strong class="secondary_player_text">S: </strong>
-                            <span class="<?php echo $game['payoffs'][0]['secondary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
-                                <?php echo $game['payoffs'][0]['secondary_payoff'] >= 0 ? '+' . $game['payoffs'][0]['secondary_payoff'] : $game['payoffs'][0]['secondary_payoff']; ?>
-                            </span>
-                        </td>
-                        <td class="game_cell">
-                            <strong class="primary_player_text">P:</strong>
-                            <span class="<?php echo $game['payoffs'][2]['primary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
-                                <?php echo $game['payoffs'][2]['primary_payoff'] >= 0 ? '+' . $game['payoffs'][2]['primary_payoff'] : $game['payoffs'][2]['primary_payoff']; ?>
-                            </span>
-                            <strong>/</strong>
-                            <strong class="secondary_player_text">S: </strong>
-                            <span class="<?php echo $game['payoffs'][2]['secondary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
-                                <?php echo $game['payoffs'][2]['secondary_payoff'] >= 0 ? '+' . $game['payoffs'][2]['secondary_payoff'] : $game['payoffs'][2]['secondary_payoff']; ?>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong class="secondary_player_text">Secondary Take Action</strong></td>
-                        <td class="game_cell">
-                            <strong class="primary_player_text">P:</strong>
-                            <span class="<?php echo $game['payoffs'][1]['primary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
-                                <?php echo $game['payoffs'][1]['primary_payoff'] >= 0 ? '+' . $game['payoffs'][1]['primary_payoff'] : $game['payoffs'][1]['primary_payoff']; ?>
-                            </span>
-                            <strong>/</strong>
-                            <strong class="secondary_player_text">S: </strong>
-                            <span class="<?php echo $game['payoffs'][1]['secondary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
-                                <?php echo $game['payoffs'][1]['secondary_payoff'] >= 0 ? '+' . $game['payoffs'][1]['secondary_payoff'] : $game['payoffs'][1]['secondary_payoff']; ?>
-                            </span>
-                        </td>
-                        <td class="game_cell">
-                            <strong class="primary_player_text">P:</strong>
-                            <span class="<?php echo $game['payoffs'][3]['primary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
-                                <?php echo $game['payoffs'][3]['primary_payoff'] >= 0 ? '+' . $game['payoffs'][3]['primary_payoff'] : $game['payoffs'][3]['primary_payoff']; ?>
-                            </span>
-                            <strong>/</strong>
-                            <strong class="secondary_player_text">S: </strong>
-                            <span class="<?php echo $game['payoffs'][3]['secondary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
-                                <?php echo $game['payoffs'][3]['secondary_payoff'] >= 0 ? '+' . $game['payoffs'][3]['secondary_payoff'] : $game['payoffs'][3]['secondary_payoff']; ?>
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <table class="game_grid_table table table-bordered">
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="active">
+                                You are the <strong class="<?php echo $player_class; ?>"><?php echo ucfirst($your_player_type); ?></strong>
+                            </td>
+                            <td><strong class="primary_player_text">Primary Do Nothing</strong></td>
+                            <td><strong class="primary_player_text">Primary Take Action</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong class="secondary_player_text">Secondary Do Nothing</strong></td>
+                            <td class="game_cell">
+                                <strong class="primary_player_text">P:</strong>
+                                <span class="<?php echo $game['payoffs'][0]['primary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
+                                    <?php echo $game['payoffs'][0]['primary_payoff'] >= 0 ? '+' . $game['payoffs'][0]['primary_payoff'] : $game['payoffs'][0]['primary_payoff']; ?>
+                                </span>
+                                <strong>/</strong>
+                                <strong class="secondary_player_text">S: </strong>
+                                <span class="<?php echo $game['payoffs'][0]['secondary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
+                                    <?php echo $game['payoffs'][0]['secondary_payoff'] >= 0 ? '+' . $game['payoffs'][0]['secondary_payoff'] : $game['payoffs'][0]['secondary_payoff']; ?>
+                                </span>
+                            </td>
+                            <td class="game_cell">
+                                <strong class="primary_player_text">P:</strong>
+                                <span class="<?php echo $game['payoffs'][2]['primary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
+                                    <?php echo $game['payoffs'][2]['primary_payoff'] >= 0 ? '+' . $game['payoffs'][2]['primary_payoff'] : $game['payoffs'][2]['primary_payoff']; ?>
+                                </span>
+                                <strong>/</strong>
+                                <strong class="secondary_player_text">S: </strong>
+                                <span class="<?php echo $game['payoffs'][2]['secondary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
+                                    <?php echo $game['payoffs'][2]['secondary_payoff'] >= 0 ? '+' . $game['payoffs'][2]['secondary_payoff'] : $game['payoffs'][2]['secondary_payoff']; ?>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong class="secondary_player_text">Secondary Take Action</strong></td>
+                            <td class="game_cell">
+                                <strong class="primary_player_text">P:</strong>
+                                <span class="<?php echo $game['payoffs'][1]['primary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
+                                    <?php echo $game['payoffs'][1]['primary_payoff'] >= 0 ? '+' . $game['payoffs'][1]['primary_payoff'] : $game['payoffs'][1]['primary_payoff']; ?>
+                                </span>
+                                <strong>/</strong>
+                                <strong class="secondary_player_text">S: </strong>
+                                <span class="<?php echo $game['payoffs'][1]['secondary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
+                                    <?php echo $game['payoffs'][1]['secondary_payoff'] >= 0 ? '+' . $game['payoffs'][1]['secondary_payoff'] : $game['payoffs'][1]['secondary_payoff']; ?>
+                                </span>
+                            </td>
+                            <td class="game_cell">
+                                <strong class="primary_player_text">P:</strong>
+                                <span class="<?php echo $game['payoffs'][3]['primary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
+                                    <?php echo $game['payoffs'][3]['primary_payoff'] >= 0 ? '+' . $game['payoffs'][3]['primary_payoff'] : $game['payoffs'][3]['primary_payoff']; ?>
+                                </span>
+                                <strong>/</strong>
+                                <strong class="secondary_player_text">S: </strong>
+                                <span class="<?php echo $game['payoffs'][3]['secondary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
+                                    <?php echo $game['payoffs'][3]['secondary_payoff'] >= 0 ? '+' . $game['payoffs'][3]['secondary_payoff'] : $game['payoffs'][3]['secondary_payoff']; ?>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <div class="started_game_parent">
-                <form class="game_choice_parent" action="<?=base_url()?>game/bid/<?php echo $game['id']; ?>" method="post">
-                    <input class="game_id" name="game_id" type="hidden" value="<?php echo $game['id']; ?>">
-                    <table class="table">
-                        <thead>
-                        </thead>
-                        <tbody>
-                            <tr class="success">
-                                <td>
-                                    <!-- <button class="switch_perspective btn btn-default form-control" type="button">Switch Perspective</button> -->
-                                </td>
-                                <td>
-                                    <?php if ( ($game['your_player_type'] && $game['secondary_choice_made']) || (!$game['your_player_type'] && $game['primary_choice_made']) ) { ?>
-                                    <p class="text-center">Waiting on you</p>
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    <div class="user_card_button text-center"><strong>You</strong></div>
-                                </td>
-                                <td>
-                                    <div class="user_card_button text-center"><strong><?php echo $game['other_player']['username']; ?></strong></div>
-                                </td>
-                            </tr>
-                            <tr class="both_do_nothing_row info">
-                                <td rowspan="2">
-                                    <button class="game_choice_button btn btn-primary" value="0" type="button">Do Nothing</button>
-                                </td>
-                                <td>
-                                    <strong class="choice_pre_label">Both Players</strong>
-                                </td>
-                                <td class="game_row_payoff_cell text-center">
-                                    <?php $this_payoff = $game['payoffs'][0][$your_player_type . '_payoff']; ?>
-                                    <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
-                                        <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
-                                    </span>
-                                <td class="game_row_payoff_cell text-center">
-                                    <?php $this_payoff = $game['payoffs'][0][$other_player_type . '_payoff']; ?>
-                                    <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
-                                        <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="you_do_nothing_row info">
-                                <td>
-                                    <strong class="choice_pre_label">Only You</strong>
-                                </td>
-                                <td class="game_row_payoff_cell text-center">
-                                    <?php $this_payoff = $game['payoffs'][1][$your_player_type . '_payoff']; ?>
-                                    <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
-                                        <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
-                                    </span>
-                                <td class="game_row_payoff_cell text-center">
-                                    <?php $this_payoff = $game['payoffs'][1][$other_player_type . '_payoff']; ?>
-                                    <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
-                                        <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="both_take_action_row danger">
-                                <td rowspan="2">
-                                    <button class="game_choice_button btn btn-action" value="1" type="button">Take Action</button>
-                                </td>
-                                <td>
-                                    <strong class="choice_pre_label">Both Players</strong>
-                                </td>
-                                <td class="game_row_payoff_cell text-center">
-                                    <?php $this_payoff = $game['payoffs'][2][$your_player_type . '_payoff']; ?>
-                                    <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
-                                        <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
-                                    </span>
-                                <td class="game_row_payoff_cell text-center">
-                                    <?php $this_payoff = $game['payoffs'][2][$other_player_type . '_payoff']; ?>
-                                    <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
-                                        <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="you_take_action_row danger">
-                                <td>
-                                    <strong class="choice_pre_label">Only You</strong>
-                                </td>
-                                <td class="game_row_payoff_cell text-center">
-                                    <?php $this_payoff = $game['payoffs'][3][$your_player_type . '_payoff']; ?>
-                                    <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
-                                        <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
-                                    </span>
-                                <td class="game_row_payoff_cell text-center">
-                                    <?php $this_payoff = $game['payoffs'][3][$other_player_type . '_payoff']; ?>
-                                    <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
-                                        <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-
+                <div>
+                    <form class="game_choice_parent" action="<?=base_url()?>game/bid/<?php echo $game['id']; ?>" method="post">
+                        <input class="game_id" name="game_id" type="hidden" value="<?php echo $game['id']; ?>">
+                        <table class="table started_game_flat_parent game_flat_parent">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <!-- <button class="switch_perspective btn btn-default form-control" type="button">Switch Perspective</button> -->
+                                    </th>
+                                    <th>
+                                        <?php if ( ($game['your_player_type'] && $game['secondary_choice_made']) || (!$game['your_player_type'] && $game['primary_choice_made']) ) { ?>
+                                        <p class="text-center">Waiting on you</p>
+                                        <?php } ?>
+                                    </th>
+                                    <th>
+                                        <div class="user_card_button text-center"><strong>You</strong></div>
+                                    </th>
+                                    <th>
+                                        <div class="user_card_button text-center"><strong><?php echo $game['other_player']['username']; ?></strong></div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="both_do_nothing_row info">
+                                    <td rowspan="2">
+                                        <button class="game_choice_button btn btn-primary" value="0" type="button">Do Nothing</button>
+                                    </td>
+                                    <td>
+                                        <strong class="choice_pre_label">Both Players</strong>
+                                    </td>
+                                    <td class="game_row_payoff_cell text-center">
+                                        <?php $this_payoff = $game['payoffs'][0][$your_player_type . '_payoff']; ?>
+                                        <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
+                                            <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
+                                        </span>
+                                    </td>
+                                    <td class="game_row_payoff_cell text-center">
+                                        <?php $this_payoff = $game['payoffs'][0][$other_player_type . '_payoff']; ?>
+                                        <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
+                                            <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="you_do_nothing_row info">
+                                    <td>
+                                        <strong class="choice_pre_label">Only You</strong>
+                                    </td>
+                                    <td class="game_row_payoff_cell text-center">
+                                        <?php $this_payoff = $game['payoffs'][1][$your_player_type . '_payoff']; ?>
+                                        <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
+                                            <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
+                                        </span>
+                                    </td>
+                                    <td class="game_row_payoff_cell text-center">
+                                        <?php $this_payoff = $game['payoffs'][1][$other_player_type . '_payoff']; ?>
+                                        <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
+                                            <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="both_take_action_row danger">
+                                    <td rowspan="2">
+                                        <button class="game_choice_button btn btn-action" value="1" type="button">Take Action</button>
+                                    </td>
+                                    <td>
+                                        <strong class="choice_pre_label">Both Players</strong>
+                                    </td>
+                                    <td class="game_row_payoff_cell text-center">
+                                        <?php $this_payoff = $game['payoffs'][2][$your_player_type . '_payoff']; ?>
+                                        <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
+                                            <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
+                                        </span>
+                                    </td>
+                                    <td class="game_row_payoff_cell text-center">
+                                        <?php $this_payoff = $game['payoffs'][2][$other_player_type . '_payoff']; ?>
+                                        <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
+                                            <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="you_take_action_row danger">
+                                    <td>
+                                        <strong class="choice_pre_label">Only You</strong>
+                                    </td>
+                                    <td class="game_row_payoff_cell text-center">
+                                        <?php $this_payoff = $game['payoffs'][3][$your_player_type . '_payoff']; ?>
+                                        <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
+                                            <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
+                                        </span>
+                                    </td>
+                                    <td class="game_row_payoff_cell text-center">
+                                        <?php $this_payoff = $game['payoffs'][3][$other_player_type . '_payoff']; ?>
+                                        <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
+                                            <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
             </div>
             <?php } ?>
         </div>
