@@ -87,11 +87,17 @@
                             <td class="active">
                                 You were the <strong class="<?php echo $player_class; ?>"><?php echo ucfirst($your_player_type); ?></strong>
                             </td>
-                            <td><strong class="primary_player_text">Primary Do Nothing</strong></td>
-                            <td><strong class="primary_player_text">Primary Take Action</strong></td>
+                            <td class="<?php echo !$game['your_player_type'] ? 'info' : '' ?>">
+                                <strong class="primary_player_text">Primary Do Nothing</strong>
+                            </td>
+                            <td class="<?php echo !$game['your_player_type'] ? 'info' : '' ?>">
+                                <strong class="primary_player_text">Primary Take Action</strong>
+                            </td>
                         </tr>
                         <tr>
-                            <td><strong class="secondary_player_text">Secondary Do Nothing</strong></td>
+                            <td class="<?php echo $game['your_player_type'] ? 'info' : '' ?>">
+                                <strong class="secondary_player_text">Secondary Do Nothing</strong>
+                            </td>
                             <td class="game_cell <?php echo $game['payoffs'][0]['choosen_payoff'] ? 'info' : ''; ?>">
                                 <strong class="primary_player_text">P:</strong>
                                 <span class="<?php echo $game['payoffs'][0]['primary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
@@ -116,7 +122,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong class="secondary_player_text">Secondary Take Action</strong></td>
+                            <td class="<?php echo $game['your_player_type'] ? 'info' : '' ?>">
+                                <strong class="secondary_player_text">Secondary Take Action</strong>
+                            </td>
                             <td class="game_cell <?php echo $game['payoffs'][1]['choosen_payoff'] ? 'info' : ''; ?>">
                                 <strong class="primary_player_text">P:</strong>
                                 <span class="<?php echo $game['payoffs'][1]['primary_payoff'] >= 0 ? 'text-success' : 'text-danger'; ?>">
