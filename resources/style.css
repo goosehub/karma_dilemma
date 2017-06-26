@@ -88,6 +88,11 @@ input[type=range].game_bid_input_range, input[type=range].karma_bid_input_range 
     max-height: 50px;
     max-width: 50px;
 }
+.game_grid_avatar {
+    display: block;
+    max-height: 50px;
+    max-width: 50px;
+}
 
 /* Fancy Range */
 /* https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */

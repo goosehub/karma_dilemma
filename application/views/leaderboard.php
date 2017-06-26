@@ -147,45 +147,45 @@
                     <?php foreach ($leaders as $leader) { ?>
                     <tr>
                         <td>
-	                        <h2><?php echo $leader['rank']; ?></h2>
+                            <h2><?php echo $leader['rank']; ?></h2>
                         </td>
                         <td>
-	                        <a href="<?=base_url()?>single_user/<?php echo $leader['id']; ?>">
-		                        <p class="text-center"><?php echo $leader['username']; ?></p>
-	                        </a>
-	                        <a href="<?=base_url()?>uploads/<?php echo $leader['avatar']; ?>" target="_blank">
-		                        <img class="leaderboard_avatar" src="<?=base_url()?>uploads/<?php echo $leader['avatar']; ?>" alt="Avatar"/>
-	                        </a>
+                            <a href="<?=base_url()?>single_user/<?php echo $leader['id']; ?>">
+                                <p class="text-center"><?php echo $leader['username']; ?></p>
+                            </a>
+                            <a href="<?=base_url()?>uploads/<?php echo $leader['avatar']; ?>" target="_blank">
+                                <img class="leaderboard_avatar" src="<?=base_url()?>uploads/<?php echo $leader['avatar']; ?>" alt="Avatar"/>
+                            </a>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['score']); ?>
+                            <?php echo number_format($leader['score']); ?>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['games_played']); ?>
+                            <?php echo number_format($leader['games_played']); ?>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['available_good_karma']); ?>
+                            <?php echo number_format($leader['available_good_karma']); ?>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['available_bad_karma']); ?>
+                            <?php echo number_format($leader['available_bad_karma']); ?>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['total_available_karma']); ?>
+                            <?php echo number_format($leader['total_available_karma']); ?>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['good_karma']); ?>
+                            <?php echo number_format($leader['good_karma']); ?>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['bad_karma']); ?>
+                            <?php echo number_format($leader['bad_karma']); ?>
                         </td>
                         <td>
-	                        <?php echo number_format($leader['total_karma']); ?>
+                            <?php echo number_format($leader['total_karma']); ?>
                         </td>
                         <td>
-	                        <small><?php echo date('F jS Y', strtotime($leader['created'])); ?></small>
+                            <small><?php echo date('F jS Y', strtotime($leader['created'])); ?></small>
                         </td>
                     </tr>
-                	<?php } ?>
+                    <?php } ?>
                 </tbody>
             </table>
 
