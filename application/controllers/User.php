@@ -6,6 +6,7 @@ class User extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('main_model', '', TRUE);
+        $this->load->model('game_model', '', TRUE);
         $this->load->model('user_model', '', TRUE);
         
         $this->main_model->record_request();
