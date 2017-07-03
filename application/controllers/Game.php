@@ -30,7 +30,7 @@ class Game extends CI_Controller {
         }
 
         if (!isset($input->amount)) {
-            echo api_error_response('amount', 'Amount is arequired parameter and was not provided.');
+            echo api_error_response('amount', 'Amount is a required parameter and was not provided.');
             return false;
         }
 
@@ -110,7 +110,7 @@ class Game extends CI_Controller {
         }
 
         if (!isset($input->choice)) {
-            echo api_error_response('amount', 'Amount is arequired parameter and was not provided.');
+            echo api_error_response('amount', 'Amount is a required parameter and was not provided.');
             return false;
         }
 

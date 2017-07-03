@@ -115,7 +115,7 @@ $(document).ready(function(){
 
 	// Submit karma bid
 	$('.karma_bid_submit').click(function(e){
-		var bid_value = $(this).closest('.karma_bid_parent').find('.karma_bid_input_number').html();
+		var bid_value = $(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val();
 		var karma_id = $(this).closest('.karma_bid_parent').find('.karma_bid_karma_id').val();
 
 		var data = {};

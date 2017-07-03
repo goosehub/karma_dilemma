@@ -1,12 +1,13 @@
 karma_dilemma
 
 	high priority
+handle game and karma auctions expiring with ajax
+handle karma auctions increasing bids with ajax
 UI/UX
 tutorial
 make some bots
 
 	moderate priority
-handle auctions expiring with ui
 
 	low priority
 write tests
