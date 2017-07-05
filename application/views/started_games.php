@@ -16,7 +16,7 @@
                 $player_class = 'secondary_player_text';
                 $other_player_class = 'primary_player_text';
             } ?>
-            <div class="started_game_parent well">
+            <div class="started_game_parent well" game_id="<?php echo $game['id'] ?>">
 
                 <table class="game_user_table table table-condensed">
                     <thead>

@@ -7,7 +7,7 @@
             <hr>
             <?php foreach ($games_on_auction as $game) { ?>
             <?php if ($game['has_bid_by_you']) { continue; } ?>
-            <div class="unstarted_game_parent well">
+            <div class="unstarted_game_parent well" game_id="<?php echo $game['id'] ?>">
 
                 <table class="game_grid_table table table-bordered">
                     <thead>

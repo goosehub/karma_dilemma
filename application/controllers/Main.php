@@ -223,6 +223,10 @@ class Main extends CI_Controller {
     public function karma_on_auction()
     {
         $data['user'] = $this->user_model->get_this_user();
+        if (!$data['user']) {
+            redirect(base_url() . '?logged_out=true', 'refresh');
+            return false;
+        }
 
         $data['karma_on_auction'] = $this->karma_model->get_karma_on_auction();
         foreach ($data['karma_on_auction'] as &$karma) {
@@ -361,7 +365,6 @@ class Main extends CI_Controller {
 
         // Return here for API
         if (strpos($_SERVER['REQUEST_URI'], '/api/') !== false) {
-            unset($data['user']);
             echo api_response($data);
             return false;
         }

@@ -156,12 +156,78 @@ $(document).ready(function(){
 	}
 
 	// 
+	// Update games/karma
+	// 
+
+	if (user) {
+		if ($('.unstarted_game_parent').length) {
+			setInterval(function(){
+				var url = 'games_on_auction'
+				ajax_get(url, function(data){
+					$('.unstarted_game_parent').each(function(){
+						var this_game = $(this);
+						var game_found = false;
+						$.each(data.games_on_auction, function(index, value) {
+							if (this_game.first().attr('game_id') === value.id) {
+								game_found = true;
+							}
+						});
+						if (!game_found) {
+							this_game.remove();
+						}
+					});
+				});
+			}, games_on_auction_polling * 1000);
+		}
+
+		if ($('.started_game_parent').length) {
+			setInterval(function(){
+				var url = 'started_games'
+				ajax_get(url, function(data){
+					$('.started_game_parent').each(function(){
+						var this_game = $(this);
+						var game_found = false;
+						$.each(data.started_games, function(index, value) {
+							if (this_game.first().attr('game_id') === value.id) {
+								game_found = true;
+							}
+						});
+						if (!game_found) {
+							this_game.remove();
+						}
+					});
+				});
+			}, games_on_auction_polling * 1000);
+		}
+
+		if ($('.karma_auction_parent').length) {
+			setInterval(function(){
+				var url = 'karma_on_auction'
+				ajax_get(url, function(data){
+					$('.karma_auction_parent').each(function(){
+						var this_karma = $(this);
+						var karma_found = false;
+						$.each(data.karma_on_auction, function(index, value) {
+							if (this_karma.first().attr('karma_id') === value.id) {
+								karma_found = true;
+							}
+						});
+						if (!karma_found) {
+							this_karma.remove();
+						}
+					});
+				});
+			}, games_on_auction_polling * 1000);
+		}
+	}
+
+	// 
 	// Update user
 	// 
 
-	var url = 'my_user'
 	if (user) {
 		setInterval(function(){
+			var url = 'my_user'
 			ajax_get(url, function(data){
 				if (!data.user) {
 					return false;
@@ -169,7 +235,7 @@ $(document).ready(function(){
 				started_games_count(data);
 				finished_unviewed_games_count(data);
 			});
-		}, my_user_update_interval * 1000);
+		}, my_user_polling * 1000);
 	}
 
 	function started_games_count(data) {
@@ -250,7 +316,7 @@ $(document).ready(function(){
 	// Abstract simple ajax calls
 	function ajax_get(url, callback) {
 		$.ajax({
-			url: base_url + url,
+			url: base_url + 'api/' + url,
 			type: 'GET',
 			dataType: 'json',
 			success: function(data) {

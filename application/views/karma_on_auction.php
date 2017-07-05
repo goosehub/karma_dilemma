@@ -24,30 +24,28 @@
             <hr>
 
             <?php foreach ($karma_on_auction as $karma) { ?>
-            
-            <?php if ($user) { ?>
-            <form class="karma_bid_parent well" action="<?=base_url()?>karma/bid/" method="post">
-                <input class="karma_bid_karma_id" name="karma_id" type="hidden" value="<?php echo $karma['id']; ?>">
-                <input class="karma_bid_input_range form-control" type="range" name="bid" min="1" max="100" value="<?php echo $karma['highest_bid'] + 1; ?>">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="karma_type_label alert <?php echo $karma['type'] ? 'alert-success' : 'alert-danger'; ?> text-center" role="alert">
-                            <strong class="<?php echo $karma['type'] ? 'text-success' : 'text-danger'; ?>">
-                                <?php echo $karma['type'] ? 'Good' : 'Bad'; ?> Karma
-                            </strong>
+            <div class="karma_auction_parent" karma_id="<?php echo $karma['id'] ?>">
+                <form class="karma_bid_parent well" action="<?=base_url()?>karma/bid/" method="post">
+                    <input class="karma_bid_karma_id" name="karma_id" type="hidden" value="<?php echo $karma['id']; ?>">
+                    <input class="karma_bid_input_range form-control" type="range" name="bid" min="1" max="100" value="<?php echo $karma['highest_bid'] + 1; ?>">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="karma_type_label alert <?php echo $karma['type'] ? 'alert-success' : 'alert-danger'; ?> text-center" role="alert">
+                                <strong class="<?php echo $karma['type'] ? 'text-success' : 'text-danger'; ?>">
+                                    <?php echo $karma['type'] ? 'Good' : 'Bad'; ?> Karma
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <input class="karma_bid_input_number text-center form-control" type="number" min="1" max="100" value="<?php echo $karma['highest_bid'] + 1; ?>"/>
+                            <strong class="karma_bid_value_label"></strong>
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="karma_bid_submit btn btn-primary form-control" type="button">Make this bid</button>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <input class="karma_bid_input_number text-center form-control" type="number" min="1" max="100" value="<?php echo $karma['highest_bid'] + 1; ?>"/>
-                        <strong class="karma_bid_value_label"></strong>
-                    </div>
-                    <div class="col-sm-3">
-                        <button class="karma_bid_submit btn btn-primary form-control" type="button">Make this bid</button>
-                    </div>
-                </div>
-            </form>
-            <?php } ?>
-
+                </form>
+            </div>
             <?php } ?>
         </div>
     </div>

@@ -11,7 +11,10 @@
 	var user = false;
 	<?php if ($user) { ?>
 	var user = '<?php echo json_encode($user); ?>';
-	var my_user_update_interval = <?php echo MY_USER_UPDATE_INTERVAL; ?>
+	var my_user_polling = <?php echo MY_USER_POLLING; ?>;
+	var karma_on_auction_polling = <?php echo KARMA_ON_AUCTION_POLLING; ?>;
+	var games_on_auction_polling = <?php echo GAMES_ON_AUCTION_POLLING; ?>;
+	var started_games_polling = <?php echo STARTED_GAMES_POLLING; ?>;
 	<?php } ?>
 </script>
 <!-- Local Script -->
