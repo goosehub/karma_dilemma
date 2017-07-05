@@ -117,6 +117,10 @@ $(document).ready(function(){
 	$('.karma_bid_submit').click(function(e){
 		var bid_value = $(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val();
 		var karma_id = $(this).closest('.karma_bid_parent').find('.karma_bid_karma_id').val();
+		var new_bid_value = 1 + parseInt(bid_value);
+		$(this).closest('.karma_bid_parent').find('.karma_bid_input_range').val(new_bid_value);
+		$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val(new_bid_value);
+		$(this).closest('.karma_bid_parent').find('.you_are_karma_bid_leader').show();
 
 		var data = {};
 		data.karma_id = parseInt(karma_id);
@@ -210,6 +214,14 @@ $(document).ready(function(){
 						$.each(data.karma_on_auction, function(index, value) {
 							if (this_karma.first().attr('karma_id') === value.id) {
 								karma_found = true;
+								this_karma.find('.karma_bid_input_range').first().val(value.highest_bid + 1);
+								this_karma.find('.karma_bid_input_number').first().val(value.highest_bid + 1);
+								if (value.you_are_highest_bid) {
+									this_karma.find('.you_are_karma_bid_leader').show();
+								}
+								else {
+									this_karma.find('.you_are_karma_bid_leader').hide();
+								}
 							}
 						});
 						if (!karma_found) {

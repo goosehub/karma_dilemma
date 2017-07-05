@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Polling
 define('MY_USER_POLLING', 10); // How frequent in seconds to update current user information
-define('KARMA_ON_AUCTION_POLLING', 10); // How frequent in seconds to update karma on auction
 define('GAMES_ON_AUCTION_POLLING', 10); // How frequent in seconds to update games on auction
 define('STARTED_GAMES_POLLING', 10); // How frequent in seconds to update started games
+define('KARMA_ON_AUCTION_POLLING', 5); // How frequent in seconds to update karma on auction
 
 // Game
 define('MINUTES_TO_GET_GAME_BID_ACTIVITY', 1); // How long in minutes to get user bidding activity

@@ -232,6 +232,10 @@ class Main extends CI_Controller {
         foreach ($data['karma_on_auction'] as &$karma) {
             $karma['bids'] = $this->karma_model->get_bids_by_karma($karma['id']);
             $karma['highest_bid'] = isset($karma['bids'][0]['amount']) ? (int) $karma['bids'][0]['amount'] : 0;
+            $karma['you_are_highest_bid'] = false;
+            if (isset($karma['bids'][0]) && $karma['bids'][0]['user_key'] === $data['user']['id']) {
+                $karma['you_are_highest_bid'] = true;
+            } 
         }
 
         // Return here for API
