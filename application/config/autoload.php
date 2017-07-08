@@ -30,6 +30,17 @@ function is_dev() {
     return false;
 }
 
+// Force HTTPS for non dev
+function force_ssl() {
+    if (!is_dev()) {
+        if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on") {
+            $url = "https://". $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+            redirect($url);
+            exit;
+        }
+    }
+}
+
 // Get Application Auth Information
 function auth() {
     $auth = json_decode(file_get_contents('auth.php'));

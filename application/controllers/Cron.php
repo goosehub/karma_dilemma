@@ -5,6 +5,9 @@ class Cron extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+
+        force_ssl();
+        
         $this->load->model('main_model', '', TRUE);
         $this->load->model('game_model', '', TRUE);
         $this->load->model('karma_model', '', TRUE);
