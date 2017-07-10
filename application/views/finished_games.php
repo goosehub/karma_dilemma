@@ -16,7 +16,7 @@
                 $other_player_class = 'primary_player_text';
             } ?>
 
-            <div class="finished_game_parent well">
+            <div class="finished_game_parent game_parent well">
                 <table class="game_user_table table table-condensed">
                     <thead>
                         <tr class="active">
@@ -79,6 +79,7 @@
 
                 <br>
 
+                <button class="show_grid_button btn btn-default btn-sm">Toggle Matrix View</button>
                 <table class="game_grid_table table table-bordered">
                     <thead>
                     </thead>

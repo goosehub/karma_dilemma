@@ -1,6 +1,20 @@
 $(document).ready(function(){
 
 	// 
+	// Shared Games functions
+	// 
+
+	$('.show_grid_button').click(function(){
+		if ($(this).hasClass('active')) {
+			$(this).parent('.game_parent').find('.game_grid_table').hide();
+		}
+		else {
+			$(this).parent('.game_parent').find('.game_grid_table').show();
+		}
+		$(this).toggleClass('active');
+	});
+
+	// 
 	// Games on auctions functions
 	// 
 

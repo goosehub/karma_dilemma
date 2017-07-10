@@ -44,8 +44,15 @@ input[type=range].game_bid_input_range, input[type=range].karma_bid_input_range 
 }
 
 /* Games */
+.game_grid_table {
+    display: none;
+}
 .game_grid_table, .game_user_table {
     background: #fff;
+}
+.game_cell {
+    font-size: 1.2em;
+    font-weight: bold;
 }
 .game_cell:hover {
     background-color: #f5f5f5;

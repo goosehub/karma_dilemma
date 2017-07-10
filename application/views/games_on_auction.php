@@ -7,8 +7,8 @@
             <hr>
             <?php foreach ($games_on_auction as $game) { ?>
             <?php if ($game['has_bid_by_you']) { continue; } ?>
-            <div class="unstarted_game_parent well" game_id="<?php echo $game['id'] ?>">
-
+            <div class="unstarted_game_parent game_parent well" game_id="<?php echo $game['id'] ?>">
+                <button class="show_grid_button btn btn-default btn-sm">Toggle Matrix View</button>
                 <table class="game_grid_table table table-bordered">
                     <thead>
                     </thead>
