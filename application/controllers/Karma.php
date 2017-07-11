@@ -151,7 +151,6 @@ class Karma extends CI_Controller {
             }
         }
 
-        $this->karma_model->update_user_karma($input->other_player_user_id, $input->type, 1, true);
         $this->karma_model->update_user_karma($user['id'], $input->type, 1, false);
         $this->karma_model->update_user_reputation($input->other_player_user_id, $input->type, 1);
 
