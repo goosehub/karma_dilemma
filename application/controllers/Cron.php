@@ -224,7 +224,7 @@ class Cron extends CI_Controller {
                 $this->game_model->update_user_score($karma_bid['user_key'], $karma_bid['amount'], false);
 
                 // Add karma
-                $this->karma_model->update_user_karma_available($karma_bid['user_key'], $karma['type'], 1, true);
+                $this->karma_model->update_user_karma($karma_bid['user_key'], $karma['type'], 1, true);
 
                 // Add payment to seller if exists
                 if ($karma['seller_user_key']) {

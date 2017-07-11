@@ -166,10 +166,10 @@ $(document).ready(function(){
 
 	function update_karma_display(type) {
 		if (type) {
-			$('.available_good_karma').html($('.available_good_karma').html() - 1);
+			$('.good_karma').html($('.good_karma').html() - 1);
 		}
 		else {
-			$('.available_bad_karma').html($('.available_bad_karma').html() - 1);
+			$('.bad_karma').html($('.bad_karma').html() - 1);
 		}
 	}
 

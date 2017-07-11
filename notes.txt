@@ -1,7 +1,6 @@
 karma_dilemma
 
 	high priority
-karma renamed to reputation labels and code and db
 tutorial
 make some bots
 

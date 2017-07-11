@@ -9,12 +9,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <button class="sell_good_karma btn btn-success form-control" value="0" type="button">
-                            Sell Good Karma (<span class="available_good_karma"><?php echo $user['available_good_karma']; ?></span> Left To Sell)
+                            Sell Good Karma (<span class="good_karma"><?php echo $user['good_karma']; ?></span> Left To Sell)
                         </button>
                     </div>
                     <div class="col-md-6">
                         <button class="sell_bad_karma btn btn-danger form-control" value="1" type="button">
-                            Sell Bad Karma (<span class="available_bad_karma"><?php echo $user['available_bad_karma']; ?></span> Left To Sell)
+                            Sell Bad Karma (<span class="bad_karma"><?php echo $user['bad_karma']; ?></span> Left To Sell)
                         </button>
                     </div>
                 </div>

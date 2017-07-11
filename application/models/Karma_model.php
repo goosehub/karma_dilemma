@@ -94,7 +94,7 @@ Class karma_model extends CI_Model
         $this->db->where('id', $karma_key);
         $this->db->update('karma', $data);
     }
-    function update_user_karma_available($user_key, $karma_type, $karma_change, $increment)
+    function update_user_karma($user_key, $karma_type, $karma_change, $increment)
     {
         if ($increment) {
             $math_sign = '+';
@@ -103,21 +103,21 @@ Class karma_model extends CI_Model
             $math_sign = '-';
         }
         if ($karma_type) {
-            $this->db->set('available_good_karma', 'available_good_karma' . $math_sign . $karma_change, FALSE);
+            $this->db->set('good_karma', 'good_karma' . $math_sign . $karma_change, FALSE);
         }
         else {
-            $this->db->set('available_bad_karma', 'available_bad_karma' . $math_sign . $karma_change, FALSE);
+            $this->db->set('bad_karma', 'bad_karma' . $math_sign . $karma_change, FALSE);
         }
         $this->db->where('id', $user_key);
         $this->db->update('user');
     }
-    function update_user_karma($user_key, $karma_type, $karma_change)
+    function update_user_reputation($user_key, $reputation_type, $reputation_change)
     {
-        if ($karma_type) {
-            $this->db->set('good_karma', 'good_karma+' . $karma_change, FALSE);
+        if ($reputation_type) {
+            $this->db->set('good_reputation', 'good_reputation+' . $reputation_change, FALSE);
         }
         else {
-            $this->db->set('bad_karma', 'bad_karma+' . $karma_change, FALSE);
+            $this->db->set('bad_reputation', 'bad_reputation+' . $reputation_change, FALSE);
         }
         $this->db->where('id', $user_key);
         $this->db->update('user');

@@ -51,48 +51,9 @@
                             </a>
                         </th>
                         <th>
-                            <a class="btn btn-sm form-control <?php echo $column === 'available_good_karma' ? 'btn-info' : 'btn-default'; ?>"
-                            href="<?=base_url()?>leaderboard/available_good_karma/<?php echo $column === 'available_good_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">
-                                Avail. Good Karma
-                                <?php if ($column === 'available_good_karma') { ?>
-                                <?php if ($sort === 'desc') { ?>
-                                <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
-                                <?php } else { ?>
-                                <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
-                                <?php } ?>
-                                <?php } ?>
-                            </a>
-                        </th>
-                        <th>
-                            <a class="btn btn-sm form-control <?php echo $column === 'available_bad_karma' ? 'btn-info' : 'btn-default'; ?>"
-                            href="<?=base_url()?>leaderboard/available_bad_karma/<?php echo $column === 'available_bad_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">
-                                Avail. Bad Karma
-                                <?php if ($column === 'available_bad_karma') { ?>
-                                <?php if ($sort === 'desc') { ?>
-                                <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
-                                <?php } else { ?>
-                                <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
-                                <?php } ?>
-                                <?php } ?>
-                            </a>
-                        </th>
-                        <th>
-                            <a class="btn btn-sm form-control <?php echo $column === 'total_available_karma' ? 'btn-info' : 'btn-default'; ?>"
-                            href="<?=base_url()?>leaderboard/total_available_karma/<?php echo $column === 'total_available_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">
-                                Sum Avail. Karma
-                                <?php if ($column === 'total_available_karma') { ?>
-                                <?php if ($sort === 'desc') { ?>
-                                <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
-                                <?php } else { ?>
-                                <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
-                                <?php } ?>
-                                <?php } ?>
-                            </a>
-                        </th>
-                        <th>
                             <a class="btn btn-sm form-control <?php echo $column === 'good_karma' ? 'btn-info' : 'btn-default'; ?>"
                             href="<?=base_url()?>leaderboard/good_karma/<?php echo $column === 'good_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">
-                                Good Karma
+                                Good Reputation
                                 <?php if ($column === 'good_karma') { ?>
                                 <?php if ($sort === 'desc') { ?>
                                 <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
@@ -105,7 +66,7 @@
                         <th>
                             <a class="btn btn-sm form-control <?php echo $column === 'bad_karma' ? 'btn-info' : 'btn-default'; ?>"
                             href="<?=base_url()?>leaderboard/bad_karma/<?php echo $column === 'bad_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">
-                                Bad Karma
+                                Bad Reputation
                                 <?php if ($column === 'bad_karma') { ?>
                                 <?php if ($sort === 'desc') { ?>
                                 <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
@@ -118,8 +79,47 @@
                         <th>
                             <a class="btn btn-sm form-control <?php echo $column === 'total_karma' ? 'btn-info' : 'btn-default'; ?>"
                             href="<?=base_url()?>leaderboard/total_karma/<?php echo $column === 'total_karma' && $sort === 'desc' ? 'asc' : 'desc'; ?>">
-                                Sum Karma
+                                Sum Reputation
                                 <?php if ($column === 'total_karma') { ?>
+                                <?php if ($sort === 'desc') { ?>
+                                <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+                                <?php } else { ?>
+                                <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+                                <?php } ?>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a class="btn btn-sm form-control <?php echo $column === 'good_reputation' ? 'btn-info' : 'btn-default'; ?>"
+                            href="<?=base_url()?>leaderboard/good_reputation/<?php echo $column === 'good_reputation' && $sort === 'desc' ? 'asc' : 'desc'; ?>">
+                                Good Karma
+                                <?php if ($column === 'good_reputation') { ?>
+                                <?php if ($sort === 'desc') { ?>
+                                <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+                                <?php } else { ?>
+                                <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+                                <?php } ?>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a class="btn btn-sm form-control <?php echo $column === 'bad_reputation' ? 'btn-info' : 'btn-default'; ?>"
+                            href="<?=base_url()?>leaderboard/bad_reputation/<?php echo $column === 'bad_reputation' && $sort === 'desc' ? 'asc' : 'desc'; ?>">
+                                Bad Karma
+                                <?php if ($column === 'bad_reputation') { ?>
+                                <?php if ($sort === 'desc') { ?>
+                                <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+                                <?php } else { ?>
+                                <span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+                                <?php } ?>
+                                <?php } ?>
+                            </a>
+                        </th>
+                        <th>
+                            <a class="btn btn-sm form-control <?php echo $column === 'total_reputation' ? 'btn-info' : 'btn-default'; ?>"
+                            href="<?=base_url()?>leaderboard/total_reputation/<?php echo $column === 'total_reputation' && $sort === 'desc' ? 'asc' : 'desc'; ?>">
+                                Sum Karma
+                                <?php if ($column === 'total_reputation') { ?>
                                 <?php if ($sort === 'desc') { ?>
                                 <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
                                 <?php } else { ?>
@@ -151,7 +151,7 @@
                         </td>
                         <td>
                             <a href="<?=base_url()?>single_user/<?php echo $leader['id']; ?>">
-                                <p class="text-center"><?php echo $leader['username']; ?></p>
+                                <p class="text-center"><strong><?php echo $leader['username']; ?></strong></p>
                             </a>
                             <a href="<?=base_url()?>uploads/<?php echo $leader['avatar']; ?>" target="_blank">
                                 <img class="leaderboard_avatar" src="<?=base_url()?>uploads/<?php echo $leader['avatar']; ?>" alt="Avatar"/>
@@ -164,19 +164,19 @@
                             <?php echo number_format($leader['games_played']); ?>
                         </td>
                         <td>
-                            <?php echo number_format($leader['available_good_karma']); ?>
-                        </td>
-                        <td>
-                            <?php echo number_format($leader['available_bad_karma']); ?>
-                        </td>
-                        <td>
-                            <?php echo number_format($leader['total_available_karma']); ?>
-                        </td>
-                        <td>
                             <?php echo number_format($leader['good_karma']); ?>
                         </td>
                         <td>
                             <?php echo number_format($leader['bad_karma']); ?>
+                        </td>
+                        <td>
+                            <?php echo number_format($leader['total_karma']); ?>
+                        </td>
+                        <td>
+                            <?php echo number_format($leader['good_reputation']); ?>
+                        </td>
+                        <td>
+                            <?php echo number_format($leader['bad_reputation']); ?>
                         </td>
                         <td>
                             <?php echo number_format($leader['total_karma']); ?>

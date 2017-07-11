@@ -24,8 +24,8 @@
                             <th class="hidden-xs">Type</th>
                             <th>Score</th>
                             <th>Games</th>
+                            <th>Reputation</th>
                             <th>Karma</th>
-                            <th>Owned Karma</th>
                             <th class="hidden-xs">Joined</th>
                         </tr>
                     </thead>
@@ -41,14 +41,14 @@
                             <td><?php echo $game['other_player']['score']; ?></td>
                             <td><?php echo $game['other_player']['games_played']; ?></td>
                             <td>
+                                <span class="text-success"><?php echo $game['other_player']['good_reputation']; ?></span>
+                                /
+                                <span class="text-danger"><?php echo $game['other_player']['bad_reputation']; ?></span>
+                            </td>
+                            <td>
                                 <span class="text-success"><?php echo $game['other_player']['good_karma']; ?></span>
                                 /
                                 <span class="text-danger"><?php echo $game['other_player']['bad_karma']; ?></span>
-                            </td>
-                            <td>
-                                <span class="text-success"><?php echo $game['other_player']['available_good_karma']; ?></span>
-                                /
-                                <span class="text-danger"><?php echo $game['other_player']['available_bad_karma']; ?></span>
                             </td>
                             <td class="hidden-xs"><span class="text-info"><?php echo date('F jS Y', strtotime($game['other_player']['created'])); ?></td>
                         </tr>
@@ -63,14 +63,14 @@
                             <td><?php echo $user['score']; ?></td>
                             <td><?php echo $user['games_played']; ?></td>
                             <td>
+                                <span class="text-success"><?php echo $user['good_reputation']; ?></span>
+                                /
+                                <span class="text-danger"><?php echo $user['bad_reputation']; ?></span>
+                            </td>
+                            <td>
                                 <span class="text-success"><?php echo $user['good_karma']; ?></span>
                                 /
                                 <span class="text-danger"><?php echo $user['bad_karma']; ?></span>
-                            </td>
-                            <td>
-                                <span class="text-success"><?php echo $user['available_good_karma']; ?></span>
-                                /
-                                <span class="text-danger"><?php echo $user['available_bad_karma']; ?></span>
                             </td>
                             <td class="hidden-xs"><span class="text-info"><?php echo date('F jS Y', strtotime($user['created'])); ?></td>
                         </tr>
