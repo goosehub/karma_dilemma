@@ -112,24 +112,27 @@ $(document).ready(function(){
 
 	// Karma bid value change
 	$('.karma_bid_input_range').on('input', function(){
-		var enforced = enforce_karma_current_bid($(this)[0]);
-		if (enforced) {
-			$(this).closest('.karma_bid_parent').find('.current_bid_label_parent').css('font-weight', 'bold');
-		}
-		else {
-			$(this).closest('.karma_bid_parent').find('.current_bid_label_parent').css('font-weight', 'normal');
+		var enforced = enforce_karma_current_bid($(this));
+		if (!enforced) {
 			$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val($(this).val());
 		}
 	});
 	$('.karma_bid_input_number').on('input', function(){
-		$(this).closest('.karma_bid_parent').find('.karma_bid_input_range').val($(this).val());
+		var enforced = enforce_karma_current_bid($(this));
+		if (!enforced) {
+			$(this).closest('.karma_bid_parent').find('.karma_bid_input_range').val($(this).val());
+		}
 	});
 
+	// Let's use keep range 1-100, but enforce a minimum in the middle of the range
+	// https://stackoverflow.com/questions/45044724/html-range-type-input-enforced-minimum-without-changing-start-of-the-range/45044852#45044852
 	function enforce_karma_current_bid(element) {
-		if (parseInt(element.value) <= parseInt(element.getAttribute('current_bid'))) {
-			element.value = parseInt(element.getAttribute('current_bid')) + 1;
+		if (parseInt(element[0].value) <= parseInt(element[0].getAttribute('current_bid'))) {
+			element.closest('.karma_bid_parent').find('.current_bid_label_parent').css('font-weight', 'bold');
+			element[0].value = parseInt(element[0].getAttribute('current_bid')) + 1;
 			return true;
 		}
+		element.closest('.karma_bid_parent').find('.current_bid_label_parent').css('font-weight', 'normal');
 		return false;
 	}
 
