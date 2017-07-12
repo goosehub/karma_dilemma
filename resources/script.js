@@ -104,7 +104,6 @@ $(document).ready(function(){
 
 	$('.user_card_button').click(function(){
 		var this_user = jQuery.parseJSON($(this).next().prop('user'));
-		console.log(this_user);
 	});
 
 	// 
@@ -113,11 +112,33 @@ $(document).ready(function(){
 
 	// Karma bid value change
 	$('.karma_bid_input_range').on('input', function(){
-		$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val($(this).val());
+		var enforced = enforce_karma_current_bid($(this)[0]);
+		if (enforced) {
+			$(this).closest('.karma_bid_parent').find('.current_bid_label_parent').css('font-weight', 'bold');
+		}
+		else {
+			$(this).closest('.karma_bid_parent').find('.current_bid_label_parent').css('font-weight', 'normal');
+			$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val($(this).val());
+		}
 	});
 	$('.karma_bid_input_number').on('input', function(){
 		$(this).closest('.karma_bid_parent').find('.karma_bid_input_range').val($(this).val());
 	});
+
+	function enforce_karma_current_bid(element) {
+		if (parseInt(element.value) <= parseInt(element.getAttribute('current_bid'))) {
+			element.value = parseInt(element.getAttribute('current_bid')) + 1;
+			return true;
+		}
+		return false;
+	}
+
+/*	$('.karma_bid_input_range').on('input', function(){
+		if ($(this).val() <= $(this).attr('current_bid')) {
+			$(this).val(parseInt($(this).attr('current_bid')) + 1).trigger('change');
+		}
+		$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val($(this).val());
+	});*/
 
 	// Sell karma
 	$('.sell_good_karma').click(function(){
@@ -129,13 +150,22 @@ $(document).ready(function(){
 
 	// Submit karma bid
 	$('.karma_bid_submit').click(function(e){
+		// Set values
 		var bid_value = $(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val();
 		var karma_id = $(this).closest('.karma_bid_parent').find('.karma_bid_karma_id').val();
 		var new_bid_value = 1 + parseInt(bid_value);
+
+		// Update controls
 		$(this).closest('.karma_bid_parent').find('.karma_bid_input_range').val(new_bid_value);
 		$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val(new_bid_value);
 		$(this).closest('.karma_bid_parent').find('.you_are_karma_bid_leader').show();
 
+		// Update current bid UI
+		$(this).closest('.karma_bid_parent').find('.karma_bid_input_range').attr('current_bid', new_bid_value);
+		$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').attr('current_bid', new_bid_value);
+		$(this).closest('.karma_bid_parent').find('.current_bid_label').html(new_bid_value);
+
+		// Submit data
 		var data = {};
 		data.karma_id = parseInt(karma_id);
 		data.amount = parseInt(bid_value);
@@ -228,8 +258,17 @@ $(document).ready(function(){
 						$.each(data.karma_on_auction, function(index, value) {
 							if (this_karma.first().attr('karma_id') === value.id) {
 								karma_found = true;
+
+								// Update inputs
 								this_karma.find('.karma_bid_input_range').first().val(value.highest_bid + 1);
 								this_karma.find('.karma_bid_input_number').first().val(value.highest_bid + 1);
+
+								// Update current bid UI
+								this_karma.find('.karma_bid_input_range').attr('current_bid', value.highest_bid);
+								this_karma.find('.karma_bid_input_number').attr('current_bid', value.highest_bid);
+								this_karma.find('.current_bid_label').html(value.highest_bid);
+
+								// You are bid leader UI
 								if (value.you_are_highest_bid) {
 									this_karma.find('.you_are_karma_bid_leader').show();
 								}

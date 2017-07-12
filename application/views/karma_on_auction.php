@@ -27,7 +27,7 @@
             <div class="karma_auction_parent" karma_id="<?php echo $karma['id'] ?>">
                 <form class="karma_bid_parent well" action="<?=base_url()?>karma/bid/" method="post">
                     <input class="karma_bid_karma_id" name="karma_id" type="hidden" value="<?php echo $karma['id']; ?>">
-                    <input class="karma_bid_input_range form-control" type="range" name="bid" min="1" max="100" value="<?php echo $karma['highest_bid'] + 1; ?>">
+                    <input class="karma_bid_input_range form-control" type="range" name="bid" min="1" max="100" current_bid="<?php echo $karma['highest_bid']; ?>" value="<?php echo $karma['highest_bid'] + 1; ?>">
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="karma_type_label alert <?php echo $karma['type'] ? 'alert-success' : 'alert-danger'; ?> text-center" role="alert">
@@ -37,10 +37,13 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <input class="karma_bid_input_number text-center form-control" type="number" min="1" max="100" value="<?php echo $karma['highest_bid'] + 1; ?>"/>
+                            <input class="karma_bid_input_number text-center form-control" type="number" min="1" max="100" current_bid="<?php echo $karma['highest_bid']; ?>" value="<?php echo $karma['highest_bid'] + 1; ?>"/>
                         </div>
                         <div class="col-sm-4 text-center">
                             <button class="karma_bid_submit btn btn-primary form-control" type="button">Make this bid</button>
+                            <div class="current_bid_label_parent">
+                                <small class="text-info">Current bid: <span class="current_bid_label"><?php echo $karma['highest_bid']; ?></span></small>
+                            </div>
                             <div class="you_are_karma_bid_leader" style="<?php echo !$karma['you_are_highest_bid'] ? 'display: none;' : ''; ?>">
                                 <small class="text-success">You have the highest bid</small>
                             </div>
