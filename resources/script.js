@@ -136,13 +136,6 @@ $(document).ready(function(){
 		return false;
 	}
 
-/*	$('.karma_bid_input_range').on('input', function(){
-		if ($(this).val() <= $(this).attr('current_bid')) {
-			$(this).val(parseInt($(this).attr('current_bid')) + 1).trigger('change');
-		}
-		$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').val($(this).val());
-	});*/
-
 	// Sell karma
 	$('.sell_good_karma').click(function(){
 		sell_karma(1);
@@ -166,7 +159,7 @@ $(document).ready(function(){
 		// Update current bid UI
 		$(this).closest('.karma_bid_parent').find('.karma_bid_input_range').attr('current_bid', new_bid_value);
 		$(this).closest('.karma_bid_parent').find('.karma_bid_input_number').attr('current_bid', new_bid_value);
-		$(this).closest('.karma_bid_parent').find('.current_bid_label').html(new_bid_value);
+		$(this).closest('.karma_bid_parent').find('.current_bid_label').html(bid_value);
 
 		// Submit data
 		var data = {};
