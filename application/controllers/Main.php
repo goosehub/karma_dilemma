@@ -302,8 +302,7 @@ class Main extends CI_Controller {
             return false;
         }
 
-        $game_id = (int) $game_id;
-        if (!is_int($game_id) || $game_id < 1) {
+        if (!validate_int($game_id) || $game_id < 1) {
             echo api_error_response('game_id_not_positive_int', 'Your game id was not a positive int.');
             return false;
         }
@@ -355,8 +354,7 @@ class Main extends CI_Controller {
             return false;
         }
 
-        $karma_id = (int) $karma_id;
-        if (!is_int($karma_id) || $karma_id < 1) {
+        if (!validate_int($karma_id) || $karma_id < 1) {
             echo api_error_response('karma_id_not_positive_int', 'Your karma id was not a positive int.');
             return false;
         }
@@ -381,8 +379,7 @@ class Main extends CI_Controller {
     {
         $data['user'] = $this->user_model->get_this_user();
 
-        $user_id = (int) $user_id;
-        if (!is_int($user_id) || $user_id < 1) {
+        if (!validate_int($user_id) || $user_id < 1) {
             echo api_error_response('user_id_not_positive_int', 'Your user id was not a positive int.');
             return false;
         }

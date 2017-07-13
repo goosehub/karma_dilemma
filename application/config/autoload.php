@@ -92,6 +92,18 @@ function deslug($string) {
     return ucwords(str_replace('_', ' ', $string));
 }
 
+// Returns true for ints or strings that are ints
+function validate_int($input)
+{
+    $input = filter_var($input, FILTER_VALIDATE_INT);
+    if ($input !== false) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 function sort_array($array, $subfield, $direction)
 {
     $sorted_array = array();

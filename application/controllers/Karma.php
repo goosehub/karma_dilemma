@@ -38,12 +38,12 @@ class Karma extends CI_Controller {
             return false;
         }
         
-        if (!is_int($input->karma_id) || $input->karma_id < 1) {
+        if (!validate_int($input->karma_id) || $input->karma_id < 1) {
             echo api_error_response('karma_id_not_positive_int', 'Your karma id was not a positive int.');
             return false;
         }
 
-        if (!is_int($input->amount)) {
+        if (!validate_int($input->amount)) {
             echo api_error_response('game_bid_amount_not_int', 'Your bid amount was not an int.');
             return false;
         }
@@ -123,7 +123,7 @@ class Karma extends CI_Controller {
             return false;
         }
 
-        if (!is_int($input->other_player_user_id) || $input->other_player_user_id < 1) {
+        if (!validate_int($input->other_player_user_id) || $input->other_player_user_id < 1) {
             echo api_error_response('other_player_user_id_not_positive_int', 'Other player user id was not a positive int.');
             return false;
         }

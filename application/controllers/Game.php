@@ -37,12 +37,12 @@ class Game extends CI_Controller {
             return false;
         }
 
-        if (!is_int($input->game_id) || $input->game_id < 1) {
+        if (!validate_int($input->game_id) || $input->game_id < 1) {
             echo api_error_response('game_id_not_positive_int', 'Your game id was not a positive int.');
             return false;
         }
 
-        if (!is_int($input->amount)) {
+        if (!validate_int($input->amount)) {
             echo api_error_response('game_bid_amount_not_int', 'Your bid amount was not an int.');
             return false;
         }
@@ -117,12 +117,12 @@ class Game extends CI_Controller {
             return false;
         }
 
-        if (!is_int($input->game_id) || $input->game_id < 1) {
+        if (!validate_int($input->game_id) || $input->game_id < 1) {
             echo api_error_response('game_id_not_positive_int', 'Your game id was not a positive int.');
             return false;
         }
 
-        if (!is_int($input->choice)) {
+        if (!validate_int($input->choice)) {
             echo api_error_response('game_choice_not_int', 'Your bid choice was not an int.');
             return false;
         }
