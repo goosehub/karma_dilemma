@@ -295,6 +295,7 @@ $(document).ready(function(){
 				}
 				started_games_count(data);
 				finished_unviewed_games_count(data);
+				user_score(data);
 			});
 		}, my_user_polling * 1000);
 	}
@@ -315,6 +316,10 @@ $(document).ready(function(){
 		else {
 			$('#finished_unviewed_games_count').html('');
 		}
+	}
+
+	function user_score(data) {
+		$('.score_label').html(data.user.score);
 	}
 
 	// 
