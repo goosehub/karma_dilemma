@@ -96,12 +96,7 @@ function deslug($string) {
 function validate_int($input)
 {
     $input = filter_var($input, FILTER_VALIDATE_INT);
-    if ($input !== false) {
-        return false;
-    }
-    else {
-        return true;
-    }
+    return is_int($input);
 }
 
 function sort_array($array, $subfield, $direction)

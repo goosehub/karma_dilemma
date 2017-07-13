@@ -5,6 +5,7 @@ tutorial
 make some bots
 
 	moderate priority
+Return int type for ints in API
 Add new games and karmas with ajax
 
 	low priority
