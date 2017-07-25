@@ -168,69 +168,73 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="both_do_nothing_row <?php echo $game['payoffs'][0]['choosen_payoff'] ? 'choosen_payoff_cell info' : ''; ?>">
+                            <?php $this_payoff_index = $game['your_player_type'] ? 0 : 0; ?>
+                            <tr class="both_do_nothing_row <?php echo $game['payoffs'][$this_payoff_index]['choosen_payoff'] ? 'choosen_payoff_cell info' : ''; ?>">
                                 <td>
                                     <strong class="choice_pre_label">Both Players Do Nothing</strong>
                                 </td>
                                 <td>
-                                    <?php $this_payoff = $game['payoffs'][0][$your_player_type . '_payoff']; ?>
+                                    <?php $this_payoff = $game['payoffs'][$this_payoff_index][$your_player_type . '_payoff']; ?>
                                     <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
                                         <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
                                     </span>
                                 </td>
                                 <td>
-                                    <?php $this_payoff = $game['payoffs'][0][$other_player_type . '_payoff']; ?>
+                                    <?php $this_payoff = $game['payoffs'][$this_payoff_index][$other_player_type . '_payoff']; ?>
                                     <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
                                         <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
                                     </span>
                                 </td>
                             </tr>
-                            <tr class="you_do_nothing_row <?php echo $game['payoffs'][1]['choosen_payoff'] ? 'choosen_payoff_cell info' : ''; ?>">
+                            <?php $this_payoff_index = $game['your_player_type'] ? 3 : 1; ?>
+                            <tr class="you_do_nothing_row <?php echo $game['payoffs'][$this_payoff_index]['choosen_payoff'] ? 'choosen_payoff_cell info' : ''; ?>">
                                 <td>
                                     <strong class="choice_pre_label">Only You Do Nothing</strong>
                                 </td>
                                 <td>
-                                    <?php $this_payoff = $game['payoffs'][1][$your_player_type . '_payoff']; ?>
+                                    <?php $this_payoff = $game['payoffs'][$this_payoff_index][$your_player_type . '_payoff']; ?>
                                     <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
                                         <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
                                     </span>
                                 </td>
                                 <td>
-                                    <?php $this_payoff = $game['payoffs'][1][$other_player_type . '_payoff']; ?>
+                                    <?php $this_payoff = $game['payoffs'][$this_payoff_index][$other_player_type . '_payoff']; ?>
                                     <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
                                         <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
                                     </span>
                                 </td>
                             </tr>
-                            <tr class="both_take_action_row <?php echo $game['payoffs'][2]['choosen_payoff'] ? 'choosen_payoff_cell info' : ''; ?>">
+                            <?php $this_payoff_index = $game['your_player_type'] ? 2 : 2; ?>
+                            <tr class="both_take_action_row <?php echo $game['payoffs'][$this_payoff_index]['choosen_payoff'] ? 'choosen_payoff_cell info' : ''; ?>">
                                 <td>
                                     <strong class="choice_pre_label">Both Players Take Action</strong>
                                 </td>
                                 <td>
-                                    <?php $this_payoff = $game['payoffs'][2][$your_player_type . '_payoff']; ?>
+                                    <?php $this_payoff = $game['payoffs'][$this_payoff_index][$your_player_type . '_payoff']; ?>
                                     <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
                                         <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
                                     </span>
                                 </td>
                                 <td>
-                                    <?php $this_payoff = $game['payoffs'][2][$other_player_type . '_payoff']; ?>
+                                    <?php $this_payoff = $game['payoffs'][$this_payoff_index][$other_player_type . '_payoff']; ?>
                                     <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
                                         <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
                                     </span>
                                 </td>
                             </tr>
-                            <tr class="you_take_action_row <?php echo $game['payoffs'][3]['choosen_payoff'] ? 'choosen_payoff_cell info' : ''; ?>">
+                            <?php $this_payoff_index = $game['your_player_type'] ? 1 : 3; ?>
+                            <tr class="you_take_action_row <?php echo $game['payoffs'][$this_payoff_index]['choosen_payoff'] ? 'choosen_payoff_cell info' : ''; ?>">
                                 <td>
                                     <strong class="choice_pre_label">Only You Take Action</strong>
                                 </td>
                                 <td>
-                                    <?php $this_payoff = $game['payoffs'][3][$your_player_type . '_payoff']; ?>
+                                    <?php $this_payoff = $game['payoffs'][$this_payoff_index][$your_player_type . '_payoff']; ?>
                                     <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
                                         <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
                                     </span>
                                 </td>
                                 <td>
-                                    <?php $this_payoff = $game['payoffs'][3][$other_player_type . '_payoff']; ?>
+                                    <?php $this_payoff = $game['payoffs'][$this_payoff_index][$other_player_type . '_payoff']; ?>
                                     <span class="h4 payoff_value <?php echo $this_payoff < 0 ? 'text-danger' : 'text-success'; ?>">
                                         <?php echo $this_payoff >= 0 ? '+' . $this_payoff : $this_payoff; ?>
                                     </span>
