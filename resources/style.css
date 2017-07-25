@@ -69,6 +69,10 @@ input[type=range].game_bid_input_range, input[type=range].karma_bid_input_range 
     padding: 0;
     margin: 0;
 }
+.game_user_table_user_name {
+    max-width: 150px;
+    word-wrap: break-word;
+}
 .choice_pre_label {
     white-space: nowrap;
 }

@@ -31,15 +31,15 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="<?php echo $other_player_class; ?>">
+                            <td class="game_user_table_user_name <?php echo $other_player_class; ?>">
                                 <strong><?php echo $game['other_player']['username']; ?></strong>
                                 <a href="<?=base_url()?>uploads/<?php echo $game['other_player']['avatar']; ?>" target="_blank">
                                     <img class="game_grid_avatar" src="<?=base_url()?>uploads/<?php echo $game['other_player']['avatar']; ?>" alt="Avatar"/>
                                 </a>
                             </td>
                             <td class="<?php echo $other_player_class; ?> hidden-xs"><?php echo ucfirst($other_player_type); ?></td>
-                            <td><?php echo $game['other_player']['score']; ?></td>
-                            <td><?php echo $game['other_player']['games_played']; ?></td>
+                            <td><?php echo number_format($game['other_player']['score']); ?></td>
+                            <td><?php echo number_format($game['other_player']['games_played']); ?></td>
                             <td>
                                 <span class="text-success"><?php echo $game['other_player']['good_reputation']; ?></span>
                                 /
@@ -53,15 +53,15 @@
                             <td class="hidden-xs"><span class="text-info"><?php echo date('F jS Y', strtotime($game['other_player']['created'])); ?></td>
                         </tr>
                         <tr>
-                            <td class="<?php echo $player_class; ?>">
+                            <td class="game_user_table_user_name <?php echo $player_class; ?>">
                                 <strong><?php echo $user['username']; ?></strong>
                                 <a href="<?=base_url()?>uploads/<?php echo $user['avatar']; ?>" target="_blank">
                                     <img class="game_grid_avatar" src="<?=base_url()?>uploads/<?php echo $user['avatar']; ?>" alt="Avatar"/>
                                 </a>
                             </td>
                             <td class="<?php echo $player_class; ?> hidden-xs"><?php echo ucfirst($your_player_type); ?></td>
-                            <td><?php echo $user['score']; ?></td>
-                            <td><?php echo $user['games_played']; ?></td>
+                            <td><?php echo number_format($user['score']); ?></td>
+                            <td><?php echo number_format($user['games_played']); ?></td>
                             <td>
                                 <span class="text-success"><?php echo $user['good_reputation']; ?></span>
                                 /
