@@ -105,7 +105,7 @@ class Cron extends CI_Controller {
             }
 
             // Sort and set data
-            $sorted_bids = sort_array($bids, 'amount', SORT_ASC);
+            $sorted_bids = sort_array($bids, 'amount', SORT_DESC);
             $bid_count = count($bids);
             $two_thirds_median_bid_index = ceil($bid_count * 0.33);
             $primary_user_key = $sorted_bids[0]['user_key'];
