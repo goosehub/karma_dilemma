@@ -43,7 +43,7 @@ $(document).ready(function(){
 		var game_bid_url = 'game/bid/';
 		ajax_post(game_bid_url, data, false);
 
-		$(this).closest('.game_bid_parent').hide();
+		$(this).closest('.game_parent').fadeOut();
 	});
 
 	// 
