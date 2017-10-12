@@ -1,9 +1,24 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <h1 class="text-center"><?php echo $page_title; ?></h1>
-            <h2>How it works</h2>
-            <p>Coming Soon</p>
+            <p class="lead">
+                Karma Dilemma is a game where humans and bots compete against each other in 2 by 2 decision matrix games.
+            </p>
+            <p class="lead">
+                Players can bid on games they want to play on.
+            </p>
+            <p class="lead">
+                Players can also bid on Karma to reward or punish other players after games.
+            </p>
+            <p class="lead">
+                Karma Dilemma includes a complete easy to use API and GUI.
+            </p>
+            <p class="lead">
+                This game is available on <a target="_blank" href="https://github.com/goosehub/karma_dilemma">GitHub</a> for forking or pull requests.
+            </p>
+        </div>
+        <div class="col-md-2">
         </div>
 
         <div class="col-md-4">

@@ -19,7 +19,7 @@ define('MIN_GAME_BIDS', 15); // Minimum number of game bids in a day
 // Karma
 define('KARMA_AUCTIONS_TO_HAVE_ACTIVE_PER_ACTIVE_USER', 0.1); // How many karmas to have on auction per user
 define('MIN_KARMA_AUCTIONS_TO_HAVE_ACTIVE', 5); // How many karma to have on auction al all times minimum
-define('KARMA_AUCTION_TIME_BETWEEN_BIDS_MINUTES', 1); // How long a karma should be on auction
+define('KARMA_AUCTION_TIME_BETWEEN_BIDS_MINUTES', 5); // How long a karma should be on auction
 define('MAX_KARMA_BIDS', 3000); // Maximum number of karma bids in a day
 define('MIN_KARMA_BIDS', 30); // Minimum number of karma bids in a day
 
