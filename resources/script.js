@@ -59,6 +59,7 @@ $(document).ready(function(){
 
 	// Submit game choice
 	$('.game_choice_button').click(function(e){
+		var self = this;
 		var choice = $(this).val();
 		var game_id = $(this).closest('.game_choice_parent').find('.game_id').val();
 
@@ -67,6 +68,18 @@ $(document).ready(function(){
 		data.choice = parseInt(choice);
 		var game_bid_url = 'game/play/';
 		ajax_post(game_bid_url, data, function(result){
+			// Start the result html
+			var game_result_html = '';
+			game_result_html += 'You choose to ' + $(self).html() + '<br>';
+
+			// If other player hasn't made a decision
+			if (typeof result.game == 'undefined') {
+				game_result_html += 'The other player has not made a decision yet';
+				$(self).closest('.started_game_parent').find('.game_result').html(game_result_html).fadeIn();
+				return;
+			}
+
+			// Find what other player decision was
 			var other_player_choice = '';
 			if (result.game.other_player.id === result.game.primary_player.id && result.game.primary_choice) {
 				var other_player_choice = 'Take Action';
@@ -80,10 +93,13 @@ $(document).ready(function(){
 			if (result.game.other_player.id === result.game.secondary_player.id && result.game.secondary_choice) {
 				var other_player_choice = 'Do Nothing';
 			}
-			alert('The other player choose to ' + other_player_choice);
+
+			// Give game result
+			game_result_html += 'The other player choose to ' + other_player_choice;
+			$(self).closest('.started_game_parent').find('.game_result').html(game_result_html).fadeIn();
 		});
 
-		$(this).closest('.started_game_parent').fadeOut();
+		$(self).closest('.started_game_parent').css('opacity', '0.5');
 	});
 
 	// 

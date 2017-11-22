@@ -56,7 +56,7 @@
                             <input type="username" class="form-control" id="new_user_input_username" name="username" placeholder="Username"/>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="new_user_input_password" name="password" placeholder="Password"/>
+                            <input type="password" class="form-control" id="new_user_input_password" name="password"/>
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" id="new_user_input_password_confirm" name="confirm" placeholder="Confirm"/>
@@ -73,7 +73,7 @@
                             <input type="username" class="form-control" id="login_input_username" name="username" placeholder="Username"/>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="login_input_password" name="password" placeholder="Password"/>
+                            <input type="password" class="form-control" id="login_input_password" name="password"/>
                         </div>
                         <button type="submit" class="custom_btn btn btn-action form-control">Login</button>
                     </form>

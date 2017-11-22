@@ -257,6 +257,9 @@
                         </table>
                     </form>
                 </div>
+                <div>
+                    <p class="game_result" style="display: none;"></p>
+                </div>
             </div>
             <?php } ?>
         </div>

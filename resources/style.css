@@ -76,6 +76,9 @@ input[type=range].game_bid_input_range, input[type=range].karma_bid_input_range 
 .choice_pre_label {
     white-space: nowrap;
 }
+.started_game_parent {
+    transition: opacity 1s;
+}
 @media only screen and (max-device-width: 600px) {
     .finished_game_flat_parent {
         font-size: 0.9em;
