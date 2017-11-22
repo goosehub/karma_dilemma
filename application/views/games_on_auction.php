@@ -155,12 +155,12 @@
                     </div>
                     <input class="game_bid_input_range form-control" type="range" name="bid" min="-100" max="100" value="-100">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <input class="game_bid_input_number text-center form-control" type="number" min="-100" max="100" value="100"/>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <button class="game_bid_submit btn btn-action form-control" type="button">Make this bid</button>
                         </div>
                     </div>

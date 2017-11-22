@@ -196,6 +196,24 @@ input[type=range]:focus::-ms-fill-upper {
     background: #367ebd;
 }
 
+/* Paper CSS Fixes */
+ul li:before {
+    content: none;
+}
+a {
+    background-image: none;
+    text-decoration: underline;
+}
+h1 {
+    font-size: 3rem;
+}
+h3 small {
+    font-size: 55%;
+}
+hr:after {
+    content: none;
+}
+
 /* Orange Action Bootstrap-Styled Button */
 .btn-action {   
     background-color: hsl(44, 100%, 56%) !important; 
